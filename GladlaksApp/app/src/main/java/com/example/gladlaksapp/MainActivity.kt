@@ -38,6 +38,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     GladlaksAppTheme {
-        Greeting("Test")
+        Greeting("Hello")
     }
 }
