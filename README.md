@@ -2,4 +2,4 @@
 
 ## GladlaksApp
 
-Android app (API-level 29) using Jetpack Compose
+Android app for the project Gladlaks written with Jetpack Compose (API-level 29)
