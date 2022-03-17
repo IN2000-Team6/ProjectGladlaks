@@ -14,9 +14,11 @@ class BarentswatchNetworkDataSourceTest {
     @Test
     fun testLocalitiesReturnsCorrectAmount() {
         runBlocking {
-            val result: Localities = datasource.getLocalities(2022,11)
+            val result: Localities = datasource.getLocalities(2022,10)
+
             assertTrue(result.localities.isNotEmpty())
-            assertTrue(result.localities.size == 1712) //This changes per week
+
+            assertEquals(result.localities.size, 1712) //This changes per week
         }
     }
 }
