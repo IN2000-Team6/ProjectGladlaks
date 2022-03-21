@@ -2,6 +2,7 @@ package com.example.gladlaksapp.datasources
 
 import com.example.gladlaksapp.models.BarentsWatchToken
 import com.example.gladlaksapp.models.Localities
+import com.example.gladlaksapp.models.LocalityDetailed
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.*
@@ -10,7 +11,9 @@ import io.ktor.client.request.*
 
 object BarentswatchNetworkDataSource {
     private const val tokenURL = "https://id.barentswatch.no/connect/token"
-    private const val localitiesURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s"
+    private const val localitiesURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s"                //
+    private const val localityDetailedURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s/%s"  // Can these be combined? :thinking:
+
 
     private const val testClient = "jesperdn@uio.no:Jesperdn"
     private const val testSecret = "IN2000ErBest"
@@ -43,10 +46,25 @@ object BarentswatchNetworkDataSource {
 
     /**
      * Returns a data class representing a list of all localities
+     * @param year - The year
+     * @param week - The calendar week
      */
     suspend fun getLocalities(year: Int, week: Int) : Localities {
         val token: String = getToken()
         return client.get(localitiesURL.format(year,week)) {
+            headers {
+                append("Authorization", "Bearer $token")
+            }
+        }
+    }
+
+    /**
+     * Returns a data class representing detailed information about one locality
+     * @param localityNo - The locality no, as stated by the [Locality] dataclass
+     */
+    suspend fun getDetailedLocalityInfo(localityNo: Int,year: Int, week: Int) : LocalityDetailed {
+        val token: String = getToken()
+        return client.get(localityDetailedURL.format(localityNo,year,week)) {
             headers {
                 append("Authorization", "Bearer $token")
             }
