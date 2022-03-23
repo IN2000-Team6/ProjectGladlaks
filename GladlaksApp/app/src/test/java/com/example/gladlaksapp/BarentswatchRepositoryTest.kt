@@ -3,6 +3,7 @@ package com.example.gladlaksapp
 import com.example.gladlaksapp.datasources.BarentswatchNetworkDataSource
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.models.LocalitiesWrapper
+import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -15,10 +16,19 @@ class BarentswatchRepositoryTest {
     @Test
     fun testGetLocalitiesReturnsCorrectAmount() {
         runBlocking {
-            val result: LocalitiesWrapper = repository.getLocalities(2022,11)
+            val result: LocalitiesWrapper = repository.getLocalities(2022,12)
             //print(result)
             Assert.assertTrue(result.localities.isNotEmpty())
-            Assert.assertEquals(result.localities.size, 1712) //This changes per week
+            Assert.assertEquals(result.localities.size, 1714) //This changes per week
+        }
+    }
+
+    @Test
+    fun testGetLocalitiesInWaterReturnsCorrectAmount() {
+        runBlocking {
+            val result: List<Locality> = repository.getLocalitiesInWater(2022, 12)
+            Assert.assertTrue(result.isNotEmpty())
+            Assert.assertEquals(result.size,1345)
         }
     }
 
