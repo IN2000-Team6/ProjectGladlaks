@@ -34,7 +34,7 @@ fun LocalityMap(
     ) {
         if (localities != null) {
 
-            val bitmapFactory = BitmapFactory.decodeResource(context.resources, R.drawable.circle_icon_low_res)
+            val bitmapFactory = BitmapFactory.decodeResource(context.resources, R.drawable.white_border_icon)
             val bitmap =  Bitmap.createScaledBitmap(bitmapFactory, 50, 50, false)
 
             for (loc in localities) {
