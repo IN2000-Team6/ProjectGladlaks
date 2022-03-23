@@ -1,9 +1,15 @@
 package com.example.gladlaksapp.composables
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import com.example.gladlaksapp.R
 import com.example.gladlaksapp.models.Locality
+import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -22,17 +28,25 @@ fun LocalityMap(
         position = CameraPosition.fromLatLngZoom(LatLng(startLat, startLng), 6f)
     }
 
+    val context = LocalContext.current
+
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
         cameraPositionState = cameraPositionState
     ) {
         if (localities != null) {
+
+            val bitmapFactory = BitmapFactory.decodeResource(context.resources, R.drawable.circle_icon_low_res)
+            val bitmap =  Bitmap.createScaledBitmap(bitmapFactory, 50, 50, false)
+
             for (loc in localities) {
-                Marker(
-                    onClick = { onMarkerClick(loc) },
-                    position = LatLng(loc.lat, loc.lon),
-                    icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
-                )
+                if (!loc.isOnLand) {
+                    Marker(
+                        onClick = { onMarkerClick(loc) },
+                        position = LatLng(loc.lat, loc.lon),
+                        icon = BitmapDescriptorFactory.fromBitmap((bitmap))
+                    )
+                }
             }
         }
     }
