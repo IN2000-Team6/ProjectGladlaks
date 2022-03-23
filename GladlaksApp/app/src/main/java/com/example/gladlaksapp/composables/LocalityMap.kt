@@ -3,7 +3,7 @@ package com.example.gladlaksapp.composables
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.gladlaksapp.R
@@ -22,8 +22,14 @@ fun LocalityMap(
     startLng: Double = 10.7,
     onMarkerClick: (Locality) -> Boolean,
 ) {
+    var size by remember { mutableStateOf(30) }
+
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(startLat, startLng), 6f)
+    }
+
+    LaunchedEffect(cameraPositionState.position.zoom) {
+        size += 10
     }
 
     val context = LocalContext.current
@@ -33,9 +39,8 @@ fun LocalityMap(
         cameraPositionState = cameraPositionState
     ) {
         if (localities != null) {
-
             val bitmapFactory = BitmapFactory.decodeResource(context.resources, R.drawable.white_border_icon)
-            val bitmap =  Bitmap.createScaledBitmap(bitmapFactory, 50, 50, false)
+            val bitmap =  Bitmap.createScaledBitmap(bitmapFactory, size, size, false)
 
             for (loc in localities) {
                 if (!loc.isOnLand) {
