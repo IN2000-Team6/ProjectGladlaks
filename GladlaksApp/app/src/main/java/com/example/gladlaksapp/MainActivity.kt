@@ -1,6 +1,7 @@
 package com.example.gladlaksapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -11,6 +12,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import com.example.gladlaksapp.composables.appContainer.AppContainer
 import com.example.gladlaksapp.composables.LocalityMap
+import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.viewmodels.MainViewModel
 
 class MainActivity : ComponentActivity() {
@@ -20,11 +22,19 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val data by model.localities.observeAsState()
+            val localities by model.localities.observeAsState()
+
+            val onMarkerClick = { loc: Locality ->
+                Log.d("location", loc.toString())
+                true
+            }
 
             AppContainer {
                 Box(Modifier.fillMaxSize()) {
-                    LocalityMap(data)
+                    LocalityMap(
+                        localities = localities,
+                        onMarkerClick = onMarkerClick
+                    )
                 }
             }
         }
