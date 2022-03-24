@@ -17,29 +17,21 @@ import kotlinx.coroutines.launch
 @Preview
 @Composable
 fun BottomSheetStateHolder() {
+    val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
     val selectedPeekHeight = 60
 
-    var selectedLocality by rememberSaveable {
-        mutableStateOf<Locality?>(null)
-    }
-
+    var selectedLocality by rememberSaveable { mutableStateOf<Locality?>(null) }
+    var peekHeight by rememberSaveable { mutableStateOf(initialPeekHeight) }
     val sheetState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(
             initialValue = BottomSheetValue.Collapsed
         )
     )
 
-    var peekHeight: Int by rememberSaveable {
-        mutableStateOf(initialPeekHeight)
-    }
-
-    val coroutineScope = rememberCoroutineScope()
-
     // TODO move onMarkerClick and onToggleSheet into own functions for readability
-
-    BottomSheetLayout(
-        peekHeight = peekHeight,
+    BottomSheetScaffold(
+        sheetPeekHeight = peekHeight.dp,
         content = {
             GoogleMapTest(
                 onMarkerClick = { loc: Locality ->
@@ -74,23 +66,7 @@ fun BottomSheetStateHolder() {
                 LocalityInfoBox(selectedLocality)
             }
         },
-        sheetState = sheetState
-    )
-}
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun BottomSheetLayout(
-    peekHeight: Int,
-    sheetState: BottomSheetScaffoldState,
-    content: @Composable () -> Unit,
-    sheetContent: @Composable () -> Unit
-) {
-    BottomSheetScaffold(
-        scaffoldState = sheetState,
-        content = { content() },
-        sheetContent = { sheetContent() },
-        sheetPeekHeight = peekHeight.dp
+        scaffoldState = sheetState
     )
 }
 
