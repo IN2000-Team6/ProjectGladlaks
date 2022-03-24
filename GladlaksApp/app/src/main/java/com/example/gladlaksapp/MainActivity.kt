@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
 import androidx.compose.ui.Modifier
-import com.example.gladlaksapp.composables.appContainer.AppContainer
+import com.example.gladlaksapp.composables.AppContainer
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
