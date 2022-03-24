@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
 import com.example.gladlaksapp.R
 import com.example.gladlaksapp.models.Locality
@@ -20,16 +21,17 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun LocalityMap(
     localities: List<Locality>?,
-    startLat: Double = 61.2,
-    startLng: Double = 9.0,
     onMarkerClick: (Locality) -> Unit,
     onMapClick: () -> Unit,
+    startLat: Double = 61.9,
+    startLng: Double = 8.7,
+    startZoom: Float = 5.9f,
 ) {
     val initMarkerSize = 25
     var markerSize by remember { mutableStateOf(initMarkerSize)}
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(startLat, startLng), 6f)
+        position = CameraPosition.fromLatLngZoom(LatLng(startLat, startLng), startZoom)
     }
 
     LaunchedEffect(
@@ -37,21 +39,17 @@ fun LocalityMap(
         markerSize,
     ) {
         if (cameraPositionState.position.zoom > 6f && cameraPositionState.position.zoom < 8f && markerSize == initMarkerSize) {
-            markerSize = initMarkerSize + 25
+            markerSize = initMarkerSize * 2
         } else if (cameraPositionState.position.zoom <= 6f  && markerSize != initMarkerSize) {
             markerSize = initMarkerSize
-        } else if (cameraPositionState.position.zoom > 8f && markerSize == initMarkerSize + 25) {
-            markerSize = initMarkerSize + 50
+        } else if (cameraPositionState.position.zoom > 8f && markerSize == initMarkerSize * 2) {
+            markerSize = initMarkerSize * 3
         } else if (cameraPositionState.position.zoom <= 8f && cameraPositionState.position.zoom > 6f &&  markerSize != initMarkerSize) {
-            markerSize = initMarkerSize + 25
-        } else if (cameraPositionState.position.zoom > 10f && markerSize == initMarkerSize + 50) {
-            markerSize = initMarkerSize + 100
+            markerSize = initMarkerSize * 2
+        } else if (cameraPositionState.position.zoom > 10f && markerSize == initMarkerSize * 3) {
+            markerSize = initMarkerSize * 3
         } else if (cameraPositionState.position.zoom <= 10f && cameraPositionState.position.zoom > 8f &&  markerSize != initMarkerSize) {
-            markerSize = initMarkerSize + 50
-        } else if (cameraPositionState.position.zoom > 12f && markerSize == initMarkerSize + 75) {
-            markerSize = initMarkerSize + 130
-        } else if (cameraPositionState.position.zoom <= 12f && cameraPositionState.position.zoom > 10f &&  markerSize != initMarkerSize) {
-            markerSize = initMarkerSize + 100
+            markerSize = initMarkerSize * 3
         }
     }
 
@@ -66,12 +64,13 @@ fun LocalityMap(
             for (loc in localities) {
                 if (!loc.isOnLand) {
                     Marker(
+                        icon = icon,
+                        position = LatLng(loc.lat, loc.lon),
+                        anchor = Offset(0.5f, 0.6f),
                         onClick = {
                             onMarkerClick(loc)
                             true
                         },
-                        position = LatLng(loc.lat, loc.lon),
-                        icon = icon
                     )
                 }
             }
