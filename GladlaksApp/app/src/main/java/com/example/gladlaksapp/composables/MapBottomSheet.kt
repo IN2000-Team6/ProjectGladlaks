@@ -11,7 +11,7 @@ import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.launch
 
 @Composable
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 fun MapBottomSheet(
     localities: List<Locality>?
 ) {
