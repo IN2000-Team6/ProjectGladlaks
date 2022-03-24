@@ -44,11 +44,11 @@ fun LocalityMap(
         } else if (cameraPositionState.position.zoom <= 8f && cameraPositionState.position.zoom > 6f &&  markerSize != initMarkerSize) {
             markerSize = initMarkerSize + 25
         } else if (cameraPositionState.position.zoom > 10f && markerSize == initMarkerSize + 50) {
-        markerSize = initMarkerSize + 75
+            markerSize = initMarkerSize + 75
         } else if (cameraPositionState.position.zoom <= 10f && cameraPositionState.position.zoom > 8f &&  markerSize != initMarkerSize) {
             markerSize = initMarkerSize + 50
         } else if (cameraPositionState.position.zoom > 12f && markerSize == initMarkerSize + 75) {
-            markerSize = initMarkerSize + 100
+            markerSize = initMarkerSize + 130
         } else if (cameraPositionState.position.zoom <= 12f && cameraPositionState.position.zoom > 10f &&  markerSize != initMarkerSize) {
             markerSize = initMarkerSize + 75
         }
