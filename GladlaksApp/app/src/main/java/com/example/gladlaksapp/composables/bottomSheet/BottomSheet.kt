@@ -1,15 +1,18 @@
 package com.example.gladlaksapp.composables.bottomSheet
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.gladlaksapp.R
 import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.launch
 
@@ -19,7 +22,7 @@ import kotlinx.coroutines.launch
 fun BottomSheetStateHolder() {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
-    val selectedPeekHeight = 60
+    val selectedPeekHeight = 80
 
     var selectedLocality by rememberSaveable { mutableStateOf<Locality?>(null) }
     var peekHeight by rememberSaveable { mutableStateOf(initialPeekHeight) }
@@ -47,8 +50,12 @@ fun BottomSheetStateHolder() {
             )
         },
         sheetContent = {
-            Column {
-                Button(onClick = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                IconButton(onClick = {
                     coroutineScope.launch {
                         if (sheetState.bottomSheetState.isCollapsed) {
                             sheetState.bottomSheetState.expand()
@@ -57,12 +64,16 @@ fun BottomSheetStateHolder() {
                         }
                     }
                 }) {
-                    if (sheetState.bottomSheetState.isCollapsed) {
-                        Text("Åpne")
-                    } else {
-                        Text("Lukk")
-                    }
+                    Icon(
+                        imageVector = if (sheetState.bottomSheetState.isExpanded) Icons.Filled.ExpandMore else Icons.Filled.ExpandLess,
+                        contentDescription = if (sheetState.bottomSheetState.isExpanded) {
+                            stringResource(R.string.show_less)
+                        } else {
+                            stringResource(R.string.show_more)
+                        }
+                    )
                 }
+
                 LocalityInfoBox(selectedLocality)
             }
         },
@@ -78,7 +89,8 @@ fun LocalityInfoBox(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(600.dp)
+                .height(600.dp),
+            contentAlignment = Alignment.TopCenter
         ) {
             Text("Lokasjon: ${locality.name}")
         }
