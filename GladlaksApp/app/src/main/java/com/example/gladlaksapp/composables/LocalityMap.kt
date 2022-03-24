@@ -22,7 +22,7 @@ fun LocalityMap(
     localities: List<Locality>?,
     startLat: Double = 61.2,
     startLng: Double = 9.0,
-    onMarkerClick: (Locality) -> Boolean,
+    onMarkerClick: (Locality) -> Unit,
     onMapClick: () -> Unit,
 ) {
     val initMarkerSize = 25
@@ -34,7 +34,7 @@ fun LocalityMap(
 
     LaunchedEffect(
         cameraPositionState.position.zoom,
-        markerSize
+        markerSize,
     ) {
         if (cameraPositionState.position.zoom > 6f && cameraPositionState.position.zoom < 8f && markerSize == initMarkerSize) {
             markerSize = initMarkerSize + 25
@@ -66,7 +66,10 @@ fun LocalityMap(
             for (loc in localities) {
                 if (!loc.isOnLand) {
                     Marker(
-                        onClick = { onMarkerClick(loc) },
+                        onClick = {
+                            onMarkerClick(loc)
+                            true
+                        },
                         position = LatLng(loc.lat, loc.lon),
                         icon = icon
                     )
