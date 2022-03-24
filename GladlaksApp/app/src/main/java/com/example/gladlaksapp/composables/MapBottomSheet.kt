@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.launch
@@ -26,23 +27,36 @@ fun MapBottomSheet(
         bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
     )
 
-    // TODO move onMarkerClick and onToggleSheet into own functions for readability
+    fun onMarkerClick(locality: Locality) {
+        selectedLocality = locality
+        peekHeight = selectedPeekHeight
+    }
+
+    fun onMapClick() {
+        coroutineScope.launch {
+            sheetState.bottomSheetState.collapse()
+            peekHeight = initialPeekHeight
+        }
+    }
+
+    fun toggleBottomSheet() {
+        coroutineScope.launch {
+            if (sheetState.bottomSheetState.isCollapsed) {
+                sheetState.bottomSheetState.expand()
+            } else {
+                sheetState.bottomSheetState.collapse()
+            }
+        }
+    }
+
     BottomSheetScaffold(
         sheetPeekHeight = peekHeight.dp,
         scaffoldState = sheetState,
         content = {
             LocalityMap(
                 localities = localities,
-                onMarkerClick = { loc: Locality ->
-                    selectedLocality = loc
-                    peekHeight = selectedPeekHeight
-                },
-                onMapClick = {
-                    coroutineScope.launch {
-                        sheetState.bottomSheetState.collapse()
-                        peekHeight = initialPeekHeight
-                    }
-                }
+                onMarkerClick = ::onMarkerClick,
+                onMapClick = ::onMapClick,
             )
         },
         sheetContent = {
@@ -52,15 +66,7 @@ fun MapBottomSheet(
             ) {
                 ToggleArrowButton(
                     isExpanded = sheetState.bottomSheetState.isExpanded,
-                    onClick = {
-                        coroutineScope.launch {
-                            if (sheetState.bottomSheetState.isCollapsed) {
-                                sheetState.bottomSheetState.expand()
-                            } else {
-                                sheetState.bottomSheetState.collapse()
-                            }
-                        }
-                    },
+                    onClick = ::toggleBottomSheet,
                 )
                 LocalitySheetTop(selectedLocality)
             }
@@ -68,5 +74,10 @@ fun MapBottomSheet(
     )
 }
 
+@Preview
+@Composable
+fun DisplayMapBottomSheet() {
+    MapBottomSheet(localities = emptyList())
+}
 
 
