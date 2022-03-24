@@ -20,8 +20,8 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun LocalityMap(
     localities: List<Locality>?,
-    startLat: Double = 59.0,
-    startLng: Double = 10.7,
+    startLat: Double = 61.2,
+    startLng: Double = 9.0,
     onMarkerClick: (Locality) -> Boolean,
 ) {
     val initMarkerSize = 25
