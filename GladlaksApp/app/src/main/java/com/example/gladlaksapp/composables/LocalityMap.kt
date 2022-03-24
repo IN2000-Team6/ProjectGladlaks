@@ -24,7 +24,7 @@ fun LocalityMap(
     startLng: Double = 10.7,
     onMarkerClick: (Locality) -> Boolean,
 ) {
-    val initMarkerSize = 50
+    val initMarkerSize = 25
     var markerSize by remember { mutableStateOf(initMarkerSize)}
 
     val cameraPositionState = rememberCameraPositionState {
@@ -35,10 +35,22 @@ fun LocalityMap(
         cameraPositionState.position.zoom,
         markerSize
     ) {
-        if (cameraPositionState.position.zoom > 10f && markerSize == initMarkerSize) {
-            markerSize = initMarkerSize + 50
-        } else if (cameraPositionState.position.zoom < 10f && markerSize != initMarkerSize) {
+        if (cameraPositionState.position.zoom > 6f && cameraPositionState.position.zoom < 8f && markerSize == initMarkerSize) {
+            markerSize = initMarkerSize + 25
+        } else if (cameraPositionState.position.zoom <= 6f  && markerSize != initMarkerSize) {
             markerSize = initMarkerSize
+        } else if (cameraPositionState.position.zoom > 8f && markerSize == initMarkerSize + 25) {
+            markerSize = initMarkerSize + 50
+        } else if (cameraPositionState.position.zoom <= 8f && cameraPositionState.position.zoom > 6f &&  markerSize != initMarkerSize) {
+            markerSize = initMarkerSize + 25
+        } else if (cameraPositionState.position.zoom > 10f && markerSize == initMarkerSize + 50) {
+        markerSize = initMarkerSize + 75
+        } else if (cameraPositionState.position.zoom <= 10f && cameraPositionState.position.zoom > 8f &&  markerSize != initMarkerSize) {
+            markerSize = initMarkerSize + 50
+        } else if (cameraPositionState.position.zoom > 12f && markerSize == initMarkerSize + 75) {
+            markerSize = initMarkerSize + 100
+        } else if (cameraPositionState.position.zoom <= 12f && cameraPositionState.position.zoom > 10f &&  markerSize != initMarkerSize) {
+            markerSize = initMarkerSize + 75
         }
     }
 
@@ -71,3 +83,4 @@ fun createMarkerIcon(context: Context, size: Int): BitmapDescriptor {
     )
     return BitmapDescriptorFactory.fromBitmap(bitmapIcon)
 }
+
