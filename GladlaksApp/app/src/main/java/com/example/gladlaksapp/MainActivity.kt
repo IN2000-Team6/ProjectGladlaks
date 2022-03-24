@@ -2,6 +2,7 @@ package com.example.gladlaksapp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
             val localities by model.localities.observeAsState()
 
             val onMarkerClick = { loc: Locality ->
-                Log.d("location", loc.toString())
+                Toast.makeText(this, "Location: ${loc.name}", Toast.LENGTH_SHORT).show()
                 true
             }
 
