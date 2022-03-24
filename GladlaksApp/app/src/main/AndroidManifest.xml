@@ -3,6 +3,7 @@
     package="com.example.gladlaksapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GladlaksApp">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.GladlaksApp">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
