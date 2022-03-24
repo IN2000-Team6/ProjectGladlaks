@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import com.example.gladlaksapp.composables.appContainer.AppContainer
 import com.example.gladlaksapp.composables.LocalityMap
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.viewmodels.MainViewModel
+import com.example.gladlaksapp.composables.AppContainer
 
 class MainActivity : ComponentActivity() {
     private val model: MainViewModel by viewModels()
