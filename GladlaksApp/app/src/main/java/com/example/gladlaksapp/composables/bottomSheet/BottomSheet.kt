@@ -87,9 +87,7 @@ fun LocalityInfoBox(
 ) {
     if (locality != null) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(600.dp),
+            modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ) {
             Text("Lokasjon: ${locality.name}")
