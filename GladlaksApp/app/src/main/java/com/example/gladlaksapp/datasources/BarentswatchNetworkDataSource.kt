@@ -14,7 +14,6 @@ object BarentswatchNetworkDataSource {
     private const val localitiesURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s"                //
     private const val localityDetailedURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s/%s"  // Can these be combined? :thinking:
 
-
     private const val testClient = "jesperdn@uio.no:Jesperdn"
     private const val testSecret = "IN2000ErBest"
 

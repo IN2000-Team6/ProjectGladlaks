@@ -20,9 +20,10 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @Composable
 fun LocalityMap(
     localities: List<Locality>?,
-    startLat: Double = 59.0,
-    startLng: Double = 10.7,
-    onMarkerClick: (Locality) -> Boolean,
+    startLat: Double = 61.2,
+    startLng: Double = 9.0,
+    onMarkerClick: (Locality) -> Unit,
+    onMapClick: () -> Unit,
 ) {
     val initMarkerSize = 25
     var markerSize by remember { mutableStateOf(initMarkerSize)}
@@ -33,7 +34,7 @@ fun LocalityMap(
 
     LaunchedEffect(
         cameraPositionState.position.zoom,
-        markerSize
+        markerSize,
     ) {
         if (cameraPositionState.position.zoom > 6f && cameraPositionState.position.zoom < 8f && markerSize == initMarkerSize) {
             markerSize = initMarkerSize + 25
@@ -44,19 +45,20 @@ fun LocalityMap(
         } else if (cameraPositionState.position.zoom <= 8f && cameraPositionState.position.zoom > 6f &&  markerSize != initMarkerSize) {
             markerSize = initMarkerSize + 25
         } else if (cameraPositionState.position.zoom > 10f && markerSize == initMarkerSize + 50) {
-            markerSize = initMarkerSize + 75
+            markerSize = initMarkerSize + 100
         } else if (cameraPositionState.position.zoom <= 10f && cameraPositionState.position.zoom > 8f &&  markerSize != initMarkerSize) {
             markerSize = initMarkerSize + 50
         } else if (cameraPositionState.position.zoom > 12f && markerSize == initMarkerSize + 75) {
             markerSize = initMarkerSize + 130
         } else if (cameraPositionState.position.zoom <= 12f && cameraPositionState.position.zoom > 10f &&  markerSize != initMarkerSize) {
-            markerSize = initMarkerSize + 75
+            markerSize = initMarkerSize + 100
         }
     }
 
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
+        cameraPositionState = cameraPositionState,
+        onMapClick = { onMapClick() }
     ) {
         if (localities != null) {
             val icon = createMarkerIcon(LocalContext.current, markerSize)
@@ -64,7 +66,10 @@ fun LocalityMap(
             for (loc in localities) {
                 if (!loc.isOnLand) {
                     Marker(
-                        onClick = { onMarkerClick(loc) },
+                        onClick = {
+                            onMarkerClick(loc)
+                            true
+                        },
                         position = LatLng(loc.lat, loc.lon),
                         icon = icon
                     )
