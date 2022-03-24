@@ -15,6 +15,7 @@ import com.example.gladlaksapp.composables.LocalityMap
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.viewmodels.MainViewModel
 import com.example.gladlaksapp.composables.AppContainer
+import com.example.gladlaksapp.composables.MapBottomSheet
 
 class MainActivity : ComponentActivity() {
     private val model: MainViewModel by viewModels()
@@ -31,12 +32,7 @@ class MainActivity : ComponentActivity() {
             }
 
             AppContainer {
-                Box(Modifier.fillMaxSize()) {
-                    LocalityMap(
-                        localities = localities,
-                        onMarkerClick = onMarkerClick
-                    )
-                }
+                MapBottomSheet(localities = localities)
             }
         }
     }

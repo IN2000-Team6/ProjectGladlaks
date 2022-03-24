@@ -16,13 +16,14 @@ import com.example.gladlaksapp.R
 import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.launch
 
-@Preview
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
-fun MapBottomSheet() {
+fun MapBottomSheet(
+    localities: List<Locality>?
+) {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
-    val selectedPeekHeight = 80
+    val selectedPeekHeight = 100
 
     var selectedLocality by rememberSaveable { mutableStateOf<Locality?>(null) }
     var peekHeight by rememberSaveable { mutableStateOf(initialPeekHeight) }
@@ -36,10 +37,12 @@ fun MapBottomSheet() {
     BottomSheetScaffold(
         sheetPeekHeight = peekHeight.dp,
         content = {
-            GoogleMapTest(
+            LocalityMap(
+                localities = localities,
                 onMarkerClick = { loc: Locality ->
                     selectedLocality = loc
                     peekHeight = selectedPeekHeight
+                    true
                 },
                 onMapClick = {
                     coroutineScope.launch {
@@ -55,25 +58,18 @@ fun MapBottomSheet() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                IconButton(onClick = {
-                    coroutineScope.launch {
-                        if (sheetState.bottomSheetState.isCollapsed) {
-                            sheetState.bottomSheetState.expand()
-                        } else {
-                            sheetState.bottomSheetState.collapse()
+                ToggleArrowButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            if (sheetState.bottomSheetState.isCollapsed) {
+                                sheetState.bottomSheetState.expand()
+                            } else {
+                                sheetState.bottomSheetState.collapse()
+                            }
                         }
-                    }
-                }) {
-                    Icon(
-                        imageVector = if (sheetState.bottomSheetState.isExpanded) Icons.Filled.ExpandMore else Icons.Filled.ExpandLess,
-                        contentDescription = if (sheetState.bottomSheetState.isExpanded) {
-                            stringResource(R.string.show_less)
-                        } else {
-                            stringResource(R.string.show_more)
-                        }
-                    )
-                }
-
+                    },
+                    isExpanded = sheetState.bottomSheetState.isExpanded
+                )
                 LocalityInfoBox(selectedLocality)
             }
         },
@@ -96,35 +92,19 @@ fun LocalityInfoBox(
 }
 
 @Composable
-fun GoogleMapTest(
-    onMarkerClick: (Locality) -> Unit,
-    onMapClick: () -> Unit,
+fun ToggleArrowButton(
+    onClick: () -> Unit,
+    isExpanded: Boolean
 ) {
-    val loc1 = Locality(
-        localityNo = 0,
-        name = "Narvik",
-        lat = 0.43,
-        lon = 0.43,
-        isOnLand = false,
-    )
-
-    val loc2 = Locality(
-        localityNo = 1,
-        name = "Hammerfest",
-        lat = 0.43,
-        lon = 0.43,
-        isOnLand = false,
-    )
-
-    Column {
-        Button(onClick = { onMarkerClick(loc1) }) {
-            Text(text = "Locality 1")
-        }
-        Button(onClick = { onMarkerClick(loc2) }) {
-            Text(text = "Locality 2")
-        }
-        Button(onClick = onMapClick) {
-            Text("Map click")
-        }
+    IconButton(onClick = onClick) {
+        Icon(
+            imageVector = if (isExpanded) Icons.Filled.ExpandMore else Icons.Filled.ExpandLess,
+            contentDescription = if (isExpanded) {
+                stringResource(R.string.show_less)
+            } else {
+                stringResource(R.string.show_more)
+            }
+        )
     }
 }
+
