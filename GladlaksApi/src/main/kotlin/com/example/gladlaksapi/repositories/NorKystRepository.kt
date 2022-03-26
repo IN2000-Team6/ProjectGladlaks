@@ -7,7 +7,7 @@ import ucar.nc2.dt.GridDataset
 import ucar.nc2.dt.GridDatatype
 import ucar.ma2.Array
 
-fun openWithGridDataset(urlName: String, lat: Double, lon: Double): Location {
+fun fetchFromNorKyst(urlName: String, lat: Double, lon: Double): Location {
     val gds: GridDataset = ucar.nc2.dt.grid.GridDataset.open(urlName)
     val grid: GridDatatype = gds.findGridDatatype("temperature")
     val gcs: GridCoordSystem = grid.coordinateSystem
