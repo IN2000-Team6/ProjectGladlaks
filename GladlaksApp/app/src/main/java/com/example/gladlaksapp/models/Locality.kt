@@ -14,7 +14,7 @@ data class Locality (
 /**
  * Represents a list of all localities listed this week
  */
-data class Localities (
+data class LocalitiesWrapper (
     val week: Int,
     val year: Int,
     val localities: List<Locality>

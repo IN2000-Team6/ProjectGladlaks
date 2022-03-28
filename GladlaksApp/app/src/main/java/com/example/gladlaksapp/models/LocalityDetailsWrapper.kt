@@ -1,34 +1,17 @@
 package com.example.gladlaksapp.models
 
-// ------------- Class Structure ------------- //
-// LocalityDetailed {
-//      LocalityWeek {
-//              BathTreatments [
-//                  Treatment {
-//                      TreatmentDetail {
-//                          Substance {
-//                          }
-//                      }
-//                  }
-//              ]
-//              (Duplicate for infeed-treatments)
-//              MechanicalRemoval
-//      }
-// }
-
 
 // ------------- Outer Wrapper Class ------------- //
 
-data class LocalityDetailed (
+data class LocalityDetailsWrapper (
     val localityName: String,
-    val localityWeek: LocalityWeek,
+    val localityWeek: LocalityDetails,
     val liceCountPreviousWeek: LiceCountPreviousWeek,
-
 )
 
 // ------------- Detailed Info ------------- //
 
-data class LocalityWeek (
+data class LocalityDetails (
     val id: Int,
     val localityNo: Int,
     val year: Int,

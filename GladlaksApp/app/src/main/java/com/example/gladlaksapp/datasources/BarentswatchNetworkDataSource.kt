@@ -1,8 +1,8 @@
 package com.example.gladlaksapp.datasources
 
 import com.example.gladlaksapp.models.BarentsWatchToken
-import com.example.gladlaksapp.models.Localities
-import com.example.gladlaksapp.models.LocalityDetailed
+import com.example.gladlaksapp.models.LocalitiesWrapper
+import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.*
@@ -48,7 +48,7 @@ object BarentswatchNetworkDataSource {
      * @param year - The year
      * @param week - The calendar week
      */
-    suspend fun getLocalities(year: Int, week: Int) : Localities {
+    suspend fun getLocalities(year: Int, week: Int) : LocalitiesWrapper {
         val token: String = getToken()
         return client.get(localitiesURL.format(year,week)) {
             headers {
@@ -61,7 +61,7 @@ object BarentswatchNetworkDataSource {
      * Returns a data class representing detailed information about one locality
      * @param localityNo - The locality no, as stated by the [Locality] dataclass
      */
-    suspend fun getDetailedLocalityInfo(localityNo: Int,year: Int, week: Int) : LocalityDetailed {
+    suspend fun getDetailedLocalityInfo(localityNo: Int, year: Int, week: Int) : LocalityDetailsWrapper {
         val token: String = getToken()
         return client.get(localityDetailedURL.format(localityNo,year,week)) {
             headers {
