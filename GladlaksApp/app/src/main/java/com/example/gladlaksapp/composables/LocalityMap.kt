@@ -80,7 +80,7 @@ fun LocalityMap(
 
 fun createMarkerIcon(context: Context, size: Int): BitmapDescriptor {
     val bitmapIcon = Bitmap.createScaledBitmap(
-        BitmapFactory.decodeResource(context.resources, R.drawable.white_border_icon),
+        BitmapFactory.decodeResource(context.resources, R.drawable.white_border_turquoise_icon),
         size,
         size,
         false
