@@ -2,4 +2,10 @@
     <string name="app_name">Gladlaks</string>
     <string name="show_less">Show less</string>
     <string name="show_more">Show more</string>
+
+    <!-- Main navigation items -->
+    <string name="locality">Lokasjoner</string>
+    <string name="favorites">Favoritter</string>
+    <string name="search">Søk</string>
+    <string name="settings">Innstillinger</string>
 </resources>

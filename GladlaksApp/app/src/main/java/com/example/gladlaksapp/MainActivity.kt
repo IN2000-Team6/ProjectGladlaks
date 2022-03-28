@@ -8,6 +8,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import com.example.gladlaksapp.viewmodels.MainViewModel
 import com.example.gladlaksapp.composables.AppContainer
+import com.example.gladlaksapp.composables.BottomNavLayout
+import com.example.gladlaksapp.composables.MainNavigation
 import com.example.gladlaksapp.composables.MapBottomSheet
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +22,16 @@ class MainActivity : ComponentActivity() {
             val localities by model.localities.observeAsState()
 
             AppContainer {
-                MapBottomSheet(localities = localities)
+                BottomNavLayout(
+                    content = { MapBottomSheet(localities = localities) },
+                    bottomNavContent = {
+                        MainNavigation(
+                            selectedItemIndex = 0,
+                            onClick = { /*TODO implement state for navigation */ },
+                        )
+                    }
+                )
+
             }
         }
     }
