@@ -8,59 +8,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.gladlaksapp.R
 
-val SoraFamily = FontFamily(
-    Font(R.font.sora_regular),
-    Font(R.font.sora_light, FontWeight.Light),
-    Font(R.font.sora_semibold, FontWeight.SemiBold)
-)
-
 // Set of Material typography styles to start with
 val Typography = Typography(
-    /*
+
     body1 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     ),
-    */
-
-    body1 = TextStyle(
-        fontFamily = SoraFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-    ),
-
-    h2 = TextStyle(
-        fontFamily = SoraFamily,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 24.sp
-    ),
-
-    h3 = TextStyle(
-        fontFamily = SoraFamily,
-        fontWeight = FontWeight.Light,
-        fontSize = 14.sp
-    ),
-
-    h6 = TextStyle(
-        fontFamily = SoraFamily,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 20.sp
-    ),
-
-    subtitle2 = TextStyle(
-        fontFamily = SoraFamily,
-        fontWeight = FontWeight.Light,
-        fontSize = 14.sp
-    ),
-
-    button = TextStyle(
-        fontFamily = SoraFamily,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp,
-        color = ButtonText
-    )
-
     /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,
