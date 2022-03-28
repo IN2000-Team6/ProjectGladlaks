@@ -18,6 +18,10 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        // Custom secrets
+        buildConfigField("String", "BARENTSWATCH_CLIENT", BARENTSWATCH_CLIENT)
+        buildConfigField("String", "BARENTSWATCH_SECRET", BARENTSWATCH_SECRET)
     }
 
     buildTypes {

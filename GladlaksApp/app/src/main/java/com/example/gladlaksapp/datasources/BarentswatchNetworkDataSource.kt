@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.datasources
 
+import com.example.gladlaksapp.BuildConfig
 import com.example.gladlaksapp.models.BarentsWatchToken
 import com.example.gladlaksapp.models.LocalitiesWrapper
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
@@ -11,20 +12,15 @@ import io.ktor.client.request.*
 
 object BarentswatchNetworkDataSource {
     private const val tokenURL = "https://id.barentswatch.no/connect/token"
-    private const val localitiesURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s"                //
+    private const val localitiesURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s"
     private const val localityDetailedURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s/%s"  // Can these be combined? :thinking:
 
-    private const val testClient = "jesperdn@uio.no:Jesperdn"
-    private const val testSecret = "IN2000ErBest"
-
-    // ------------- Clients ------------- //
+    private const val bw_client = BuildConfig.BARENTSWATCH_CLIENT
+    private const val bw_secret = BuildConfig.BARENTSWATCH_SECRET
 
     private val client = HttpClient(CIO) {
         install(JsonFeature) {
             serializer = GsonSerializer()
-        }
-        defaultRequest {
-            header("accept", "text/plain")
         }
     }
 
@@ -35,10 +31,8 @@ object BarentswatchNetworkDataSource {
      */
     private suspend fun getToken() : String {
         val response: BarentsWatchToken = client.post(tokenURL) {
-            headers {
-                append("Content-Type","application/x-www-form-urlencoded")
-            }
-            body = "client_id=jesperdn@uio.no:Jesperdn&scope=api&client_secret=IN2000ErBest&grant_type=client_credentials"
+            headers.append("Content-Type","application/x-www-form-urlencoded")
+            body = "client_id=$bw_client&scope=api&client_secret=$bw_secret&grant_type=client_credentials"
         }
         return response.access_token
     }
