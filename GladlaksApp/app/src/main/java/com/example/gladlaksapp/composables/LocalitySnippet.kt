@@ -37,7 +37,7 @@ fun LocalitySnippet(
         ) {
             Image(painter = image,
                 contentDescription = "IKON",
-                modifier = Modifier.padding(start = 20.dp, top = 5.dp, bottom = 5.dp)
+                modifier = Modifier.padding(start = 20.dp, bottom = 5.dp)
             )
 
             Column(modifier = Modifier
@@ -51,9 +51,7 @@ fun LocalitySnippet(
                 Text(
                     text = "Lokalitet: ${locality.localityNo}",
                     style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(start = 1.dp)
                 )
-
             }
             Button(
                 onClick = {
@@ -70,7 +68,7 @@ fun LocalitySnippet(
                     .padding(end = 16.dp)
                     .size(width = 150.dp, height = 40.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF9CDCDA), //MaterialTheme.colorScheme.secondaryContainer,
+                    containerColor = Color(0xFF9CDCDA), //MaterialTheme.colorScheme.secondaryContainer
                     contentColor = Color(0xFF303631),//MaterialTheme.colorScheme.onSecondaryContainer,
                     disabledContainerColor = Color(0x1F1F1F1F),
                     disabledContentColor = Color(0xFF191C1D)

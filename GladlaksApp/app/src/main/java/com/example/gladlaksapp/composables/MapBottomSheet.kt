@@ -18,7 +18,7 @@ fun MapBottomSheet(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
-    val selectedPeekHeight = 100
+    val selectedPeekHeight = 90
 
     // Local state
     var selectedLocality by rememberSaveable { mutableStateOf<Locality?>(null) }
