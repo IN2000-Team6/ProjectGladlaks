@@ -91,4 +91,5 @@ dependencies {
 
     // ------------- Other ------------- //
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
