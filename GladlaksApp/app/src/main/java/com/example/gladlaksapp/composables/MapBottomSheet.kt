@@ -1,6 +1,7 @@
 package com.example.gladlaksapp.composables
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -50,6 +51,7 @@ fun MapBottomSheet(
     }
 
     BottomSheetScaffold(
+        sheetShape = RoundedCornerShape(16.dp),
         sheetPeekHeight = peekHeight.dp,
         scaffoldState = sheetState,
         content = {
@@ -69,6 +71,10 @@ fun MapBottomSheet(
                     onClick = ::toggleBottomSheet,
                 )
                 LocalitySheetTop(selectedLocality, sheetState.bottomSheetState, coroutineScope)
+
+                /*TODO Place more components here
+                   (Locality info, graph ++)
+                 */
             }
         },
     )
