@@ -12,7 +12,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
-import com.example.gladlaksapp.ui.theme.ButtonBlue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -23,8 +22,6 @@ fun LocalitySnippet(
     sheetState: BottomSheetState,
     coroutineScope: CoroutineScope
 ) {
-    // TODO make the snippet composable
-
     val image: Painter = painterResource(R.drawable.locality_icon)
 
     Box(modifier = Modifier.fillMaxWidth()){
@@ -32,7 +29,6 @@ fun LocalitySnippet(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-            //.padding(16.dp)
         ) {
             Image(painter = image,
                 contentDescription = "IKON",
@@ -78,19 +74,3 @@ fun LocalitySnippet(
 
     }
 }
-
-/*
-@Preview(widthDp = 412, heightDp = 80, showBackground = true)
-@Composable
-fun DisplayLocalitySnippet() {
-    LocalitySnippet(
-        Locality(
-            localityNo = 1,
-            name = "Test",
-            lat = 10.3,
-            lon = 13.4,
-            isOnLand = false,
-        )
-    )
-}
-*/
