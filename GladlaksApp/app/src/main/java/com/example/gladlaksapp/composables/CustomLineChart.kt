@@ -9,7 +9,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.gladlaksapp.models.GraphLine
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
@@ -29,17 +28,14 @@ fun CustomLineChart(
         factory = { context ->
             LineChart(context).apply {
                 this.data = LineData(createDataSets(lines))
-                this.axisLeft.axisMinimum = 0f
+                this.axisRight.isEnabled = false
+                this.description.isEnabled = false
+                this.setScaleEnabled(false)
+                this.isHovered = false
+                this.xAxis.position = XAxis.XAxisPosition.BOTTOM
                 this.axisLeft.textSize = size
                 this.xAxis.textSize = size
-                this.axisRight.isEnabled = false
-                this.xAxis.position = XAxis.XAxisPosition.BOTTOM
-                this.description.isEnabled = false
-                this.isHovered = false
                 this.legend.textSize = size
-                this.legend.formSize = size
-                this.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-                this.setScaleEnabled(false)
                 this.animateY(500)
                 this.invalidate()
             }
@@ -62,7 +58,6 @@ fun createDataSets(
         set.setDrawCircleHole(false)
         set.setDrawCircles(false)
         set.setDrawValues(false)
-
         set
     }
 }
