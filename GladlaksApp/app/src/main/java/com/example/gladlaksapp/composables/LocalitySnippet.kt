@@ -1,86 +1,86 @@
 package com.example.gladlaksapp.composables
 
-import android.graphics.fonts.Font
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
-import com.example.gladlaksapp.ui.theme.GladlaksAppTheme
+import com.example.gladlaksapp.ui.theme.ButtonBlue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun LocalitySnippet(
-    locality: Locality
+    locality: Locality,
+    sheetState: BottomSheetState,
+    coroutineScope: CoroutineScope
 ) {
     // TODO make the snippet composable
 
-    val image: Painter = painterResource(R.drawable.ic_launcher_background)
+    val image: Painter = painterResource(R.drawable.locality_icon)
 
-    Row (
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            //.padding(16.dp)
-    ) {
-        Image(painter = image,
-            contentDescription = "IKON",
-            modifier = Modifier.padding(start = 5.dp, top = 5.dp, bottom = 5.dp)
-        )
-
-        Column(modifier = Modifier
-            .padding(16.dp),
-            //horizontalAlignment = Alignment.CenterHorizontally,
-
-        ) {
-            Text(
-                text = locality.name,
-                style = MaterialTheme.typography.h6
-            )
-            Text(
-                text = "Lokalitet: ${locality.localityNo}",
-                style = MaterialTheme.typography.subtitle1
-            )
-
-        }
-        Button(
-            onClick = {},
+    Box(modifier = Modifier.fillMaxWidth()){
+        Row (
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .background(Color.Blue)
+                .fillMaxWidth()
+            //.padding(16.dp)
         ) {
-            Text("Vis mer")
-        }
+            Image(painter = image,
+                contentDescription = "IKON",
+                modifier = Modifier.padding(start = 20.dp, top = 5.dp, bottom = 5.dp)
+            )
 
-        /*
-        ListItem(text = {
-            Text(
-                text = locality.name,
-                style = MaterialTheme.typography.h6
-            )
-        }, secondaryText = {
-            Text(
-                text = "Lokalitet: ${locality.localityNo}",
-                style = MaterialTheme.typography.subtitle2
-            )
+            Column(modifier = Modifier
+                .padding(start = 16.dp)
+                .weight(1f),
+            ) {
+                Text(
+                    text = locality.name,
+                    style = MaterialTheme.typography.h6
+                )
+                Text(
+                    text = "Lokalitet: ${locality.localityNo}",
+                    style = MaterialTheme.typography.subtitle1,
+                    modifier = Modifier.padding(start = 1.dp)
+                )
+
+            }
+            Button(
+                onClick = {
+                      coroutineScope.launch {
+                          if (sheetState.isCollapsed) {
+                              sheetState.expand()
+                          } else {
+                              sheetState.collapse()
+                          }
+                      }
+                },
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier
+                    .padding(end = 16.dp)
+                    .size(width = 150.dp, height = 40.dp),
+
+            ) {
+                Text(
+                    text = if (sheetState.isCollapsed) "Se mer" else "Se mindre"
+                )
+            }
         }
-        )
-        */
 
     }
 }
 
-@Preview(widthDp = 320, heightDp = 80, showBackground = true)
+/*
+@Preview(widthDp = 412, heightDp = 80, showBackground = true)
 @Composable
 fun DisplayLocalitySnippet() {
     LocalitySnippet(
@@ -93,3 +93,4 @@ fun DisplayLocalitySnippet() {
         )
     )
 }
+*/

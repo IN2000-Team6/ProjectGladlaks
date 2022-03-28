@@ -27,7 +27,7 @@ val Typography = Typography(
     body1 = TextStyle(
         fontFamily = SoraFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 16.sp,
     ),
 
     h2 = TextStyle(
@@ -52,7 +52,15 @@ val Typography = Typography(
         fontFamily = SoraFamily,
         fontWeight = FontWeight.Light,
         fontSize = 14.sp
+    ),
+
+    button = TextStyle(
+        fontFamily = SoraFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
+        color = ButtonText
     )
+
     /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,
