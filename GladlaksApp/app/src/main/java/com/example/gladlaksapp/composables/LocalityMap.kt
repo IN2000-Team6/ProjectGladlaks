@@ -42,14 +42,18 @@ fun LocalityMap(
             markerSize = initMarkerSize * 2
         } else if (cameraPositionState.position.zoom <= 6f  && markerSize != initMarkerSize) {
             markerSize = initMarkerSize
-        } else if (cameraPositionState.position.zoom > 8f && markerSize == initMarkerSize * 2) {
+        } else if (cameraPositionState.position.zoom > 8f && cameraPositionState.position.zoom < 10f &&markerSize == initMarkerSize * 2) {
             markerSize = initMarkerSize * 3
         } else if (cameraPositionState.position.zoom <= 8f && cameraPositionState.position.zoom > 6f &&  markerSize != initMarkerSize) {
             markerSize = initMarkerSize * 2
-        } else if (cameraPositionState.position.zoom > 10f && markerSize == initMarkerSize * 3) {
-            markerSize = initMarkerSize * 3
+        } else if (cameraPositionState.position.zoom > 10f && cameraPositionState.position.zoom < 12f && markerSize == initMarkerSize * 3) {
+            markerSize = initMarkerSize * 4
         } else if (cameraPositionState.position.zoom <= 10f && cameraPositionState.position.zoom > 8f &&  markerSize != initMarkerSize) {
             markerSize = initMarkerSize * 3
+        } else if (cameraPositionState.position.zoom > 12f && markerSize == initMarkerSize * 4) {
+            markerSize = initMarkerSize * 5
+        } else if (cameraPositionState.position.zoom <= 12f && cameraPositionState.position.zoom > 10f &&  markerSize != initMarkerSize) {
+            markerSize = initMarkerSize * 4
         }
     }
 
