@@ -20,10 +20,20 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val localities by model.localities.observeAsState()
+            val loadedLocality by model.localityDetail.observeAsState()
 
             AppContainer {
                 BottomNavLayout(
-                    content = { MapBottomSheet(localities = localities) },
+                    content = {
+                        MapBottomSheet(
+                            localities = localities,
+                            loadedLocality = loadedLocality,
+                            resetLoadedLocality = { model.resetLoadedLocality() },
+                            loadLocalityDetails = { localityNo ->
+                                model.loadLocalityDetails(localityNo)
+                            },
+                        )
+                      },
                     bottomNavContent = {
                         MainNavigation(
                             selectedItemIndex = 0,

@@ -7,20 +7,23 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.Locality
+import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
 fun MapBottomSheet(
-    localities: List<Locality>?
+    localities: List<Locality>?,
+    loadedLocality: LocalityDetailsWrapper?,
+    loadLocalityDetails: (Int) -> Unit,
+    resetLoadedLocality: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
-    val selectedPeekHeight = 90
-
+    val selectedPeekHeight = 95
+    
     // Local state
     var selectedLocality by rememberSaveable { mutableStateOf<Locality?>(null) }
     var peekHeight by rememberSaveable { mutableStateOf(initialPeekHeight) }
@@ -28,7 +31,11 @@ fun MapBottomSheet(
         bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
     )
 
+    // Event handlers
     fun onMarkerClick(locality: Locality) {
+        if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
+            resetLoadedLocality()
+        }
         selectedLocality = locality
         peekHeight = selectedPeekHeight
     }
@@ -50,8 +57,17 @@ fun MapBottomSheet(
         }
     }
 
+    // Side effects
+    LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
+        if (selectedLocality != null) {
+            if (loadedLocality == null || loadedLocality.localityName != selectedLocality!!.name) {
+                loadLocalityDetails(selectedLocality!!.localityNo)
+            }
+        }
+    }
+
     BottomSheetScaffold(
-        sheetShape = RoundedCornerShape(16.dp),
+        sheetShape = RoundedCornerShape(if (sheetState.bottomSheetState.isExpanded) 0.dp else 16.dp),
         sheetPeekHeight = peekHeight.dp,
         scaffoldState = sheetState,
         content = {
@@ -63,27 +79,25 @@ fun MapBottomSheet(
         },
         sheetContent = {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 ToggleArrowButton(
                     isExpanded = sheetState.bottomSheetState.isExpanded,
                     onClick = ::toggleBottomSheet,
                 )
-                LocalitySheetTop(selectedLocality, sheetState.bottomSheetState, coroutineScope)
-
-                /*TODO Place more components here
-                   (Locality info, graph ++)
-                 */
+                Box(modifier = Modifier.padding(bottom = 40.dp)) {
+                    LocalitySnippet(
+                        locality = selectedLocality,
+                        onClick = ::toggleBottomSheet,
+                        isCollapsed = sheetState.bottomSheetState.isCollapsed
+                    )
+                }
+                LocalitySheetContent(loadedLocality = loadedLocality)
             }
         },
     )
-}
-
-@Preview
-@Composable
-fun DisplayMapBottomSheet() {
-    MapBottomSheet(localities = emptyList())
 }
 
 
