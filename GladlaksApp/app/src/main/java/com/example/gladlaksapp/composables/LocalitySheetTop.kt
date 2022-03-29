@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetState
 import androidx.compose.material.ExperimentalMaterialApi
@@ -25,7 +26,7 @@ fun LocalitySheetTop(
 ) {
     if (locality != null) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.padding(bottom = 20.dp),
             //contentAlignment = Alignment.TopStart
         ) {
             LocalitySnippet(locality = locality, sheetState, coroutineScope)

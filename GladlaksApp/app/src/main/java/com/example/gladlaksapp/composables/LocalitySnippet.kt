@@ -37,7 +37,7 @@ fun LocalitySnippet(
         ) {
             Image(painter = image,
                 contentDescription = "IKON",
-                modifier = Modifier.padding(start = 20.dp, bottom = 5.dp)
+                modifier = Modifier.padding(start = 20.dp)
             )
 
             Column(modifier = Modifier
