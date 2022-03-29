@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,7 +25,7 @@ fun MainNavigation(
         NavItem(R.string.favorites, Icons.Filled.Settings),
     )
 
-    BottomNavigation {
+    BottomNavigation (backgroundColor = Color(0xFFFBFDFD)) {
         items.forEachIndexed { index, item ->
             val label = stringResource(item.labelId)
             BottomNavigationItem(
