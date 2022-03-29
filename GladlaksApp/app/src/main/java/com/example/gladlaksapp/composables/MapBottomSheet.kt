@@ -1,7 +1,5 @@
 package com.example.gladlaksapp.composables
 
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -9,10 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import kotlinx.coroutines.launch
@@ -20,26 +15,25 @@ import kotlinx.coroutines.launch
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
 fun MapBottomSheet(
-    localities: List<Locality>?
+    localities: List<Locality>?,
+    loadedLocality: LocalityDetailsWrapper?,
+    loadLocalityDetails: (Int) -> Unit,
+    resetLoadedLocality: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
-    val selectedPeekHeight = 75
+    val selectedPeekHeight = 95
     
     // Local state
     var selectedLocality by rememberSaveable { mutableStateOf<Locality?>(null) }
-    var loadedLocality by rememberSaveable { mutableStateOf<LocalityDetailsWrapper?>(null) }
     var peekHeight by rememberSaveable { mutableStateOf(initialPeekHeight) }
     val sheetState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
     )
 
-    // Repository
-    val bwRepository = BarentswatchRepository
-
     fun onMarkerClick(locality: Locality) {
         if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
-            loadedLocality = null
+            resetLoadedLocality()
         }
         selectedLocality = locality
         peekHeight = selectedPeekHeight
@@ -62,18 +56,11 @@ fun MapBottomSheet(
         }
     }
 
-    fun loadDetails(localityNo: Int) {
-        coroutineScope.launch {
-            loadedLocality = bwRepository.getDetailedLocalityInfo(localityNo, 2022, 10) // These values cant be hardcoded
-            Log.d("Loaded", loadedLocality!!.localityName)
-        }
-    }
-
+    // Side effects
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
-        Log.d("balls", "balls")
         if (selectedLocality != null) {
             if (loadedLocality == null || loadedLocality!!.localityName != selectedLocality!!.name) {
-                    loadDetails(selectedLocality!!.localityNo)
+                loadLocalityDetails(selectedLocality!!.localityNo)
             }
         }
     }
@@ -99,17 +86,17 @@ fun MapBottomSheet(
                     isExpanded = sheetState.bottomSheetState.isExpanded,
                     onClick = ::toggleBottomSheet,
                 )
-                LocalitySheetTop(selectedLocality, sheetState.bottomSheetState, coroutineScope)
+                Box(modifier = Modifier.padding(bottom = 40.dp)) {
+                    LocalitySnippet(
+                        locality = selectedLocality,
+                        onClick = ::toggleBottomSheet,
+                        isCollapsed = sheetState.bottomSheetState.isCollapsed
+                    )
+                }
                 LocalitySheetContent(loadedLocality = loadedLocality)
             }
         },
     )
-}
-
-@Preview
-@Composable
-fun DisplayMapBottomSheet() {
-    MapBottomSheet(localities = emptyList())
 }
 
 
