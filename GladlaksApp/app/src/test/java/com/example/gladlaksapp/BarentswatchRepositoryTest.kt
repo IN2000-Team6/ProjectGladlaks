@@ -1,6 +1,5 @@
 package com.example.gladlaksapp
 
-import com.example.gladlaksapp.datasources.BarentswatchNetworkDataSource
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.models.LocalitiesWrapper
 import com.example.gladlaksapp.models.Locality
@@ -17,7 +16,6 @@ class BarentswatchRepositoryTest {
     fun testGetLocalitiesReturnsCorrectAmount() {
         runBlocking {
             val result: LocalitiesWrapper = repository.getLocalities(2022,12)
-            //print(result)
             Assert.assertTrue(result.localities.isNotEmpty())
             Assert.assertEquals(result.localities.size, 1714) //This changes per week
         }
