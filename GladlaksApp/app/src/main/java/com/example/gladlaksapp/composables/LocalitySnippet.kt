@@ -29,8 +29,7 @@ fun LocalitySnippet(
         Box(modifier = Modifier.fillMaxWidth()){
             Row (
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Image(painter = image,
                     contentDescription = "IKON",
@@ -63,8 +62,9 @@ fun LocalitySnippet(
                     )
                 ) {
                     Text(
+                        modifier = Modifier.padding(bottom = 2.dp),
+                        style = MaterialTheme.typography.labelLarge,
                         text = if (isCollapsed) "Se mer" else "Se mindre",
-                        style = MaterialTheme.typography.labelLarge
                     )
                 }
             }
