@@ -21,8 +21,8 @@ fun MainNavigation(
     val items = listOf(
         NavItem(R.string.locality, Icons.Filled.Place),
         NavItem(R.string.favorites, Icons.Filled.Favorite),
-        NavItem(R.string.favorites, Icons.Filled.Search),
-        NavItem(R.string.favorites, Icons.Filled.Settings),
+        NavItem(R.string.search, Icons.Filled.Search),
+        NavItem(R.string.settings, Icons.Filled.Settings),
     )
 
     BottomNavigation (backgroundColor = Color(0xFFe9f2f1)) {

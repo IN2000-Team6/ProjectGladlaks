@@ -59,14 +59,14 @@ fun MapBottomSheet(
     // Side effects
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
         if (selectedLocality != null) {
-            if (loadedLocality == null || loadedLocality!!.localityName != selectedLocality!!.name) {
+            if (loadedLocality == null || loadedLocality.localityName != selectedLocality!!.name) {
                 loadLocalityDetails(selectedLocality!!.localityNo)
             }
         }
     }
 
     BottomSheetScaffold(
-        sheetShape = RoundedCornerShape(16.dp),
+        sheetShape = RoundedCornerShape(if (sheetState.bottomSheetState.isExpanded) 0.dp else 16.dp),
         sheetPeekHeight = peekHeight.dp,
         scaffoldState = sheetState,
         content = {
