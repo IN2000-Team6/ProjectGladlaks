@@ -14,7 +14,7 @@ class MainViewModel: ViewModel() {
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val data = barentswatchDataSource.getLocalities(2022, 4)
+            val data = barentswatchDataSource.getLocalities(2022, 12)
             localities.postValue(data.localities)
         }
     }

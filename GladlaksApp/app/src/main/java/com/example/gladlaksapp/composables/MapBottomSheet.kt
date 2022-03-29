@@ -38,6 +38,9 @@ fun MapBottomSheet(
     val bwRepository = BarentswatchRepository
 
     fun onMarkerClick(locality: Locality) {
+        if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
+            loadedLocality = null
+        }
         selectedLocality = locality
         peekHeight = selectedPeekHeight
     }
@@ -66,6 +69,15 @@ fun MapBottomSheet(
         }
     }
 
+    LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
+        Log.d("balls", "balls")
+        if (selectedLocality != null) {
+            if (loadedLocality == null || loadedLocality!!.localityName != selectedLocality!!.name) {
+                    loadDetails(selectedLocality!!.localityNo)
+            }
+        }
+    }
+
     BottomSheetScaffold(
         sheetShape = RoundedCornerShape(16.dp),
         sheetPeekHeight = peekHeight.dp,
@@ -88,17 +100,7 @@ fun MapBottomSheet(
                     onClick = ::toggleBottomSheet,
                 )
                 LocalitySheetTop(selectedLocality, sheetState.bottomSheetState, coroutineScope)
-                LocalitySheetContent(loadedLocality = null)
-                /*TODO Place more components here
-                   (Locality info, graph ++)
-                 */
-                Text("poop")
-                if (loadedLocality != null) {
-                    Text(loadedLocality!!.localityName)
-                }
-                if (sheetState.bottomSheetState.isExpanded && selectedLocality != null) {
-                    loadDetails(selectedLocality!!.localityNo)
-                }
+                LocalitySheetContent(loadedLocality = loadedLocality)
             }
         },
     )
