@@ -18,6 +18,7 @@ fun MainNavigation(
     onClick: () -> Unit,
     selectedItemIndex: Int,
 ) {
+    val backgroundColor = Color(0xFF01809C)
     val items = listOf(
         NavItem(R.string.locality, Icons.Filled.Place),
         NavItem(R.string.favorites, Icons.Filled.Favorite),
@@ -32,7 +33,7 @@ fun MainNavigation(
                 selected = selectedItemIndex == index,
                 onClick = onClick,
                 label = { Text(label) },
-                icon = { Icon(item.icon, contentDescription = label, tint = Color(0xFF01809C))}
+                icon = { Icon(item.icon, contentDescription = label, tint = backgroundColor)}
             )
         }
     }

@@ -31,6 +31,7 @@ fun MapBottomSheet(
         bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
     )
 
+    // Event handlers
     fun onMarkerClick(locality: Locality) {
         if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
             resetLoadedLocality()

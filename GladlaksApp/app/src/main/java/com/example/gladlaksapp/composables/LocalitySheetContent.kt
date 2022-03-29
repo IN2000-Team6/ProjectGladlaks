@@ -16,8 +16,6 @@ fun LocalitySheetContent(loadedLocality: LocalityDetailsWrapper?) {
     Column(
         modifier = Modifier.fillMaxSize()
             .verticalScroll(rememberScrollState()),
-        //verticalArrangement = Arrangement.Center,
-        //horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (loadedLocality == null) {
             Column(
