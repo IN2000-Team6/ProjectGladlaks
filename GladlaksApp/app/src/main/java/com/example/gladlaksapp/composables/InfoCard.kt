@@ -1,6 +1,7 @@
 package com.example.gladlaksapp.composables
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
@@ -17,11 +18,13 @@ fun InfoCard (
     OutlinedCard (
         modifier = Modifier
             .wrapContentHeight()
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(15.dp),
         containerColor = Color.White,
+        shape = RoundedCornerShape(30.dp)
 
             ){
-        Box(modifier = Modifier.padding(20.dp)){
+        Box{
             content()
         }
     }

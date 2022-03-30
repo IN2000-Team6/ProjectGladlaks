@@ -21,11 +21,12 @@ data class LocalityDetails (
     val hasBathTreatment: Boolean,
     val hasInFeedTreatment: Boolean,
     val hasCleanerFishDeployed: Boolean,
-    val avgAdultFemaleLice: Number,
-    val avgMobileLice: Number,
-    val avgStationaryLice: Number,
-    val bathTreatments: List<Treatment>?,
-    val inFeedTreatments: List<Treatment>?,
+    val avgAdultFemaleLice: Number?,
+    val avgMobileLice: Number?,
+    val avgStationaryLice: Number?,
+    val seaTemperature: Number?,
+    val bathTreatments: List<Treatment>,
+    val inFeedTreatments: List<Treatment>,
     val mechanicalRemoval: MechanicalRemoval?,
 )
 

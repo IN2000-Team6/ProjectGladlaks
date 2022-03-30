@@ -14,7 +14,8 @@ import com.example.gladlaksapp.models.LocalityDetailsWrapper
 @Composable
 fun LocalitySheetContent(loadedLocality: LocalityDetailsWrapper?) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .verticalScroll(rememberScrollState()),
     ) {
         if (loadedLocality == null) {
@@ -28,6 +29,9 @@ fun LocalitySheetContent(loadedLocality: LocalityDetailsWrapper?) {
                 )
             }
         } else {
+            InfoCard (
+                content = { LocalityInfo(localityInfo = loadedLocality.localityWeek) }
+            )
             Text(loadedLocality.localityName)
         }
     }

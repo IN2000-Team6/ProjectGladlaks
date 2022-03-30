@@ -9,6 +9,8 @@ data class Locality (
     val lat: Double,
     val lon: Double,
     val isOnLand: Boolean,
+    val hasPd: Boolean,
+    val hasIla: Boolean
 )
 
 /**
