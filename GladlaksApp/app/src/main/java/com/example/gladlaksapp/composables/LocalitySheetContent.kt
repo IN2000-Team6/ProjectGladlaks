@@ -31,9 +31,13 @@ fun LocalitySheetContent(
                 CircularProgressIndicator(color = Color(0xFF9CDCDA))
             }
         } else {
+            InfoCard (
+                content = { LocalityInfo(localityInfo = loadedLocality.localityWeek) }
+            )
             Box(modifier = Modifier.padding(20.dp)) {
                 CustomLineChart(height = 300, lines = graphLines)
             }
+            Text(loadedLocality.localityName)
         }
     }
 }
