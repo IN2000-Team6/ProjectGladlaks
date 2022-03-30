@@ -27,7 +27,7 @@ fun LocalityMap(
     startLng: Double = 8.7,
     startZoom: Float = 5.9f,
 ) {
-    val initMarkerSize = 25
+    val initMarkerSize = 25f
     var markerSize by remember { mutableStateOf(initMarkerSize)}
 
     val cameraPositionState = rememberCameraPositionState {
@@ -38,22 +38,34 @@ fun LocalityMap(
         cameraPositionState.position.zoom,
         markerSize,
     ) {
-        if (cameraPositionState.position.zoom > 6f && cameraPositionState.position.zoom < 8f && markerSize == initMarkerSize) {
+        if (cameraPositionState.position.zoom > 6f && cameraPositionState.position.zoom < 7f) {
             markerSize = initMarkerSize * 2
         } else if (cameraPositionState.position.zoom <= 6f  && markerSize != initMarkerSize) {
             markerSize = initMarkerSize
-        } else if (cameraPositionState.position.zoom > 8f && cameraPositionState.position.zoom < 10f &&markerSize == initMarkerSize * 2) {
-            markerSize = initMarkerSize * 3
-        } else if (cameraPositionState.position.zoom <= 8f && cameraPositionState.position.zoom > 6f &&  markerSize != initMarkerSize) {
+        } else if (cameraPositionState.position.zoom > 7f && cameraPositionState.position.zoom < 8f) {
+            markerSize = initMarkerSize * 2.5f
+        } else if (cameraPositionState.position.zoom <= 7f && cameraPositionState.position.zoom > 6f) {
             markerSize = initMarkerSize * 2
-        } else if (cameraPositionState.position.zoom > 10f && cameraPositionState.position.zoom < 12f && markerSize == initMarkerSize * 3) {
-            markerSize = initMarkerSize * 4
-        } else if (cameraPositionState.position.zoom <= 10f && cameraPositionState.position.zoom > 8f &&  markerSize != initMarkerSize) {
+        } else if (cameraPositionState.position.zoom > 8f && cameraPositionState.position.zoom < 9f) {
             markerSize = initMarkerSize * 3
-        } else if (cameraPositionState.position.zoom > 12f && markerSize == initMarkerSize * 4) {
-            markerSize = initMarkerSize * 5
-        } else if (cameraPositionState.position.zoom <= 12f && cameraPositionState.position.zoom > 10f &&  markerSize != initMarkerSize) {
+        } else if (cameraPositionState.position.zoom <= 8f && cameraPositionState.position.zoom > 7f) {
+            markerSize = initMarkerSize * 2.5f
+        } else if (cameraPositionState.position.zoom > 9f && cameraPositionState.position.zoom < 10f) {
+            markerSize = initMarkerSize * 3.5f
+        } else if (cameraPositionState.position.zoom <= 9f && cameraPositionState.position.zoom > 8f) {
+            markerSize = initMarkerSize * 3
+        }else if (cameraPositionState.position.zoom > 10f && cameraPositionState.position.zoom < 11f) {
             markerSize = initMarkerSize * 4
+        } else if (cameraPositionState.position.zoom <= 10f && cameraPositionState.position.zoom > 9f) {
+            markerSize = initMarkerSize * 3.5f
+        } else if (cameraPositionState.position.zoom > 11f && cameraPositionState.position.zoom < 12f) {
+            markerSize = initMarkerSize * 5.5f
+        } else if (cameraPositionState.position.zoom <= 11f && cameraPositionState.position.zoom > 10f) {
+            markerSize = initMarkerSize * 4
+        }else if (cameraPositionState.position.zoom > 12f && markerSize == initMarkerSize * 5.5f) {
+            markerSize = initMarkerSize * 7
+        } else if (cameraPositionState.position.zoom <= 12f && cameraPositionState.position.zoom > 11f) {
+            markerSize = initMarkerSize * 5.5f
         }
     }
 
@@ -63,7 +75,7 @@ fun LocalityMap(
         onMapClick = { onMapClick() }
     ) {
         if (localities != null) {
-            val icon = createMarkerIcon(LocalContext.current, markerSize)
+            val icon = createMarkerIcon(LocalContext.current, markerSize.toInt())
 
             for (loc in localities) {
                 if (!loc.isOnLand) {
