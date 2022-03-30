@@ -13,6 +13,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import md_theme_light_tertiary
 
 @Composable
 fun CustomLineChart(
@@ -36,6 +37,7 @@ fun CustomLineChart(
                 this.axisLeft.textSize = size
                 this.xAxis.textSize = size
                 this.legend.textSize = size
+                this.legend.xOffset = -1f
                 this.animateY(500)
                 this.invalidate()
             }
@@ -45,16 +47,20 @@ fun CustomLineChart(
 fun createDataSets(
     lines: List<GraphLine>,
 ): List<ILineDataSet> {
-    return lines.map { line ->
+    // TODO use system colors here
+    val colors = listOf(Color(0xFFFFBDAE), md_theme_light_tertiary)
+
+    return lines.mapIndexed { index, line ->
+        val color = colors[index].toArgb()
         val entries = line.coords.map { coords ->
             Entry(coords.x, coords.y)
         }
 
         val set = LineDataSet(entries, line.label)
-        set.color = Color.Gray.toArgb()
+        set.color = color
         set.lineWidth = line.lineWidth
         set.circleRadius = line.lineWidth / 2
-        set.setCircleColor(Color.Gray.toArgb())
+        set.setCircleColor(color)
         set.setDrawHighlightIndicators(false)
         set.setDrawCircleHole(false)
         set.setDrawValues(false)

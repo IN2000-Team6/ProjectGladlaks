@@ -31,9 +31,7 @@ fun LocalitySheetContent(
                 CircularProgressIndicator(color = Color(0xFF9CDCDA))
             }
         } else {
-            Box(
-                modifier = Modifier.padding(20.dp)
-            ) {
+            Box(modifier = Modifier.padding(20.dp)) {
                 CustomLineChart(height = 300, lines = graphLines)
             }
         }

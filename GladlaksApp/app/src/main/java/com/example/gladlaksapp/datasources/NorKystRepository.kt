@@ -21,7 +21,7 @@ object NorKystRepository {
 
         return@coroutineScope temps.map { line ->
             GraphLine(
-                label = "${line.depth} meter",
+                label = "Dybde ${line.depth}",
                 coords = line.data.mapIndexed { index, point ->
                     GraphCoords(index.toFloat(), point ?: 0f)
                 }
