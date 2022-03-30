@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -30,7 +31,6 @@ fun CustomLineChart(
                 this.data = LineData(createDataSets(lines))
                 this.axisRight.isEnabled = false
                 this.description.isEnabled = false
-                this.setScaleEnabled(false)
                 this.isHovered = false
                 this.xAxis.position = XAxis.XAxisPosition.BOTTOM
                 this.axisLeft.textSize = size
@@ -51,12 +51,12 @@ fun createDataSets(
         }
 
         val set = LineDataSet(entries, line.label)
-        set.color = line.color.toArgb()
+        set.color = Color.Gray.toArgb()
         set.lineWidth = line.lineWidth
-        set.mode = LineDataSet.Mode.CUBIC_BEZIER
+        set.circleRadius = line.lineWidth / 2
+        set.setCircleColor(Color.Gray.toArgb())
         set.setDrawHighlightIndicators(false)
         set.setDrawCircleHole(false)
-        set.setDrawCircles(false)
         set.setDrawValues(false)
         set
     }

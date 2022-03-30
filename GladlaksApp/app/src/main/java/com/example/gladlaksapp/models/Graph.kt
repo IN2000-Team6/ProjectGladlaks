@@ -9,7 +9,7 @@ data class GraphCoords(
 
 data class GraphLine(
     val label: String,
-    val color: Color,
     val coords: List<GraphCoords>,
+    val color: Color? = null,
     val lineWidth: Float = 3f,
 )
