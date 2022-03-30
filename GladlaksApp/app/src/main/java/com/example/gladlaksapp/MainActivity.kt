@@ -21,6 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val localities by model.localities.observeAsState()
             val loadedLocality by model.localityDetail.observeAsState()
+            val localityTemps by model.localityTemps.observeAsState()
 
             AppContainer {
                 BottomNavLayout(
@@ -29,8 +30,9 @@ class MainActivity : ComponentActivity() {
                             localities = localities,
                             loadedLocality = loadedLocality,
                             resetLoadedLocality = { model.resetLoadedLocality() },
-                            loadLocalityDetails = { localityNo ->
-                                model.loadLocalityDetails(localityNo)
+                            localityTemps = localityTemps,
+                            loadLocalityDetails = { loc ->
+                                model.loadLocalityDetails(loc)
                             },
                         )
                       },
