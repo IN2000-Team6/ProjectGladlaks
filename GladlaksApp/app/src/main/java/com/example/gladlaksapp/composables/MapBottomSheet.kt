@@ -8,6 +8,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import kotlinx.coroutines.launch
@@ -16,8 +17,9 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 fun MapBottomSheet(
     localities: List<Locality>?,
+    localityTemps: List<GraphLine>?,
     loadedLocality: LocalityDetailsWrapper?,
-    loadLocalityDetails: (Int) -> Unit,
+    loadLocalityDetails: (Locality) -> Unit,
     resetLoadedLocality: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -61,7 +63,7 @@ fun MapBottomSheet(
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
         if (selectedLocality != null) {
             if (loadedLocality == null || loadedLocality.localityName != selectedLocality!!.name) {
-                loadLocalityDetails(selectedLocality!!.localityNo)
+                loadLocalityDetails(selectedLocality!!)
             }
         }
     }
@@ -94,7 +96,10 @@ fun MapBottomSheet(
                         isCollapsed = sheetState.bottomSheetState.isCollapsed
                     )
                 }
-                LocalitySheetContent(loadedLocality = loadedLocality)
+                LocalitySheetContent(
+                    loadedLocality = loadedLocality,
+                    graphLines = localityTemps
+                )
             }
         },
     )
