@@ -2,6 +2,7 @@ package com.example.gladlaksapp.ui.theme
 
 //import androidx.compose.material.Typography
 import androidx.compose.material3.Typography
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -34,7 +35,6 @@ val Typography = Typography(
         fontFamily = SoraFont,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
-        lineHeight = 20.sp,
         letterSpacing = 0.1.sp,
     ),
     //Tekst i informasjonskort
@@ -44,10 +44,19 @@ val Typography = Typography(
         fontSize = 16.sp,
         letterSpacing = 0.1.sp,
     ),
+    //Overskrifter til favoritter/søk
     titleLarge = TextStyle(
         fontFamily = SoraFont,
         fontWeight = FontWeight.SemiBold,
         fontSize = 32.sp,
         letterSpacing = 0.1.sp
+    ),
+    //Liten skrift, grå tone
+    bodySmall = TextStyle(
+        fontFamily = SoraFont,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        letterSpacing = 0.1.sp,
+        color = lightColorScheme().onBackground
     )
 )
