@@ -97,6 +97,7 @@ fun MapBottomSheet(
                     )
                 }
                 LocalitySheetContent(
+                    selectedLocality = selectedLocality,
                     loadedLocality = loadedLocality,
                     graphLines = localityTemps
                 )

@@ -4,14 +4,27 @@
     <string name="show_more">Show more</string>
 
     <!-- Main navigation items -->
-    <string name="locality">Lokasjoner</string>
+    <string name="locality">Lokaliteter</string>
     <string name="favorites">Favoritter</string>
     <string name="search">Søk</string>
     <string name="settings">Innstillinger</string>
+
+    <!-- Info card values -->
     <string name="ocean_temp">Sjøtemperatur</string>
     <string name="female_lice">Hunnlus</string>
     <string name="mobile_lice">Mobile lus</string>
     <string name="stationary_lice">Fastsittende lus</string>
     <string name="temperature_icon_description">TEMPERATUR IKON</string>
     <string name="lice_icon_description">LUS IKON</string>
+    <string name="ila_pd_icon_description">ILA PD IKON</string>
+    <string name="ila">ILA</string>
+    <string name="pd">PD</string>
+    <string name="proven">Påvist</string>
+    <string name="not_proven">Ikke påvist</string>
+    <string name="no_data">Ikke rapportert</string>
+    <string name="colon">:&#160;</string>
+
+    <!-- Map styling ID-->
+    <string name="map_id">3c0ea453acdddbaf</string>
+    <string name="avg">Gj. snitt per fisk</string>
 </resources>

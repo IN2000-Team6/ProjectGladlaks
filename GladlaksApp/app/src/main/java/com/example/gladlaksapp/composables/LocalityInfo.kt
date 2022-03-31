@@ -10,13 +10,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.gladlaksapp.R
+import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetails
 
 @Composable
-fun LocalityInfo(localityInfo: LocalityDetails) {
-
+fun LocalityInfo(locality: Locality, localityInfo: LocalityDetails) {
+    //TODO: Fikse font
     Column() {
         InfoComponent(
             image = painterResource(R.drawable.ic_temperature_icon),
@@ -31,12 +31,14 @@ fun LocalityInfo(localityInfo: LocalityDetails) {
             imageContentDescription = stringResource(R.string.lice_icon_description),
             infoText = stringResource(R.string.female_lice),
             data = localityInfo.avgAdultFemaleLice,
+            dataDescription = stringResource(R.string.avg)
         )
         InfoComponent(
             image = painterResource(R.drawable.ic_lice_icon),
             imageContentDescription = stringResource(R.string.lice_icon_description),
             infoText = stringResource(R.string.mobile_lice),
             data = localityInfo.avgMobileLice,
+            dataDescription = stringResource(R.string.avg)
         )
 
         InfoComponent(
@@ -44,6 +46,21 @@ fun LocalityInfo(localityInfo: LocalityDetails) {
             imageContentDescription = stringResource(R.string.lice_icon_description),
             infoText = stringResource(R.string.stationary_lice),
             data = localityInfo.avgStationaryLice,
+            dataDescription = stringResource(R.string.avg)
+        )
+
+        InfoComponent(
+            image = painterResource(R.drawable.ic_ila_pd_icon),
+            imageContentDescription = stringResource(R.string.ila_pd_icon_description),
+            infoText = stringResource(R.string.ila),
+            data = locality.hasIla,
+        )
+
+        InfoComponent(
+            image = painterResource(R.drawable.ic_ila_pd_icon),
+            imageContentDescription = stringResource(R.string.ila_pd_icon_description),
+            infoText = stringResource(R.string.pd),
+            data = locality.hasPd,
         )
     }
 }
@@ -53,11 +70,12 @@ fun InfoComponent(
     image: Painter,
     imageContentDescription: String,
     infoText: String,
-    data: Number?,
+    data: Any?,
     textAddition: String = "",
+    dataDescription: String = ""
 ) {
     Box(
-        modifier = Modifier.padding(15.dp)
+        modifier = Modifier.padding(10.dp)
     ) {
         Row() {
             Image(
@@ -66,19 +84,39 @@ fun InfoComponent(
             )
             if (data == null) {
                 Text(
-                    text = "${infoText}: Ikke rapportert",
+                    text = "${infoText}${stringResource(R.string.colon)}${stringResource(R.string.no_data)}",
+                    modifier = Modifier
+                        .padding(horizontal = 15.dp, vertical = 8.dp),
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }else if (data is Boolean && data) {
+                Text(
+                    text = "${infoText}${stringResource(R.string.colon)}${stringResource(R.string.proven)}",
+                    modifier = Modifier
+                        .padding(horizontal = 15.dp, vertical = 8.dp),
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }else if (data is Boolean && !data) {
+                Text(
+                    text = "${infoText}${stringResource(R.string.colon)}${stringResource(R.string.not_proven)}",
                     modifier = Modifier
                         .padding(horizontal = 15.dp, vertical = 8.dp),
                     style = MaterialTheme.typography.labelLarge
                 )
             } else {
                 Text(
-                    text = ("${infoText}: $data$textAddition"),
+                    text = ("${infoText}${stringResource(R.string.colon)}$data$textAddition"),
                     modifier = Modifier
                         .padding(horizontal = 15.dp, vertical = 8.dp),
                     style = MaterialTheme.typography.labelLarge
                 )
-                //TODO: grå tekst med info om tall
+                Text(
+                    text = ("$dataDescription"),
+                    modifier = Modifier
+                        .padding(horizontal = 2.dp, vertical = 8.dp),
+                    //TODO: Styling små bokstaver grå tekst
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
         }
     }
