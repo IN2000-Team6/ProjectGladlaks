@@ -22,11 +22,12 @@ fun LocalitySheetContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = 20.dp)
     ) {
         if (loadedLocality == null || graphLines == null || selectedLocality == null) {
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().padding(20.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -37,7 +38,7 @@ fun LocalitySheetContent(
                 LocalityInfo(selectedLocality, localityInfo = loadedLocality.localityWeek)
             }
             InfoCard {
-                Box(modifier = Modifier.padding(5.dp)) {
+                Box(modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, end = 4.dp)) {
                     CustomLineChart(height = 300, lines = graphLines)
                 }
             }
