@@ -32,7 +32,7 @@ fun WeekDatesSnippet(){
     val sunday = "03.04.22"
 
     Box(
-        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 10.dp)
     ){
         Row(
             modifier = Modifier.fillMaxWidth(),
