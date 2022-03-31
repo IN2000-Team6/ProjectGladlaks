@@ -21,17 +21,33 @@ val SoraFont = FontFamily(
 // Material typography styles
 val Typography = Typography(
     //defaultFontFamily = SoraFont,
+
+    //Lokalitetsnavn
     titleMedium = TextStyle(
         fontFamily = SoraFont,
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
         letterSpacing = 0.1.sp
     ),
+    //Lokalitetsnummer
     labelLarge = TextStyle(
         fontFamily = SoraFont,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.1.sp,
+    ),
+    //Tekst i informasjonskort
+    bodyMedium = TextStyle(
+        fontFamily = SoraFont,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+        letterSpacing = 0.1.sp,
+    ),
+    titleLarge = TextStyle(
+        fontFamily = SoraFont,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 32.sp,
+        letterSpacing = 0.1.sp
     )
 )
