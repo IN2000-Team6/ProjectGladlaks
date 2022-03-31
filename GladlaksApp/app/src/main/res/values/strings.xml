@@ -23,8 +23,8 @@
     <string name="not_proven">Ikke påvist</string>
     <string name="no_data">Ikke rapportert</string>
     <string name="colon">:&#160;</string>
+    <string name="avg">Gj. snitt per fisk</string>
 
     <!-- Map styling ID-->
     <string name="map_id">3c0ea453acdddbaf</string>
-    <string name="avg">Gj. snitt per fisk</string>
 </resources>
