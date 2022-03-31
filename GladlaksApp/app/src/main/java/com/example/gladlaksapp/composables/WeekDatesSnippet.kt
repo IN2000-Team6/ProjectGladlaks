@@ -39,7 +39,7 @@ fun WeekDatesSnippet(){
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-            "UKE: $week",
+            "UKE $week",
                 style = MaterialTheme.typography.titleMedium,
             )
             Text(

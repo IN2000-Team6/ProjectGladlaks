@@ -96,6 +96,7 @@ fun MapBottomSheet(
                         isCollapsed = sheetState.bottomSheetState.isCollapsed
                     )
                 }
+                WeekDatesSnippet()
                 LocalitySheetContent(
                     selectedLocality = selectedLocality,
                     loadedLocality = loadedLocality,
