@@ -7,7 +7,8 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -67,7 +68,7 @@ fun CustomChartLegend(
     lines: List<GraphLine>,
     colors: List<Color>,
 ) {
-    val size = 13
+    val indicatorSize = 13
 
     Row(
         modifier = Modifier.padding(top = 8.dp, end = 6.dp).fillMaxWidth(),
@@ -78,12 +79,13 @@ fun CustomChartLegend(
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(4.dp))
-                    .width(size.dp)
-                    .height(size.dp)
+                    .width(indicatorSize.dp)
+                    .height(indicatorSize.dp)
                     .background(if (index < colors.size) colors[index] else Color.Gray)
             )
             Text(
                 modifier = Modifier.padding(start = 5.dp, end = 10.dp),
+                style = MaterialTheme.typography.bodySmall,
                 text = line.label
             )
         }
