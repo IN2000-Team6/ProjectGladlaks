@@ -40,7 +40,6 @@ fun LocalityInfo(locality: Locality, localityInfo: LocalityDetails) {
             data = localityInfo.avgMobileLice,
             dataDescription = stringResource(R.string.avg)
         )
-
         InfoComponent(
             image = painterResource(R.drawable.ic_lice_icon),
             imageContentDescription = stringResource(R.string.lice_icon_description),
@@ -48,14 +47,12 @@ fun LocalityInfo(locality: Locality, localityInfo: LocalityDetails) {
             data = localityInfo.avgStationaryLice,
             dataDescription = stringResource(R.string.avg)
         )
-
         InfoComponent(
             image = painterResource(R.drawable.ic_ila_pd_icon),
             imageContentDescription = stringResource(R.string.ila_pd_icon_description),
             infoText = stringResource(R.string.ila),
             data = locality.hasIla,
         )
-
         InfoComponent(
             image = painterResource(R.drawable.ic_ila_pd_icon),
             imageContentDescription = stringResource(R.string.ila_pd_icon_description),
@@ -74,10 +71,8 @@ fun InfoComponent(
     textAddition: String = "",
     dataDescription: String = ""
 ) {
-    Box(
-        modifier = Modifier.padding(10.dp)
-    ) {
-        Row() {
+    Box(modifier = Modifier.padding(10.dp)) {
+        Row {
             Image(
                 painter = image,
                 contentDescription = imageContentDescription
@@ -85,40 +80,34 @@ fun InfoComponent(
             if (data == null) {
                 Text(
                     text = "${infoText}${stringResource(R.string.colon)}${stringResource(R.string.no_data)}",
-                    modifier = Modifier
-                        .padding(horizontal = 15.dp, vertical = 8.dp),
+                    modifier = Modifier.padding(horizontal = 15.dp, vertical = 8.dp),
                     style = MaterialTheme.typography.labelLarge
                 )
             }else if (data is Boolean && data) {
                 Text(
                     text = "${infoText}${stringResource(R.string.colon)}${stringResource(R.string.proven)}",
-                    modifier = Modifier
-                        .padding(horizontal = 15.dp, vertical = 8.dp),
+                    modifier = Modifier.padding(horizontal = 15.dp, vertical = 8.dp),
                     style = MaterialTheme.typography.labelLarge
                 )
             }else if (data is Boolean && !data) {
                 Text(
                     text = "${infoText}${stringResource(R.string.colon)}${stringResource(R.string.not_proven)}",
-                    modifier = Modifier
-                        .padding(horizontal = 15.dp, vertical = 8.dp),
+                    modifier = Modifier.padding(horizontal = 15.dp, vertical = 8.dp),
                     style = MaterialTheme.typography.labelLarge
                 )
             } else {
                 Text(
                     text = ("${infoText}${stringResource(R.string.colon)}$data$textAddition"),
-                    modifier = Modifier
-                        .padding(horizontal = 15.dp, vertical = 8.dp),
+                    modifier = Modifier.padding(horizontal = 15.dp, vertical = 8.dp),
                     style = MaterialTheme.typography.labelLarge
                 )
                 Text(
                     text = ("$dataDescription"),
-                    modifier = Modifier
-                        .padding(horizontal = 2.dp, vertical = 8.dp),
+                    modifier = Modifier.padding(horizontal = 2.dp, vertical = 8.dp),
                     //TODO: Styling små bokstaver grå tekst
                     style = MaterialTheme.typography.bodySmall
                 )
             }
         }
     }
-
 }
