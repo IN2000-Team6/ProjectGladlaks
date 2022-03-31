@@ -2,6 +2,7 @@ package com.example.gladlaksapp.ui.theme
 
 //import androidx.compose.material.Typography
 import androidx.compose.material3.Typography
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -21,17 +22,41 @@ val SoraFont = FontFamily(
 // Material typography styles
 val Typography = Typography(
     //defaultFontFamily = SoraFont,
+
+    //Lokalitetsnavn
     titleMedium = TextStyle(
         fontFamily = SoraFont,
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
         letterSpacing = 0.1.sp
     ),
+    //Lokalitetsnummer
     labelLarge = TextStyle(
         fontFamily = SoraFont,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
-        lineHeight = 20.sp,
         letterSpacing = 0.1.sp,
+    ),
+    //Tekst i informasjonskort
+    bodyMedium = TextStyle(
+        fontFamily = SoraFont,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+        letterSpacing = 0.1.sp,
+    ),
+    //Overskrifter til favoritter/søk
+    titleLarge = TextStyle(
+        fontFamily = SoraFont,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 32.sp,
+        letterSpacing = 0.1.sp
+    ),
+    //Liten skrift, grå tone
+    bodySmall = TextStyle(
+        fontFamily = SoraFont,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        letterSpacing = 0.1.sp,
+        color = lightColorScheme().onBackground
     )
 )
