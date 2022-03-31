@@ -1,6 +1,8 @@
 package com.example.gladlaksapp.ui.theme
 
 //import androidx.compose.material.Typography
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.text.TextStyle
@@ -55,8 +57,7 @@ val Typography = Typography(
     bodySmall = TextStyle(
         fontFamily = SoraFont,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
+        fontSize = 10.sp,
         letterSpacing = 0.1.sp,
-        color = lightColorScheme().onBackground
     )
 )

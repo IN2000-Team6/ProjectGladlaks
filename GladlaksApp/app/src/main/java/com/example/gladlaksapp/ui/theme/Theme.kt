@@ -31,7 +31,7 @@ private val LightColorPalette = lightColorScheme(
     onSurface = Color(0xFF294045),
     //surfaceVariant = md_theme_light_surfaceVariant,
     //onSurfaceVariant = md_theme_light_onSurfaceVariant,
-    outline = Color(0xFF70787c)
+    outline = Color(0xFF4B5357)
     //inverseOnSurface = md_theme_light_inverseOnSurface,
     //inverseSurface = md_theme_light_inverseSurface,
     //inversePrimary = md_theme_light_inversePrimary,
@@ -77,7 +77,6 @@ private val DarkColorPalette = darkColorScheme(
     onBackground = Color.Black,
     onSurface = Color.Black,
     */
-
 
 @Composable
 fun GladlaksAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
