@@ -14,22 +14,18 @@ import java.util.*
 @Preview
 @Composable
 fun WeekDatesSnippet(){
-    /*val now = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"))
-    //Get week number
-    val week = now.get(Calendar.WEEK_OF_YEAR)
+    val now = java.util.Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"))
 
+    val (week, mon, sun) = getWeekRange(now)
+
+    //TODO Try ICU calendar methods
     //Get first day of week
-    now.set(Calendar.DAY_OF_WEEK, now.firstDayOfWeek)
-    val monday = SimpleDateFormat("dd").format(now.time)
+    /*now.set(Calendar.DAY_OF_WEEK, now.firstDayOfWeek)
+    val monday = SimpleDateFormat("dd.MM.").format(now.firstDayOfWeek)
 
     //Get last day of week
     now.add(Calendar.DAY_OF_WEEK,6)
     val sunday = SimpleDateFormat("dd.MM.yy").format(now.time)*/
-
-    //TODO Fix hardcoded dates
-    val week = 13
-    val monday = "28"
-    val sunday = "03.04.22"
 
     Box(
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 10.dp)
@@ -43,9 +39,25 @@ fun WeekDatesSnippet(){
                 style = MaterialTheme.typography.titleMedium,
             )
             Text(
-                "$monday.-$sunday",
+                "$mon-$sun",
                 style = MaterialTheme.typography.titleMedium,
             )
         }
     }
+}
+
+fun getWeekRange(calInstance: java.util.Calendar): Triple<Int?, String?, String?> {
+    val week = calInstance.get(java.util.Calendar.WEEK_OF_YEAR)
+
+    calInstance[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
+    val monday = calInstance.time
+
+    calInstance[Calendar.DAY_OF_WEEK] = Calendar.SUNDAY
+    //Week starts on Sunday
+    calInstance[Calendar.WEEK_OF_YEAR] = week+1
+    val sunday = calInstance.time
+
+    val sdf = SimpleDateFormat("dd.MM.yy", Locale.getDefault())
+    //Week numbers are zero-indexed in java
+    return Triple(week-1, sdf.format(monday), sdf.format(sunday))
 }

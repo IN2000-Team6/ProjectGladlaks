@@ -8,8 +8,8 @@ class TestCalendar {
     @Test
     fun testCalendar() {
         val now = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"), )
-        print(now.get(Calendar.WEEK_OF_YEAR))
-        print(now.get(Calendar.WEEK_OF_YEAR))
-        print(now.get(Calendar.YEAR))
+        println(now.get(Calendar.WEEK_OF_YEAR))
+        println(now.get(Calendar.WEEK_OF_YEAR))
+        println(now.get(Calendar.YEAR))
     }
 }
