@@ -1,5 +1,9 @@
 package com.example.gladlaksapp.composables
 
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,7 +23,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import md_theme_light_tertiary
+
 
 @Composable
 fun CustomLineChart(
@@ -90,6 +94,10 @@ fun createDataSets(
     lines: List<GraphLine>,
     colors: List<Color>,
 ): List<ILineDataSet> {
+  
+    // TODO use system colors here
+    val colors = listOf(Color(0xFFFFBDAE), lightColorScheme().tertiary)
+
     return lines.mapIndexed { index, line ->
         val lineWidth = 3f
         val color = if (index < colors.size) colors[index] else Color.Gray
