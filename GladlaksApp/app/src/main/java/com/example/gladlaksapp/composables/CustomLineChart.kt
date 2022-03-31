@@ -33,7 +33,7 @@ fun CustomLineChart(
     textSize: Int = 14,
 ) {
     val size = (textSize.dp).value
-    val colors = listOf(Color(0xFFFFBDAE), md_theme_light_tertiary)
+    val colors = listOf(Color(0xFFFFBDAE), Color(0xFF9c4331))
 
     Column {
         AndroidView(
