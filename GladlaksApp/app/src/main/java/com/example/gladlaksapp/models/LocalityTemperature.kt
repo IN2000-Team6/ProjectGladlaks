@@ -1,8 +1,9 @@
 package com.example.gladlaksapp.models
 
 data class LocalityTemperature(
-    var lat: Double,
-    var lon: Double,
-    var depth: Int,
-    var data: List<Float?>,
+    val lat: Double,
+    val lon: Double,
+    val depth: Int,
+    val depthInMeters: Int,
+    val data: List<Float?>,
 )
