@@ -10,10 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.GraphLine
+import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 
 @Composable
 fun LocalitySheetContent(
+    selectedLocality: Locality?,
     loadedLocality: LocalityDetailsWrapper?,
     graphLines: List<GraphLine>?,
 ) {
@@ -22,7 +24,7 @@ fun LocalitySheetContent(
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
     ) {
-        if (loadedLocality == null || graphLines == null) {
+        if (loadedLocality == null || graphLines == null || selectedLocality == null) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
@@ -31,8 +33,13 @@ fun LocalitySheetContent(
                 CircularProgressIndicator(color = Color(0xFF9CDCDA))
             }
         } else {
-            Box(modifier = Modifier.padding(20.dp)) {
-                CustomLineChart(height = 300, lines = graphLines)
+            InfoCard {
+                LocalityInfo(selectedLocality, localityInfo = loadedLocality.localityWeek)
+            }
+            InfoCard {
+                Box(modifier = Modifier.padding(5.dp)) {
+                    CustomLineChart(height = 300, lines = graphLines)
+                }
             }
         }
     }

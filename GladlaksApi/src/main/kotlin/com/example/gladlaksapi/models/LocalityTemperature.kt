@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.models
+package com.example.gladlaksapi.models
 
 data class LocalityTemperature(
     val lat: Double,
