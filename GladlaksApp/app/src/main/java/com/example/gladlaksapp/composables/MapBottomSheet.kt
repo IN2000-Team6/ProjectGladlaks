@@ -89,7 +89,7 @@ fun MapBottomSheet(
                     isExpanded = sheetState.bottomSheetState.isExpanded,
                     onClick = ::toggleBottomSheet,
                 )
-                Box(modifier = Modifier.padding(bottom = 40.dp)) {
+                Box(modifier = Modifier.padding(bottom = 25.dp)) {
                     LocalitySnippet(
                         locality = selectedLocality,
                         onClick = ::toggleBottomSheet,

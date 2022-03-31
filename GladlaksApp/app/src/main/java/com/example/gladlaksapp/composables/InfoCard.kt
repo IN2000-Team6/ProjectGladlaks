@@ -17,9 +17,9 @@ fun InfoCard(
         modifier = Modifier
             .wrapContentHeight()
             .fillMaxWidth()
-            .padding(10.dp),
+            .padding(vertical = 5.dp, horizontal = 10.dp),
         containerColor = Color.White,
-        ) {
+    ) {
         Box {
             content()
         }

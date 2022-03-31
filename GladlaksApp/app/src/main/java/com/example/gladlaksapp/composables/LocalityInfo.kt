@@ -103,7 +103,9 @@ fun InfoComponent(
                 )
                 Text(
                     text = ("$dataDescription"),
-                    modifier = Modifier.padding(horizontal = 2.dp, vertical = 8.dp),
+                    modifier = Modifier
+                        .padding(vertical = 12.dp)
+                        .offset(x = (-10).dp),
                     //TODO: Styling små bokstaver grå tekst
                     style = MaterialTheme.typography.bodySmall
                 )

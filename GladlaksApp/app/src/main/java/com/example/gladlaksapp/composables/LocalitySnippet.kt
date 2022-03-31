@@ -50,7 +50,7 @@ fun LocalitySnippet(
                 }
                 Button(
                     modifier = Modifier
-                        .padding(end = 16.dp)
+                        .padding(end = 20.dp)
                         .size(width = 150.dp, height = 40.dp),
                     onClick = onClick,
                     shape = RoundedCornerShape(20.dp),
@@ -62,7 +62,7 @@ fun LocalitySnippet(
                     )
                 ) {
                     Text(
-                        modifier = Modifier.padding(bottom = 2.dp),
+                        modifier = Modifier.offset(y = (-1).dp),
                         style = MaterialTheme.typography.labelLarge,
                         text = if (isCollapsed) "Se mer" else "Se mindre",
                     )
