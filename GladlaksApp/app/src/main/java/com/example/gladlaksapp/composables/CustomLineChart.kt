@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
+import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,7 +33,7 @@ fun CustomLineChart(
     textSize: Int = 14,
 ) {
     val size = (textSize.dp).value
-    val colors = listOf(Color(0xFFFFBDAE), md_theme_light_tertiary)
+    val colors = listOf(Color(0xFFFFBDAE), Color(0xFF9c4331))
 
     Column {
         AndroidView(
