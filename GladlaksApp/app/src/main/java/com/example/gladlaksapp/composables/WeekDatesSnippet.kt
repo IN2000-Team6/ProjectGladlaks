@@ -9,23 +9,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.temporal.WeekFields
 import java.util.*
+import java.util.Locale.GERMANY
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun WeekDatesSnippet(){
-    val now = java.util.Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"))
+    //TODO use LocalDate across the board
+    val now = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"))
+    val localdate = LocalDate.now()
 
-    val (week, mon, sun) = getWeekRange(now)
+    //Get week number
+    val week = localdate.get(WeekFields.of(GERMANY).weekOfYear())
 
-    //TODO Try ICU calendar methods
     //Get first day of week
-    /*now.set(Calendar.DAY_OF_WEEK, now.firstDayOfWeek)
-    val monday = SimpleDateFormat("dd.MM.").format(now.firstDayOfWeek)
+    now.set(Calendar.DAY_OF_WEEK, now.firstDayOfWeek)
+    val monday = SimpleDateFormat("dd").format(now.time)
 
     //Get last day of week
     now.add(Calendar.DAY_OF_WEEK,6)
-    val sunday = SimpleDateFormat("dd.MM.yy").format(now.time)*/
+    val sunday = SimpleDateFormat("dd.MM.yy").format(now.time)
+
 
     Box(
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 10.dp)
@@ -39,25 +45,9 @@ fun WeekDatesSnippet(){
                 style = MaterialTheme.typography.titleMedium,
             )
             Text(
-                "$mon-$sun",
+                "$monday.-$sunday",
                 style = MaterialTheme.typography.titleMedium,
             )
         }
     }
-}
-
-fun getWeekRange(calInstance: java.util.Calendar): Triple<Int?, String?, String?> {
-    val week = calInstance.get(java.util.Calendar.WEEK_OF_YEAR)
-
-    calInstance[Calendar.DAY_OF_WEEK] = Calendar.MONDAY
-    val monday = calInstance.time
-
-    calInstance[Calendar.DAY_OF_WEEK] = Calendar.SUNDAY
-    //Week starts on Sunday
-    calInstance[Calendar.WEEK_OF_YEAR] = week+1
-    val sunday = calInstance.time
-
-    val sdf = SimpleDateFormat("dd.MM.yy", Locale.getDefault())
-    //Week numbers are zero-indexed in java
-    return Triple(week-1, sdf.format(monday), sdf.format(sunday))
 }

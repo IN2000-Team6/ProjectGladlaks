@@ -1,7 +1,5 @@
 package com.example.gladlaksapp.viewmodels
 
-import android.util.Log
-import androidx.compose.ui.input.key.Key.Companion.Calendar
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,12 +10,17 @@ import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.Year
+import java.time.temporal.WeekFields
 import java.util.*
 
 class MainViewModel: ViewModel() {
     private val barentsWatchRepo = BarentswatchRepository
     private val norKystRepo = NorKystRepository
-    private val now = java.util.Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"))
+    private val now = LocalDate.now()
+    private val week = now.get(WeekFields.of(Locale.GERMANY).weekOfYear())
+    private val year = now.year
     //TODO Fix the calendar being off 1 week
 
     val localities = MutableLiveData<List<Locality>>()
@@ -37,8 +40,8 @@ class MainViewModel: ViewModel() {
             val details = barentsWatchRepo.getDetailedLocalityInfo(
                 //TODO No hardcoded values!!
                 localityNo = locality.localityNo,
-                year = /*2022,*/now.get(java.util.Calendar.YEAR),
-                week = /*13, */ now.get(java.util.Calendar.WEEK_OF_YEAR)-1,
+                year = year,//now.get(Calendar.YEAR),
+                week = week, // now.get(Calendar.WEEK_OF_YEAR),
             )
             localityDetail.postValue(details)
         }
@@ -48,8 +51,8 @@ class MainViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val data = barentsWatchRepo.getLocalities(
                 //TODO No hardcoded values!!
-                year = /*2022,*/now.get(java.util.Calendar.YEAR),
-                week = /*13, */ now.get(java.util.Calendar.WEEK_OF_YEAR)-1,
+                year = year,//now.get(Calendar.YEAR),
+                week = week,//now.get(Calendar.WEEK_OF_YEAR),
             )
             localities.postValue(data.localities)
         }
