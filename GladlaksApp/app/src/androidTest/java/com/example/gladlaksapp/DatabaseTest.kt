@@ -13,12 +13,11 @@ import com.example.gladlaksapp.models.database.LocalityDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-
 import org.junit.Test
 import org.junit.runner.RunWith
-
 import org.junit.Assert.*
 import org.junit.Before
+
 
 @RunWith(AndroidJUnit4::class)
 class SimpleLocalityTest {
@@ -33,6 +32,10 @@ class SimpleLocalityTest {
         localityDao = db.localityDao()
     }
 
+    @After
+    fun closeDb() {
+        db.close()
+    }
     @Test
     fun writeUserAndReadInList() {
         val locality = Locality(

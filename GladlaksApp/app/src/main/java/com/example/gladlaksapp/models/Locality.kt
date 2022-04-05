@@ -6,6 +6,9 @@ import androidx.room.PrimaryKey
 
 /**
  * Represents each locality with limited information
+ *
+ * Wrapped with [Entity] annotation to make it compatable with [Room] as a table
+ * @PrimaryKey LocalityNo
  */
 @Entity(tableName = "localities")
 data class Locality (
