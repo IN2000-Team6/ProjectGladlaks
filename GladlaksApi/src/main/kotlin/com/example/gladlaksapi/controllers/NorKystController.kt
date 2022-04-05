@@ -22,7 +22,7 @@ class TemperatureController {
         @RequestParam(defaultValue = "1") @Min(0) @Max(NorKystMaxDepth) depth: Int,
     ): LocalityTemperature {
         val now = getDateNowByFormatWithSwitch("yyyyMMdd00", 19)
-        val url = "https://thredds.met.no/thredds/dodsC/fou-hi/norkyst800m-1h/NorKyst-800m_ZDEPTHS_his.fc.${now}.nc"
+        val url = "https://thredds.met.no/thredds/dodsC/fou-hi/norkyst800m-1h/NorKyst-800m_ZDEPTHS_his.an.${now}.nc"
 
         return fetchFromNorKyst(url, lat, lon, depth)
     }
