@@ -9,30 +9,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.WeekFields
 import java.util.*
 import java.util.Locale.GERMANY
 
-// EN kommentar
-
 @Preview(showBackground = true)
 @Composable
 fun WeekDatesSnippet(){
-    //TODO use LocalDate across the board
-    val now = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"))
-    val localdate = LocalDate.now()
+    //Get now
+    val now = LocalDate.now()
 
     //Get week number
-    val week = localdate.get(WeekFields.of(GERMANY).weekOfYear())
+    val week = now.get(WeekFields.of(GERMANY).weekOfYear())
 
     //Get first day of week
-    now.set(Calendar.DAY_OF_WEEK, now.firstDayOfWeek)
-    val monday = SimpleDateFormat("dd").format(now.time)
+    val monday = now.with(DayOfWeek.MONDAY).format(DateTimeFormatter.ofPattern("dd.MM"))
 
     //Get last day of week
-    now.add(Calendar.DAY_OF_WEEK,6)
-    val sunday = SimpleDateFormat("dd.MM.yy").format(now.time)
+    val sunday = now.with(DayOfWeek.SUNDAY).format(DateTimeFormatter.ofPattern("dd.MM.yy"))
 
 
     Box(
