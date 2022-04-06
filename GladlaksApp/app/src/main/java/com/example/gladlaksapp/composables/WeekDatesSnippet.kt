@@ -20,6 +20,7 @@ import java.util.Locale.GERMANY
 @Preview(showBackground = true)
 @Composable
 fun WeekDatesSnippet(){
+    //Get now
     val now = LocalDate.now()
 
     //Get week number
