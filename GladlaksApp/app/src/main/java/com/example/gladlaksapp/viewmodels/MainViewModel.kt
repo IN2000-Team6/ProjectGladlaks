@@ -1,6 +1,5 @@
 package com.example.gladlaksapp.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,13 +10,16 @@ import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.temporal.WeekFields
 import java.util.*
 
 class MainViewModel: ViewModel() {
     private val barentsWatchRepo = BarentswatchRepository
     private val norKystRepo = NorKystRepository
-    private val now = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"))
-    //TODO Fix the calendar being off 1 week
+    private val now = LocalDate.now()
+    private val week = now.get(WeekFields.of(Locale.GERMANY).weekOfYear())
+    private val year = now.year
 
     val localities = MutableLiveData<List<Locality>>()
     val localityDetail = MutableLiveData<LocalityDetailsWrapper>()
@@ -34,10 +36,9 @@ class MainViewModel: ViewModel() {
             localityTemps.postValue(temps)
 
             val details = barentsWatchRepo.getDetailedLocalityInfo(
-                //TODO No hardcoded values!!
                 localityNo = locality.localityNo,
-                year = 2022,//now.get(Calendar.YEAR),
-                week = 13, // now.get(Calendar.WEEK_OF_YEAR),
+                year = year,
+                week = week,
             )
             localityDetail.postValue(details)
         }
@@ -46,9 +47,8 @@ class MainViewModel: ViewModel() {
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val data = barentsWatchRepo.getLocalities(
-                //TODO No hardcoded values!!
-                year = 2022,//now.get(Calendar.YEAR),
-                week = 13,//now.get(Calendar.WEEK_OF_YEAR),
+                year = year,
+                week = week,
             )
             localities.postValue(data.localities)
         }
