@@ -8,6 +8,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat.getDrawable
+import androidx.core.graphics.drawable.toBitmap
 import com.example.gladlaksapp.R
 import com.example.gladlaksapp.models.Locality
 import com.google.android.gms.maps.model.BitmapDescriptor
@@ -96,7 +98,7 @@ fun LocalityMap(
 
 fun createMarkerIcon(context: Context, size: Int): BitmapDescriptor {
     val bitmapIcon = Bitmap.createScaledBitmap(
-        BitmapFactory.decodeResource(context.resources, R.drawable.white_border_turquoise_icon),
+        getDrawable(context, R.drawable.ic_marker_icon)!!.toBitmap(50, 50),
         size,
         size,
         false
