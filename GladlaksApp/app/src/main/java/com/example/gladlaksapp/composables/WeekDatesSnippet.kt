@@ -14,6 +14,8 @@ import java.time.temporal.WeekFields
 import java.util.*
 import java.util.Locale.GERMANY
 
+// EN kommentar
+
 @Preview(showBackground = true)
 @Composable
 fun WeekDatesSnippet(){
