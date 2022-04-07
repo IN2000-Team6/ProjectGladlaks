@@ -18,6 +18,7 @@ import com.example.gladlaksapp.models.LocalityDetails
 fun LocalityInfo(locality: Locality, localityInfo: LocalityDetails) {
     //TODO: Fikse font
     Column() {
+        /*
         InfoComponent(
             image = painterResource(R.drawable.ic_temperature_icon),
             imageContentDescription = stringResource(R.string.temperature_icon_description),
@@ -26,6 +27,7 @@ fun LocalityInfo(locality: Locality, localityInfo: LocalityDetails) {
             //ascii value for degrees symbol
             textAddition = "${176.toChar()}C"
         )
+        */
         InfoComponent(
             image = painterResource(R.drawable.ic_lice_icon),
             imageContentDescription = stringResource(R.string.lice_icon_description),
