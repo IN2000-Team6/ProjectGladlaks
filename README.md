@@ -29,6 +29,10 @@ BARENTSWATCH_SECRET="{your_secret_string_here}"
 
 Press **Ctrl X**, then **Y** and then press **Enter**.
 
+Also add the following to your local.properties file:
+
+MAPS_API_KEY="{your_maps_api_key_here}"
+
 **You are now ready to build and run the app in Android Studio ❤️**
 
 [Link to inspiration](https://richardroseblog.wordpress.com/2016/05/29/hiding-secret-api-keys-from-git/)
