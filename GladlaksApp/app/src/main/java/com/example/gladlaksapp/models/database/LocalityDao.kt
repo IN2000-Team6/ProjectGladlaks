@@ -11,18 +11,18 @@ import kotlinx.coroutines.flow.Flow
 interface LocalityDao {
 
     @Query("SELECT * FROM localities")
-    fun getAll() : List<Locality>
-
-    @Query("SELECT * FROM localities JOIN favorites ON localities.locality_no == favorites.locality_no")
-    fun getFavorites() : List<Locality>
+    fun getAll() : Flow<List<Locality>>
 
     @Query("SELECT * FROM localities WHERE locality_no LIKE :input")
-    suspend fun getByNo(input: Int) : List<Locality>
+    fun getByNo(input: Int) : Flow<List<Locality>>
+
+    @Query("SELECT * FROM localities WHERE name LIKE :input")
+    fun getByName(input: String) : Flow<List<Locality>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertLocality(vararg localities: Locality)
+    fun insertLocality(locality: Locality)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFavorite(vararg favorite: FavoriteLocality)
+    fun insertAll(localities: List<Locality>)
 
 }
