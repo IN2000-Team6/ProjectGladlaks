@@ -2,12 +2,13 @@ package com.example.gladlaksapp.composables
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat.getDrawable
+import androidx.core.graphics.drawable.toBitmap
 import com.example.gladlaksapp.R
 import com.example.gladlaksapp.models.Locality
 import com.google.android.gms.maps.model.BitmapDescriptor
@@ -27,7 +28,7 @@ fun LocalityMap(
     startLng: Double = 8.7,
     startZoom: Float = 5.9f,
 ) {
-    val initMarkerSize = 25f
+    val initMarkerSize = 20f
     var markerSize by remember { mutableStateOf(initMarkerSize)}
 
     val cameraPositionState = rememberCameraPositionState {
@@ -75,12 +76,13 @@ fun LocalityMap(
         onMapClick = { onMapClick() }
     ) {
         if (localities != null) {
-            val icon = createMarkerIcon(LocalContext.current, markerSize.toInt())
+            val iconT = createMarkerIcon_T(LocalContext.current, markerSize.toInt())
+            val iconP = createMarkerIcon_P(LocalContext.current, markerSize.toInt())
 
             for (loc in localities) {
                 if (!loc.isOnLand) {
                     Marker(
-                        icon = icon,
+                        icon = decideMarkerColor(loc, iconT, iconP),
                         position = LatLng(loc.lat, loc.lon),
                         anchor = Offset(0.5f, 0.6f),
                         onClick = {
@@ -94,13 +96,32 @@ fun LocalityMap(
     }
 }
 
-fun createMarkerIcon(context: Context, size: Int): BitmapDescriptor {
+fun createMarkerIcon_T(context: Context, size: Int): BitmapDescriptor {
     val bitmapIcon = Bitmap.createScaledBitmap(
-        BitmapFactory.decodeResource(context.resources, R.drawable.white_border_turquoise_icon),
+        getDrawable(context, R.drawable.ic_white_border_marker_t)!!.toBitmap(50, 50),
         size,
         size,
         false
     )
     return BitmapDescriptorFactory.fromBitmap(bitmapIcon)
 }
+
+fun createMarkerIcon_P(context: Context, size: Int): BitmapDescriptor {
+    val bitmapIcon = Bitmap.createScaledBitmap(
+        getDrawable(context, R.drawable.ic_white_border_marker_p)!!.toBitmap(50, 50),
+        size,
+        size,
+        false
+    )
+    return BitmapDescriptorFactory.fromBitmap(bitmapIcon)
+}
+
+fun decideMarkerColor(loc: Locality, iconT: BitmapDescriptor, iconP: BitmapDescriptor): BitmapDescriptor{
+    return if(loc.hasReportedLice){
+        iconT
+    }else{
+        iconP
+    }
+}
+
 
