@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -46,11 +47,12 @@ class MainViewModel: ViewModel() {
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val data = barentsWatchRepo.getLocalities(
+            val data = barentsWatchRepo.getLocalitiesInWater(
                 year = year,
                 week = week,
             )
-            localities.postValue(data.localities)
+            Log.d("bbbb", data.toString())
+            localities.postValue(data)
         }
     }
 }

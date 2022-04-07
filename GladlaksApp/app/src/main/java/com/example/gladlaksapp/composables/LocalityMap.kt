@@ -11,10 +11,7 @@ import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.graphics.drawable.toBitmap
 import com.example.gladlaksapp.R
 import com.example.gladlaksapp.models.Locality
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.*
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -80,17 +77,15 @@ fun LocalityMap(
             val iconP = createMarkerIcon_P(LocalContext.current, markerSize.toInt())
 
             for (loc in localities) {
-                if (!loc.isOnLand) {
-                    Marker(
-                        icon = decideMarkerColor(loc, iconT, iconP),
-                        position = LatLng(loc.lat, loc.lon),
-                        anchor = Offset(0.5f, 0.6f),
-                        onClick = {
-                            onMarkerClick(loc)
-                            true
-                        },
-                    )
-                }
+                SmartMarker(
+                    loc = loc,
+                    onClick = {
+                        onMarkerClick(loc)
+                        true
+                    },
+                    iconT = iconT,
+                    iconP = iconP
+                )
             }
         }
     }
@@ -116,12 +111,17 @@ fun createMarkerIcon_P(context: Context, size: Int): BitmapDescriptor {
     return BitmapDescriptorFactory.fromBitmap(bitmapIcon)
 }
 
-fun decideMarkerColor(loc: Locality, iconT: BitmapDescriptor, iconP: BitmapDescriptor): BitmapDescriptor{
-    return if(loc.hasReportedLice){
-        iconT
-    }else{
-        iconP
-    }
+@Composable
+fun SmartMarker(loc: Locality, onClick: (Marker) -> Boolean, iconT: BitmapDescriptor, iconP: BitmapDescriptor){
+    Marker(
+        icon = if (loc.hasReportedLice) iconT else iconP,
+        position = LatLng(loc.lat, loc.lon),
+        anchor = Offset(0.5f, 0.6f),
+        onClick = onClick,
+        zIndex = if (loc.hasReportedLice) Float.MAX_VALUE else 0f
+    )
 }
+
+
 
 
