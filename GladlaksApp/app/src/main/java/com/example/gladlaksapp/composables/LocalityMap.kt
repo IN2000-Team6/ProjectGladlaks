@@ -76,32 +76,20 @@ fun LocalityMap(
         onMapClick = { onMapClick() }
     ) {
         if (localities != null) {
-            val t_icon = createMarkerIcon_T(LocalContext.current, markerSize.toInt())
-            val p_icon = createMarkerIcon_P(LocalContext.current, markerSize.toInt())
+            val iconT = createMarkerIcon_T(LocalContext.current, markerSize.toInt())
+            val iconP = createMarkerIcon_P(LocalContext.current, markerSize.toInt())
 
             for (loc in localities) {
                 if (!loc.isOnLand) {
-                    if(loc.hasReportedLice){
-                        Marker(
-                            icon = t_icon,
-                            position = LatLng(loc.lat, loc.lon),
-                            anchor = Offset(0.5f, 0.6f),
-                            onClick = {
-                                onMarkerClick(loc)
-                                true
-                            },
-                        )
-                    }else{
-                        Marker(
-                            icon = p_icon,
-                            position = LatLng(loc.lat, loc.lon),
-                            anchor = Offset(0.5f, 0.6f),
-                            onClick = {
-                                onMarkerClick(loc)
-                                true
-                            },
-                        )
-                    }
+                    Marker(
+                        icon = decideMarkerColor(loc, iconT, iconP),
+                        position = LatLng(loc.lat, loc.lon),
+                        anchor = Offset(0.5f, 0.6f),
+                        onClick = {
+                            onMarkerClick(loc)
+                            true
+                        },
+                    )
                 }
             }
         }
@@ -127,4 +115,13 @@ fun createMarkerIcon_P(context: Context, size: Int): BitmapDescriptor {
     )
     return BitmapDescriptorFactory.fromBitmap(bitmapIcon)
 }
+
+fun decideMarkerColor(loc: Locality, iconT: BitmapDescriptor, iconP: BitmapDescriptor): BitmapDescriptor{
+    return if(loc.hasReportedLice){
+        iconT
+    }else{
+        iconP
+    }
+}
+
 
