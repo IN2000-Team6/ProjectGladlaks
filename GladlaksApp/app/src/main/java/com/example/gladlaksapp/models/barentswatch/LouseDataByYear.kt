@@ -1,14 +1,14 @@
 package com.example.gladlaksapp.models
 
-data class louseDataByYear(
+data class LouseDataByYear(
     val localityNo: Int,
     val year: Int,
     val maxCombinedNumberOfLice: String,
-    val data: List<louseData>
+    val data: List<LouseData>
 
 )
 
-data class louseData(
+data class LouseData(
     val week: Int,
     val avgAdultFemaleLice: Int,
     val avgMobileLice : Int,

@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
 
 @Composable
 fun LocalitySheetContent(
@@ -27,7 +28,9 @@ fun LocalitySheetContent(
     ) {
         if (loadedLocality == null || graphLines == null || selectedLocality == null) {
             Column(
-                modifier = Modifier.fillMaxSize().padding(20.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -36,6 +39,13 @@ fun LocalitySheetContent(
         } else {
             InfoCard {
                 LocalityInfo(selectedLocality, localityInfo = loadedLocality.localityWeek)
+            }
+            InfoCard {
+                val chartEntries = ChartEntryModelProducer()
+                chartEntries.setEntries(
+                    List(size = 2) { getRandomEntries(12) }
+                )
+                GroupedChart(chartEntries)
             }
             InfoCard {
                 Box(modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, end = 4.dp)) {

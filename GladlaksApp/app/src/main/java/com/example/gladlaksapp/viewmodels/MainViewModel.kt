@@ -3,11 +3,13 @@ package com.example.gladlaksapp.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gladlaksapp.composables.getRandomEntries
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.datasources.NorKystRepository
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -24,6 +26,7 @@ class MainViewModel: ViewModel() {
     val localities = MutableLiveData<List<Locality>>()
     val localityDetail = MutableLiveData<LocalityDetailsWrapper>()
     val localityTemps = MutableLiveData<List<GraphLine>>()
+
 
     fun resetLoadedLocality() = localityDetail.postValue(null)
 

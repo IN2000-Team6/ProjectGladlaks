@@ -42,7 +42,8 @@ fun MapBottomSheet(
         peekHeight = selectedPeekHeight
     }
 
-    fun onMapClick() {
+
+    fun onMapOrArrowClick() {
         coroutineScope.launch {
             sheetState.bottomSheetState.collapse()
             peekHeight = initialPeekHeight
@@ -76,7 +77,7 @@ fun MapBottomSheet(
             LocalityMap(
                 localities = localities,
                 onMarkerClick = ::onMarkerClick,
-                onMapClick = ::onMapClick,
+                onMapClick = ::onMapOrArrowClick,
             )
         },
         sheetContent = {
@@ -87,7 +88,7 @@ fun MapBottomSheet(
             ) {
                 ToggleArrowButton(
                     isExpanded = sheetState.bottomSheetState.isExpanded,
-                    onClick = ::toggleBottomSheet,
+                    onClick = ::onMapOrArrowClick,
                 )
                 Box(modifier = Modifier.padding(bottom = 25.dp)) {
                     LocalitySnippet(
@@ -100,7 +101,7 @@ fun MapBottomSheet(
                 LocalitySheetContent(
                     selectedLocality = selectedLocality,
                     loadedLocality = loadedLocality,
-                    graphLines = localityTemps
+                    graphLines = localityTemps,
                 )
             }
         },

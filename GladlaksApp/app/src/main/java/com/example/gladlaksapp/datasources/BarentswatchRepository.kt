@@ -3,6 +3,7 @@ package com.example.gladlaksapp.datasources
 import com.example.gladlaksapp.models.LocalitiesWrapper
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.example.gladlaksapp.models.LouseDataByYear
 
 object BarentswatchRepository {
 
@@ -38,6 +39,15 @@ object BarentswatchRepository {
      */
     suspend fun getDetailedLocalityInfo(localityNo: Int, year: Int, week: Int) : LocalityDetailsWrapper {
         return datasource.getDetailedLocalityInfo(localityNo, year, week)
+    }
+
+    //TODO get a dataset to compare in the graph as generations
+    suspend fun getLouseDataByYear(localityNo: Int, year: Int) : LouseDataByYear {
+        return datasource.getLouseDataByYear(localityNo, year)
+    }
+
+    suspend fun getLouseDataByYears(localityNo: Int, years: List<Int>) : List<List<Float>> {
+        return listOf(listOf(0f))
     }
 }
 
