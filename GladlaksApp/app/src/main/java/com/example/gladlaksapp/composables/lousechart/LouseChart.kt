@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.gladlaksapp.composables.lousechart.marker
 import com.patrykandpatryk.vico.compose.axis.horizontal.bottomAxis
 import com.patrykandpatryk.vico.compose.chart.Chart
 import com.patrykandpatryk.vico.compose.chart.column.columnChart
@@ -108,6 +109,7 @@ fun GroupedChart(
                 ),
             ),
             labelVerticalPosition = ThresholdLine.LabelVerticalPosition.Top,
+            labelHorizontalPosition = ThresholdLine.LabelHorizontalPosition.Start,
             minimumLineThicknessDp = 2f
         )
     )
@@ -146,7 +148,7 @@ fun GroupedChart(
         },
         bottomAxis = bottomAxis(),
         diffAnimationSpec = diffAnimationSpec,
-        //marker = marker()
+        marker = marker()
     )
 }
 
