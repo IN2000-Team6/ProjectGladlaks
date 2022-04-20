@@ -1,9 +1,9 @@
 package com.example.gladlaksapp.datasources
 
-import com.example.gladlaksapp.models.LocalitiesWrapper
-import com.example.gladlaksapp.models.Locality
-import com.example.gladlaksapp.models.LocalityDetailsWrapper
-import com.example.gladlaksapp.models.LouseDataByYear
+import com.example.gladlaksapp.models.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 
 object BarentswatchRepository {
 
@@ -42,12 +42,18 @@ object BarentswatchRepository {
     }
 
     //TODO get a dataset to compare in the graph as generations
-    suspend fun getLouseDataByYear(localityNo: Int, year: Int) : LouseDataByYear {
-        return datasource.getLouseDataByYear(localityNo, year)
-    }
 
-    suspend fun getLouseDataByYears(localityNo: Int, years: List<Int>) : List<List<Float>> {
-        return listOf(listOf(0f))
+    suspend fun getTwoGenerations(
+        localityNo: Int,
+        gen1: Int,
+        gen2: Int
+    ) = coroutineScope {
+        val lousedata = awaitAll(
+            async { datasource.getLouseDataByYear(localityNo, gen1)},
+            async { datasource.getLouseDataByYear(localityNo, gen2)}
+        )
+
+        return@coroutineScope lousedata.map { year -> year.data }
     }
 }
 

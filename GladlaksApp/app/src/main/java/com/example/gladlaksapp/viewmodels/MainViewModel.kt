@@ -6,9 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.gladlaksapp.composables.getRandomEntries
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.datasources.NorKystRepository
-import com.example.gladlaksapp.models.GraphLine
-import com.example.gladlaksapp.models.Locality
-import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.example.gladlaksapp.models.*
 import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,6 +24,7 @@ class MainViewModel: ViewModel() {
     val localities = MutableLiveData<List<Locality>>()
     val localityDetail = MutableLiveData<LocalityDetailsWrapper>()
     val localityTemps = MutableLiveData<List<GraphLine>>()
+    val localityLouseData = MutableLiveData<List<List<LouseData>>>()
 
 
     fun resetLoadedLocality() = localityDetail.postValue(null)
@@ -44,6 +43,13 @@ class MainViewModel: ViewModel() {
                 week = week,
             )
             localityDetail.postValue(details)
+        }
+    }
+
+    fun loadLouseData(localityNo: Int, gen1: Int, gen2: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val allData = barentsWatchRepo.getTwoGenerations(localityNo,gen1,gen2)
+            localityLouseData.postValue(allData)
         }
     }
 

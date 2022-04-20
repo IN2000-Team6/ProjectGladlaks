@@ -146,7 +146,11 @@ fun GroupedChart(
                 1.dp.value
             )
         },
-        bottomAxis = bottomAxis(),
+        bottomAxis = bottomAxis(
+            label = textComponent(
+                textSize = 10.sp
+            )
+        ),
         diffAnimationSpec = diffAnimationSpec,
         marker = marker()
     )
@@ -161,7 +165,7 @@ fun PreviewLouseChart() {
     val simpleTestData = entryModelOf(0.5f,0.3f,0.2f,0.45f)
     val chartEntries = ChartEntryModelProducer()
     chartEntries.setEntries(
-        List(size = GENERATIONS) { getRandomEntries(12) }
+        List(size = GENERATIONS) { getRandomEntries(Random.nextInt(5,12)) }
     )
 
     Column(
