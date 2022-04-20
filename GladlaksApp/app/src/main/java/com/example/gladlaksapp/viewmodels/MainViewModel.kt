@@ -46,11 +46,11 @@ class MainViewModel: ViewModel() {
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val data = barentsWatchRepo.getLocalities(
+            val data = barentsWatchRepo.getLocalitiesInWater(
                 year = year,
                 week = week,
             )
-            localities.postValue(data.localities)
+            localities.postValue(data)
         }
     }
 }
