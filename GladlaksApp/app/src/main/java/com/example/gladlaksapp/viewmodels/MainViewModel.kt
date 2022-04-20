@@ -51,7 +51,6 @@ class MainViewModel: ViewModel() {
                 year = year,
                 week = week,
             )
-            Log.d("bbbb", data.toString())
             localities.postValue(data)
         }
     }
