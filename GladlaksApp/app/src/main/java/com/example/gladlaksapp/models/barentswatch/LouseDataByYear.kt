@@ -10,8 +10,8 @@ data class LouseDataByYear(
 
 data class LouseData(
     val week: Int,
-    val avgAdultFemaleLice: Int,
-    val avgMobileLice : Int,
-    val avgStationaryLice : Int,
+    val avgAdultFemaleLice: Float,
+    val avgMobileLice : Float,
+    val avgStationaryLice : Float,
     val hasReportedLice : Boolean
 )
