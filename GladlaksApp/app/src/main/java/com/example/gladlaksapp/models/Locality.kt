@@ -1,10 +1,18 @@
 package com.example.gladlaksapp.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 /**
  * Represents each locality with limited information
+ *
+ * Wrapped with [Entity] annotation to make it compatable with [Room] as a table
+ * @PrimaryKey LocalityNo
  */
+@Entity(tableName = "localities")
 data class Locality (
-    val localityNo: Int,
+    @PrimaryKey @ColumnInfo(name="locality_no") val localityNo: Int,
     val name: String,
     val lat: Double,
     val lon: Double,
