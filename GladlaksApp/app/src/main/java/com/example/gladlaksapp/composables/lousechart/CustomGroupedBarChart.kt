@@ -45,7 +45,7 @@ fun customGroupedBarChart(
 fun createDataSets(
     lousedata: List<List<LouseData>>,
     colors: List<Color>
-): List<BarDataSet> {
+): List<BarDataSet>? {
 
     val colors = listOf(Color(0xFFFFBDAE), lightColorScheme().tertiary)
 
@@ -54,6 +54,5 @@ fun createDataSets(
             BarEntry(index.toFloat(),week.avgAdultFemaleLice)
         }
     }
-
-    val set
+    return null
 }

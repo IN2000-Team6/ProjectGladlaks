@@ -22,7 +22,6 @@ class MainActivity : ComponentActivity() {
             val localities by model.localities.observeAsState()
             val loadedLocality by model.localityDetail.observeAsState()
             val localityTemps by model.localityTemps.observeAsState()
-            val localityLouseData by model.localityLouseData.observeAsState()
 
             AppContainer {
                 BottomNavLayout(

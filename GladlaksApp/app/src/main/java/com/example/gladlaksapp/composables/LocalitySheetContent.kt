@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.composables
 
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -9,18 +10,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.models.LouseData
+import com.example.gladlaksapp.viewmodels.MainViewModel
 import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
+
 
 @Composable
 fun LocalitySheetContent(
     selectedLocality: Locality?,
     loadedLocality: LocalityDetailsWrapper?,
     graphLines: List<GraphLine>?,
-    louseData: List<List<LouseData>>?,
+    model: MainViewModel = viewModel(),
+
 ) {
     Column(
         modifier = Modifier
@@ -43,7 +49,7 @@ fun LocalitySheetContent(
                 LocalityInfo(selectedLocality, localityInfo = loadedLocality.localityWeek)
             }
             InfoCard {
-
+                GroupedChart(chartEntryModelProducer = model.groupedChartProducer)
             }
             InfoCard {
                 Box(modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, end = 4.dp)) {

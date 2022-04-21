@@ -1,6 +1,7 @@
 package com.example.gladlaksapp.datasources
 
 import com.example.gladlaksapp.models.*
+import com.patrykandpatryk.vico.core.entry.FloatEntry
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -53,7 +54,11 @@ object BarentswatchRepository {
             async { datasource.getLouseDataByYear(localityNo, gen2)}
         )
 
-        return@coroutineScope lousedata.map { year -> year.data }
+        return@coroutineScope lousedata.map { year ->
+            year.data.mapIndexed {
+                x,y -> FloatEntry((x+1).toFloat(),y.avgAdultFemaleLice)
+            }
+        }
     }
 }
 

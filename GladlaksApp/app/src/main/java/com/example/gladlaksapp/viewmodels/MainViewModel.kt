@@ -7,12 +7,15 @@ import com.example.gladlaksapp.composables.getRandomEntries
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.datasources.NorKystRepository
 import com.example.gladlaksapp.models.*
+import com.patrykandpatryk.vico.core.entry.ChartEntry
 import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
+import com.patrykandpatryk.vico.core.entry.FloatEntry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.WeekFields
 import java.util.*
+import kotlin.random.Random
 
 class MainViewModel: ViewModel() {
     private val barentsWatchRepo = BarentswatchRepository
@@ -24,8 +27,7 @@ class MainViewModel: ViewModel() {
     val localities = MutableLiveData<List<Locality>>()
     val localityDetail = MutableLiveData<LocalityDetailsWrapper>()
     val localityTemps = MutableLiveData<List<GraphLine>>()
-    val localityLouseData = MutableLiveData<List<List<LouseData>>>()
-
+    val groupedChartProducer= ChartEntryModelProducer()
 
     fun resetLoadedLocality() = localityDetail.postValue(null)
 
@@ -46,12 +48,22 @@ class MainViewModel: ViewModel() {
         }
     }
 
+    fun getRandomEntries(n: Int) = List(size = n) {
+        0.6f * Random.nextFloat()
+    }.mapIndexed { x,y ->
+        FloatEntry(
+            x = x.toFloat(),
+            y = y
+        )
+    }
+
     fun loadLouseData(localityNo: Int, gen1: Int, gen2: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val allData = barentsWatchRepo.getTwoGenerations(localityNo,gen1,gen2)
-            localityLouseData.postValue(allData)
+            groupedChartProducer.setEntries(allData)
         }
     }
+
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -60,6 +72,11 @@ class MainViewModel: ViewModel() {
                 week = week,
             )
             localities.postValue(data.localities)
+
+            //TODO get data when loading locality
+            groupedChartProducer.setEntries(
+                List(size = 2) { getRandomEntries(Random.nextInt(52)) }
+            )
         }
     }
 }

@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
+import com.patrykandpatryk.vico.core.entry.ChartModelProducer
 import kotlinx.coroutines.launch
 
 @Composable

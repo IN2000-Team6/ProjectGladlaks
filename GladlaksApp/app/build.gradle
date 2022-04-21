@@ -84,6 +84,7 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.5.0-alpha03"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
     "androidx.lifecycle:lifecycle-viewmodel.ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
     "androidx.lifecycle:lifecycle-livedata.ktx:$lifecycle_version"
 
     // ------------- Google maps ------------- //
