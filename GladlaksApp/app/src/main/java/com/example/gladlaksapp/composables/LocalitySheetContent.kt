@@ -25,9 +25,12 @@ fun LocalitySheetContent(
             .verticalScroll(rememberScrollState())
             .padding(bottom = 20.dp)
     ) {
+        WeekDatesSnippet()
         if (loadedLocality == null || graphLines == null || selectedLocality == null) {
             Column(
-                modifier = Modifier.fillMaxSize().padding(20.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {

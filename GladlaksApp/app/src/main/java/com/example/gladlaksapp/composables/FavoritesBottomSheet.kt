@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.composables
 
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
-fun MapBottomSheet(
+fun FavoritesBottomSheet(
     localities: List<Locality>?,
     localityTemps: List<GraphLine>?,
     loadedLocality: LocalityDetailsWrapper?,
@@ -24,8 +25,8 @@ fun MapBottomSheet(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
-    val selectedPeekHeight = 95
-    
+    val selectedPeekHeight = 0
+
     // Local state
     var selectedLocality by rememberSaveable { mutableStateOf<Locality?>(null) }
     var peekHeight by rememberSaveable { mutableStateOf(initialPeekHeight) }
@@ -48,7 +49,15 @@ fun MapBottomSheet(
             peekHeight = initialPeekHeight
         }
     }
-
+    // må hente selected locality når se mer trykkes???
+    fun onButtonClick(locality: Locality) {
+        if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
+            resetLoadedLocality()
+        }
+        selectedLocality = locality
+        peekHeight = selectedPeekHeight
+    }
+    // her og?
     fun toggleBottomSheet() {
         coroutineScope.launch {
             if (sheetState.bottomSheetState.isCollapsed) {
@@ -73,11 +82,16 @@ fun MapBottomSheet(
         sheetPeekHeight = peekHeight.dp,
         scaffoldState = sheetState,
         content = {
-            LocalityMap(
-                localities = localities,
-                onMarkerClick = ::onMarkerClick,
-                onMapClick = ::onMapClick,
-            )
+            if (localities != null){
+                Favorites(
+                    localities
+                )
+            }else{
+                Favorites(
+                    favoritesList = emptyList()
+                )
+            }
+
         },
         sheetContent = {
             Column(

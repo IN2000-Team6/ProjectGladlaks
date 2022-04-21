@@ -6,11 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import com.example.gladlaksapp.composables.*
+import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.viewmodels.MainViewModel
-import com.example.gladlaksapp.composables.AppContainer
-import com.example.gladlaksapp.composables.BottomNavLayout
-import com.example.gladlaksapp.composables.MainNavigation
-import com.example.gladlaksapp.composables.MapBottomSheet
 
 class MainActivity : ComponentActivity() {
     private val model: MainViewModel by viewModels()
@@ -26,8 +24,8 @@ class MainActivity : ComponentActivity() {
             AppContainer {
                 BottomNavLayout(
                     content = {
-                        MapBottomSheet(
-                            localities = localities,
+                        FavoritesBottomSheet(
+                            localities = testLocalities,
                             loadedLocality = loadedLocality,
                             resetLoadedLocality = { model.resetLoadedLocality() },
                             localityTemps = localityTemps,
@@ -43,8 +41,18 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 )
-
             }
         }
     }
 }
+
+// DUMMY DATA
+val testLocalities = arrayListOf(
+    Locality(localityNo = 1, name="a", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false),
+    Locality(localityNo = 2, name="b", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false),
+    Locality(localityNo = 3, name="c", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = true),
+    Locality(localityNo = 4, name="d", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false),
+    Locality(localityNo = 5, name="e", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = true),
+    Locality(localityNo = 6, name="f", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false),
+)
+
