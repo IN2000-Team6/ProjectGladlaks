@@ -82,11 +82,11 @@ fun FavoritesBottomSheet(
         sheetPeekHeight = peekHeight.dp,
         scaffoldState = sheetState,
         content = {
-            if (localities != null){
+            if (localities != null) {
                 Favorites(
                     localities
                 )
-            }else{
+            } else {
                 Favorites(
                     favoritesList = emptyList()
                 )
