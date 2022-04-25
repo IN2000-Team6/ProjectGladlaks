@@ -26,6 +26,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.gladlaksapp.composables.BottomNavScreenContainer
+import com.example.gladlaksapp.composables.screens.FavoritesScreen
 import com.example.gladlaksapp.composables.screens.MapScreen
 import com.example.gladlaksapp.composables.screens.Screen
 import com.example.gladlaksapp.composables.screens.SplashScreen
@@ -48,7 +49,7 @@ class MainActivity : ComponentActivity() {
                         BottomNavScreenContainer(navController = navController) { MapScreen() }
                     }
                     composable(Screen.Favorites.route) {
-                        BottomNavScreenContainer(navController = navController) { Text("Favoritter side") }
+                        BottomNavScreenContainer(navController = navController) { FavoritesScreen() }
                     }
                     composable(Screen.Search.route) {
                         BottomNavScreenContainer(navController = navController) { Text("Søk side") }
