@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -27,8 +26,8 @@ fun MapBottomSheet(
     val selectedPeekHeight = 95
     
     // Local state
-    var selectedLocality by rememberSaveable { mutableStateOf<Locality?>(null) }
-    var peekHeight by rememberSaveable { mutableStateOf(initialPeekHeight) }
+    var selectedLocality by remember { mutableStateOf<Locality?>(null) }
+    var peekHeight by remember { mutableStateOf(initialPeekHeight) }
     val sheetState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
     )
