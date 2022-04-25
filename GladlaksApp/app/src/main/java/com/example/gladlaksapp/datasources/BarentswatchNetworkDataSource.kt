@@ -1,7 +1,7 @@
 package com.example.gladlaksapp.datasources
 
 import com.example.gladlaksapp.BuildConfig
-import com.example.gladlaksapp.models.barentswatch.BarentsWatchToken
+import com.example.gladlaksapp.models.BarentsWatchToken
 import com.example.gladlaksapp.models.LocalitiesWrapper
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.models.LouseDataByYear
