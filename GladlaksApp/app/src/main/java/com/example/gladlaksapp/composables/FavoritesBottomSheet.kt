@@ -28,41 +28,32 @@ fun FavoritesBottomSheet(
     val selectedPeekHeight = 0
 
     // Local state
-    var selectedLocality by rememberSaveable { mutableStateOf<Locality?>(null) }
-    var peekHeight by rememberSaveable { mutableStateOf(initialPeekHeight) }
+    var selectedLocality by remember { mutableStateOf<Locality?>(null) }
+    var peekHeight by remember { mutableStateOf(initialPeekHeight) }
     val sheetState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
     )
 
     // Event handlers
-    fun onMarkerClick(locality: Locality) {
-        if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
-            resetLoadedLocality()
-        }
-        selectedLocality = locality
-        peekHeight = selectedPeekHeight
-    }
-
-    fun onMapClick() {
-        coroutineScope.launch {
-            sheetState.bottomSheetState.collapse()
-            peekHeight = initialPeekHeight
-        }
-    }
     // må hente selected locality når se mer trykkes???
     fun onButtonClick(locality: Locality) {
-        if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
-            resetLoadedLocality()
+        coroutineScope.launch {
+            if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
+                resetLoadedLocality()
+            }
+            selectedLocality = locality
+            sheetState.bottomSheetState.expand()
         }
-        selectedLocality = locality
-        peekHeight = selectedPeekHeight
+
     }
     // her og?
     fun toggleBottomSheet() {
         coroutineScope.launch {
+            //sheetState.bottomSheetState.expand()
             if (sheetState.bottomSheetState.isCollapsed) {
                 sheetState.bottomSheetState.expand()
             } else {
+                peekHeight = selectedPeekHeight
                 sheetState.bottomSheetState.collapse()
             }
         }
@@ -83,12 +74,15 @@ fun FavoritesBottomSheet(
         scaffoldState = sheetState,
         content = {
             if (localities != null) {
-                Favorites(
-                    localities
+                FavoritesColumn(
+                    favoritesList = localities,
+                    onClick = ::toggleBottomSheet,
+                    onButtonClick = ::onButtonClick,
+                    isCollapsed = sheetState.bottomSheetState.isCollapsed
                 )
             } else {
-                Favorites(
-                    favoritesList = emptyList()
+                Text(
+                    "HEIHEI LEGG TIL FAV A!"
                 )
             }
 
@@ -107,7 +101,7 @@ fun FavoritesBottomSheet(
                     LocalitySnippet(
                         locality = selectedLocality,
                         onClick = ::toggleBottomSheet,
-                        isCollapsed = sheetState.bottomSheetState.isCollapsed
+                        isCollapsed = sheetState.bottomSheetState.isCollapsed,
                     )
                 }
                 LocalitySheetContent(

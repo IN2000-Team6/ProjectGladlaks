@@ -16,8 +16,11 @@ import com.example.gladlaksapp.R
 import com.example.gladlaksapp.models.Locality
 
 @Composable
-fun Favorites(
-    favoritesList: List<Locality>
+fun FavoritesColumn(
+    favoritesList: List<Locality>,
+    onClick: () -> Unit,
+    onButtonClick: (Locality) -> Unit,
+    isCollapsed: Boolean
 ) {
     Box(
         modifier = Modifier
@@ -47,6 +50,15 @@ fun Favorites(
             textAlign = TextAlign.Center
         )
     }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 30.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        WeekDatesSnippet()
+    }
+
     //Lazy column?
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
@@ -57,14 +69,20 @@ fun Favorites(
             ) {
                 InfoCard {
                     SnippetWrapper {
-                        LocalitySnippet(locality = loc, isCollapsed = true) {
-                        }
+                        FavoriteLocalitySnippet(
+                            locality = loc,
+                            isCollapsed = isCollapsed,
+                            onClick = {
+                                onButtonClick(loc)
+                                true
+                            }
+                        )
+                    }
                     }
                 }
             }
         }
     }
-}
 
 @Composable
 fun SnippetWrapper(
