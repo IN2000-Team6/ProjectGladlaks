@@ -24,7 +24,13 @@ class MainActivity : ComponentActivity() {
             AppContainer {
                 BottomNavLayout(
                     content = {
-                        
+                        FavoritesBottomSheet(
+                            localities = testLocalities,
+                            loadedLocality = loadedLocality,
+                            resetLoadedLocality = { model.resetLoadedLocality() },
+                            localityTemps = localityTemps,
+                            loadLocalityDetails = { loc ->
+                                model.loadLocalityDetails(loc)
                             },
                         )
                       },
@@ -39,7 +45,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-/*
+
 // DUMMY DATA
 val testLocalities = arrayListOf(
     Locality(localityNo = 1, name="a", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false),
@@ -51,12 +57,3 @@ val testLocalities = arrayListOf(
     Locality(localityNo = 7, name="g", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = true),
     Locality(localityNo = 8, name="h", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false),
 )
-
-FavoritesBottomSheet(
-localities = testLocalities,
-loadedLocality = loadedLocality,
-resetLoadedLocality = { model.resetLoadedLocality() },
-localityTemps = localityTemps,
-loadLocalityDetails = { loc ->
-    model.loadLocalityDetails(loc)
-*/
