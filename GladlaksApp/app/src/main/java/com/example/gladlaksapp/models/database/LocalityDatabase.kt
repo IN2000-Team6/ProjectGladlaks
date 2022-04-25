@@ -12,7 +12,6 @@ abstract class LocalityDatabase : RoomDatabase() {
     abstract fun favoriteDao(): FavoriteDao
 
     companion object {
-
         @Volatile private var INSTANCE: LocalityDatabase? = null
 
         fun getDatabase(context: Context) : LocalityDatabase{

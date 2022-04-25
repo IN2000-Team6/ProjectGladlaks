@@ -1,9 +1,11 @@
 package com.example.gladlaksapp.composables
 
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -14,7 +16,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
-fun MapBottomSheet(
+fun FavoritesBottomSheet(
     localities: List<Locality>?,
     localityTemps: List<GraphLine>?,
     loadedLocality: LocalityDetailsWrapper?,
@@ -23,8 +25,8 @@ fun MapBottomSheet(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
-    val selectedPeekHeight = 95
-    
+    val selectedPeekHeight = 0
+
     // Local state
     var selectedLocality by remember { mutableStateOf<Locality?>(null) }
     var peekHeight by remember { mutableStateOf(initialPeekHeight) }
@@ -33,26 +35,25 @@ fun MapBottomSheet(
     )
 
     // Event handlers
-    fun onMarkerClick(locality: Locality) {
-        if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
-            resetLoadedLocality()
-        }
-        selectedLocality = locality
-        peekHeight = selectedPeekHeight
-    }
-
-    fun onMapClick() {
+    // må hente selected locality når se mer trykkes???
+    fun onButtonClick(locality: Locality) {
         coroutineScope.launch {
-            sheetState.bottomSheetState.collapse()
-            peekHeight = initialPeekHeight
+            if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
+                resetLoadedLocality()
+            }
+            selectedLocality = locality
+            sheetState.bottomSheetState.expand()
         }
-    }
 
+    }
+    // her og?
     fun toggleBottomSheet() {
         coroutineScope.launch {
+            //sheetState.bottomSheetState.expand()
             if (sheetState.bottomSheetState.isCollapsed) {
                 sheetState.bottomSheetState.expand()
             } else {
+                peekHeight = selectedPeekHeight
                 sheetState.bottomSheetState.collapse()
             }
         }
@@ -72,11 +73,19 @@ fun MapBottomSheet(
         sheetPeekHeight = peekHeight.dp,
         scaffoldState = sheetState,
         content = {
-            LocalityMap(
-                localities = localities,
-                onMarkerClick = ::onMarkerClick,
-                onMapClick = ::onMapClick,
-            )
+            if (localities != null) {
+                FavoritesColumn(
+                    favoritesList = localities,
+                    onClick = ::toggleBottomSheet,
+                    onButtonClick = ::onButtonClick,
+                    isCollapsed = sheetState.bottomSheetState.isCollapsed
+                )
+            } else {
+                Text(
+                    "HEIHEI LEGG TIL FAV A!"
+                )
+            }
+
         },
         sheetContent = {
             Column(
@@ -92,7 +101,7 @@ fun MapBottomSheet(
                     LocalitySnippet(
                         locality = selectedLocality,
                         onClick = ::toggleBottomSheet,
-                        isCollapsed = sheetState.bottomSheetState.isCollapsed
+                        isCollapsed = sheetState.bottomSheetState.isCollapsed,
                     )
                 }
                 LocalitySheetContent(

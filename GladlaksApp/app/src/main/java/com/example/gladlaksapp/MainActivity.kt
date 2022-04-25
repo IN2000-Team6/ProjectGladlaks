@@ -36,6 +36,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppContainer {
+
                 val navController = rememberNavController()
 
                 //TODO: fjerne splashscreen fra stacken saa den kun kalles én gang
@@ -57,3 +58,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
