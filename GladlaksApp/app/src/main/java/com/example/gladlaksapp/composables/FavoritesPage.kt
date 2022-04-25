@@ -2,6 +2,8 @@ package com.example.gladlaksapp.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -46,7 +48,9 @@ fun Favorites(
         )
     }
     //Lazy column?
-    Column() {
+    Column(
+        modifier = Modifier.verticalScroll(rememberScrollState())
+    ) {
         for (loc in favoritesList){
             Box(
                 modifier = Modifier.padding(vertical = 2.dp)
