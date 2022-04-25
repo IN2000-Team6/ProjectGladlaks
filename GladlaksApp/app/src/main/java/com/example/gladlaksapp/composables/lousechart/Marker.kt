@@ -23,6 +23,10 @@ import com.patrykandpatryk.vico.core.dimensions.MutableDimensions
 import com.patrykandpatryk.vico.core.extension.copyColor
 import com.patrykandpatryk.vico.core.marker.Marker
 
+
+/**
+ * Returns a Marker-instance for the graph
+ */
 @Composable
 fun marker(): Marker = with(MaterialTheme.colorScheme) {
     getMarker(
@@ -33,6 +37,10 @@ fun marker(): Marker = with(MaterialTheme.colorScheme) {
     )
 }
 
+
+/**
+ * Creates and returns a Marker-instance
+ */
 
 fun getMarker(
     @ColorInt label: Int,
@@ -86,7 +94,7 @@ fun getMarker(
                 indicatorOuter.color = entryColor.copyColor(alpha=32)
                 with(indicatorCenter) {
                     color = entryColor
-                    setShadow(radius = 12f, color = entryColor)
+                    //setShadow(radius = 12f, color = entryColor)
                 }
             }
         }

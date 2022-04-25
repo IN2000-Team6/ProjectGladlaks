@@ -6,7 +6,9 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -35,6 +37,10 @@ import com.patrykandpatryk.vico.core.entry.FloatEntry
 import com.patrykandpatryk.vico.core.entry.entryModelOf
 import kotlin.random.Random
 
+/**
+ * Returns a list of floatentries - used for testing only
+ * ! USED FOR TESTING ONLY !
+ */
 fun getRandomEntries(n: Int) = List(size = n) {
     0.6f * Random.nextFloat()
 }.mapIndexed { x,y ->
@@ -44,18 +50,19 @@ fun getRandomEntries(n: Int) = List(size = n) {
     )
 }
 
+
 @Composable
 fun GroupedChart(
     chartEntryModelProducer: ChartEntryModelProducer,
     diffAnimationSpec: AnimationSpec<Float> = defaultDiffAnimationSpec
 ) {
-    val thresholdColor = MaterialTheme.colorScheme.error.copy(alpha = .3f)
+    val thresholdColor = MaterialTheme.colorScheme.error
     val decorations = listOf(
         ThresholdLine(
             thresholdValue = 0.5f,
             lineComponent = ShapeComponent(
                 color = thresholdColor
-                    .copy(alpha=0.3f)
+                    .copy(alpha=0.4f)
                     .toArgb()
             ),
             labelComponent = textComponent(
@@ -64,8 +71,8 @@ fun GroupedChart(
                 padding = dimensionsOf(horizontal = 14.dp),
                 background = ShapeComponent(
                     shape = Shapes.roundedCornerShape(allPercent = 25),
-                    strokeColor = thresholdColor.copy(alpha=.5f).toArgb(),
-                    color = MaterialTheme.colorScheme.background.copy(alpha=.5f).toArgb(),
+                    strokeColor = thresholdColor.copy(alpha=.4f).toArgb(),
+                    color = MaterialTheme.colorScheme.background.toArgb(),
                     strokeWidthDp = 1f
                 ),
             ),
@@ -82,51 +89,69 @@ fun GroupedChart(
         decorations = decorations,
         columns = listOf(
             lineComponent(
-                shape = Shapes.cutCornerShape(topLeftPercent = 50),
+                shape = Shapes.cutCornerShape(topLeftPercent = 0),
                 color = MaterialTheme.colorScheme.secondary,
                 thickness = 8.dp
             ),
             lineComponent(
-                shape = Shapes.cutCornerShape(topLeftPercent = 50),
+                shape = Shapes.cutCornerShape(topLeftPercent = 0),
                 color = MaterialTheme.colorScheme.primary,
                 thickness = 8.dp
             )
         )
     )
+    Column(modifier = Modifier
+        .fillMaxHeight(),
+        //verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        //TODO The way this component is handled is not very good. Should separate a lot of these things
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
 
-    Chart(
-        chart = chart,
-        chartModelProducer = chartEntryModelProducer,
-        startAxis = createVerticalAxis {
-            label = textComponent(
-                color = Color(0xFF01809C),
-                textSize = 10.sp,
-                background = shapeComponent(
-                    shape = CutCornerShape(
-                        CornerSize(percent=25),
-                        CornerSize(percent=50),
-                        CornerSize(percent=50),
-                        CornerSize(percent=25),
+        ) {
+            Text(
+                text = "Utvikling av hunnlus",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+        Chart(
+            chart = chart,
+            chartModelProducer = chartEntryModelProducer,
+            startAxis = createVerticalAxis {
+                label = textComponent(
+                    color = Color(0xFF01809C),
+                    textSize = 12.sp,
+                    background = shapeComponent(
+                        shape = CutCornerShape(
+                            CornerSize(percent=25),
+                            CornerSize(percent=50),
+                            CornerSize(percent=50),
+                            CornerSize(percent=25),
+                        ),
+                        color = Color(0xFF01809C).copy(alpha = 0.1f)
                     ),
-                    color = Color(0xFF01809C).copy(alpha = 0.1f)
+                    padding = dimensionsOf(end = 8.dp, start = 4.dp)
+                )
+                axis = null
+                tick = null
+                guideline = LineComponent(
+                    Color(0xFF01809C).copy(alpha = 0.1f).toArgb(),
+                    1.dp.value
+                )
+            },
+            bottomAxis = bottomAxis(
+                label = textComponent(
+                    textSize = 12.sp
                 ),
-                padding = dimensionsOf(end = 8.dp, start = 4.dp)
-            )
-            axis = null
-            tick = null
-            guideline = LineComponent(
-                Color(0xFF01809C).copy(alpha = 0.1f).toArgb(),
-                1.dp.value
-            )
-        },
-        bottomAxis = bottomAxis(
-            label = textComponent(
-                textSize = 10.sp
             ),
-        ),
-        diffAnimationSpec = diffAnimationSpec,
-        marker = marker()
-    )
+            diffAnimationSpec = diffAnimationSpec,
+            marker = marker(),
+            modifier = Modifier.fillMaxHeight()
+        )
+    }
+
 }
 
 

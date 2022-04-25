@@ -27,7 +27,7 @@ class MainViewModel: ViewModel() {
     val localities = MutableLiveData<List<Locality>>()
     val localityDetail = MutableLiveData<LocalityDetailsWrapper>()
     val localityTemps = MutableLiveData<List<GraphLine>>()
-    val groupedChartProducer= ChartEntryModelProducer()
+    val groupedChartProducer= ChartEntryModelProducer() // Louse chart data goes here - similar to LiveData
 
     fun resetLoadedLocality() = localityDetail.postValue(null)
 
@@ -45,18 +45,18 @@ class MainViewModel: ViewModel() {
                 week = week,
             )
             localityDetail.postValue(details)
+
+            // Fetch generation data
+            loadLouseData(locality.localityNo, 2020,year)
         }
     }
 
-    fun getRandomEntries(n: Int) = List(size = n) {
-        0.6f * Random.nextFloat()
-    }.mapIndexed { x,y ->
-        FloatEntry(
-            x = x.toFloat(),
-            y = y
-        )
-    }
-
+    /**
+     * Returns a list of lists containing [FloatEntry]
+     * @param localityNo localityNo as given by BarentsWatch
+     * @param gen1 the first year to compare
+     * @param gen2 the second year to compare
+     */
     fun loadLouseData(localityNo: Int, gen1: Int, gen2: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val allData = barentsWatchRepo.getTwoGenerations(localityNo,gen1,gen2)
@@ -72,11 +72,6 @@ class MainViewModel: ViewModel() {
                 week = week,
             )
             localities.postValue(data.localities)
-
-            //TODO get data when loading locality
-            groupedChartProducer.setEntries(
-                List(size = 2) { getRandomEntries(Random.nextInt(52)) }
-            )
         }
     }
 }

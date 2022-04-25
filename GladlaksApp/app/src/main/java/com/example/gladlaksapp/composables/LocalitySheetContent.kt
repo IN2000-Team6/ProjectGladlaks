@@ -26,7 +26,6 @@ fun LocalitySheetContent(
     loadedLocality: LocalityDetailsWrapper?,
     graphLines: List<GraphLine>?,
     model: MainViewModel = viewModel(),
-
 ) {
     Column(
         modifier = Modifier
