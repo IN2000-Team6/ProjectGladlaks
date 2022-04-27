@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.example.gladlaksapp.models.database.LocalityDatabase
 import kotlinx.coroutines.launch
 
 @Composable
@@ -23,6 +24,7 @@ fun FavoritesBottomSheet(
     loadLocalityDetails: (Locality) -> Unit,
     resetLoadedLocality: () -> Unit,
 ) {
+    val database = LocalityDatabase
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
     val selectedPeekHeight = 0
@@ -98,11 +100,13 @@ fun FavoritesBottomSheet(
                     onClick = ::toggleBottomSheet,
                 )
                 Box(modifier = Modifier.padding(bottom = 25.dp)) {
-                    LocalitySnippet(
-                        locality = selectedLocality,
-                        onClick = ::toggleBottomSheet,
-                        isCollapsed = sheetState.bottomSheetState.isCollapsed,
-                    )
+                    selectedLocality?.let {
+                        LocalitySnippet(
+                            locality = it,
+                            onClick = ::toggleBottomSheet,
+                            isCollapsed = sheetState.bottomSheetState.isCollapsed,
+                        )
+                    }
                 }
                 LocalitySheetContent(
                     selectedLocality = selectedLocality,

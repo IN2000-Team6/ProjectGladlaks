@@ -89,16 +89,18 @@ fun MapBottomSheet(
                     onClick = ::toggleBottomSheet,
                 )
                 Box(modifier = Modifier.padding(bottom = 25.dp)) {
-                    LocalitySnippet(
-                        locality = selectedLocality,
-                        onClick = ::toggleBottomSheet,
-                        isCollapsed = sheetState.bottomSheetState.isCollapsed
-                    )
+                    selectedLocality?.let {
+                        LocalitySnippet(
+                            locality = it,
+                            onClick = ::toggleBottomSheet,
+                            isCollapsed = sheetState.bottomSheetState.isCollapsed,
+                        )
+                    }
                 }
                 LocalitySheetContent(
                     selectedLocality = selectedLocality,
                     loadedLocality = loadedLocality,
-                    graphLines = localityTemps
+                    graphLines = localityTemps,
                 )
             }
         },

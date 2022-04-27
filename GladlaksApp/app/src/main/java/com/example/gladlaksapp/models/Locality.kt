@@ -19,7 +19,7 @@ data class Locality (
     val isOnLand: Boolean,
     val hasPd: Boolean,
     val hasIla: Boolean,
-    val hasReportedLice: Boolean
+    val hasReportedLice: Boolean,
 )
 
 /**
@@ -28,5 +28,5 @@ data class Locality (
 data class LocalitiesWrapper (
     val week: Int,
     val year: Int,
-    val localities: List<Locality>
+    val localities: List<Locality>,
 )

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gladlaksapp.composables.FavoritesBottomSheet
 import com.example.gladlaksapp.composables.MapBottomSheet
 import com.example.gladlaksapp.models.Locality
+import com.example.gladlaksapp.models.database.LocalityDatabase
 import com.example.gladlaksapp.viewmodels.MainViewModel
 
 @Composable
@@ -17,6 +18,7 @@ fun FavoritesScreen(
     val localities by model.localities.observeAsState()
     val loadedLocality by model.localityDetail.observeAsState()
     val localityTemps by model.localityTemps.observeAsState()
+
 
     FavoritesBottomSheet(
         localities = testLocalities,
