@@ -20,8 +20,6 @@ data class Locality (
     val hasPd: Boolean,
     val hasIla: Boolean,
     val hasReportedLice: Boolean,
-
-    var isFavorite: Boolean
 )
 
 /**
