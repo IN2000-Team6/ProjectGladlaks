@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -123,13 +124,71 @@ fun CustomBarChart(
                 style = MaterialTheme.typography.bodyMedium
             )
         }
-        ChartBody(
-            chart = chart,
-            chartEntryModelProducer = chartEntryModelProducer,
-            diffAnimationSpec = diffAnimationSpec
-        )
+        /* Row(
+             modifier = Modifier
+                 .fillMaxWidth()
+                 .weight(1f),
+             verticalAlignment = Alignment.CenterVertically
+         ) {
+             Text(
+                 text = "Ant" ,//all hunnlus per fisk,
+                 style = MaterialTheme.typography.bodySmall,
+                 //textAlign = TextAlign,
+                 modifier = Modifier
+                     .padding(2.dp)
+                     //.rotate(-90f)
+             )
+
+             Box(
+                 modifier = Modifier
+                     .padding(6.dp)
+                     .fillMaxSize()
+             ){*/
+        Row(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(
+            text = "Antall hunnlus per fisk",
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier
+                .vertical()
+                .rotate(-90f)
+                .padding(8.dp)
+            )
+
+            ChartBody(
+                chart = chart,
+                chartEntryModelProducer = chartEntryModelProducer,
+                diffAnimationSpec = diffAnimationSpec
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 6.dp),
+            horizontalArrangement = Arrangement.Center
+        ){
+            Text(
+                text = "Uker",
+                style = MaterialTheme.typography.bodySmall,
+                //textAlign = TextAlign.Center,
+                modifier = Modifier.padding(end=6.dp)
+            )
+        }
     }
 }
+
+fun Modifier.vertical() =
+    layout { measurable, constraints ->
+        val placeable = measurable.measure(constraints)
+        layout(placeable.height, placeable.width) {
+            placeable.place(
+                x = -(placeable.width / 2 - placeable.height / 2),
+                y = -(placeable.height - placeable.width )
+            )
+        }
+    }
 
 //TODO Adapt chart to be reusable component
 @Composable
@@ -196,4 +255,3 @@ fun PreviewLouseChart() {
         }
     }
 }
-
