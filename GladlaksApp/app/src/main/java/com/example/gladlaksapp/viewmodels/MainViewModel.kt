@@ -10,6 +10,8 @@ import com.example.gladlaksapp.datasources.NorKystRepository
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.models.Locality
+import com.example.gladlaksapp.models.database.FavoriteLocality
+import com.example.gladlaksapp.models.database.FavoriteRepository
 import com.example.gladlaksapp.models.database.LocalityDatabase
 import com.example.gladlaksapp.models.database.LocalityRepository
 import kotlinx.coroutines.Dispatchers
@@ -21,12 +23,21 @@ import java.util.*
 
 class MainViewModel(application: Application): /*ViewModel(),*/ AndroidViewModel(application) {
 
-    private val getAll: Flow<List<Locality>>
+    private val getAllLocalities: Flow<List<Locality>>
     private val localityRepository: LocalityRepository
+
+    private val getAllFavorites: List<FavoriteLocality>
+    private val favoriteRepository: FavoriteRepository
 
     private fun insertAll(localities: List<Locality>){
         viewModelScope.launch(Dispatchers.IO){
             localityRepository.insertAll(localities)
+        }
+    }
+
+    fun insertFavorite(favorite: FavoriteLocality){
+        viewModelScope.launch(Dispatchers.IO) {
+            favoriteRepository.insertFavorite(favorite)
         }
     }
 
@@ -60,10 +71,14 @@ class MainViewModel(application: Application): /*ViewModel(),*/ AndroidViewModel
     }
 
     init {
-
         val localityDao = LocalityDatabase.getDatabase(application).localityDao()
         localityRepository = LocalityRepository(localityDao)
-        getAll = localityRepository.getAll()
+        getAllLocalities = localityRepository.getAll()
+
+        val favoriteDao = LocalityDatabase.getDatabase(application).favoriteDao()
+        favoriteRepository = FavoriteRepository(favoriteDao)
+        getAllFavorites = favoriteRepository.getAll()
+
 
         viewModelScope.launch(Dispatchers.IO) {
             val data = barentsWatchRepo.getLocalitiesInWater(
