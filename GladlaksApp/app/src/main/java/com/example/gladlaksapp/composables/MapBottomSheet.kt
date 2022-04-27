@@ -92,13 +92,14 @@ fun MapBottomSheet(
                     LocalitySnippet(
                         locality = selectedLocality,
                         onClick = ::toggleBottomSheet,
-                        isCollapsed = sheetState.bottomSheetState.isCollapsed
+                        isCollapsed = sheetState.bottomSheetState.isCollapsed,
+                        onFavClick = ::toggleBottomSheet
                     )
                 }
                 LocalitySheetContent(
                     selectedLocality = selectedLocality,
                     loadedLocality = loadedLocality,
-                    graphLines = localityTemps
+                    graphLines = localityTemps,
                 )
             }
         },

@@ -102,6 +102,7 @@ fun FavoritesBottomSheet(
                         locality = selectedLocality,
                         onClick = ::toggleBottomSheet,
                         isCollapsed = sheetState.bottomSheetState.isCollapsed,
+                        onFavClick = ::toggleBottomSheet
                     )
                 }
                 LocalitySheetContent(
