@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.composables
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,7 +12,7 @@ import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +31,8 @@ fun LocalitySnippet(
     onFavClick: () -> Unit,
 ) {
     val image: Painter = painterResource(R.drawable.locality_icon)
+    var checked by remember { mutableStateOf(false) } //TODO: check if the locality is a favorite or not
+
 
     if (locality != null) {
         Box(modifier = Modifier.fillMaxWidth()) {
@@ -57,16 +60,15 @@ fun LocalitySnippet(
                     )
                 }
                 //TODO: Koble til favoritter og database, endre farge om det er fav
-                IconButton(
+                IconToggleButton(
+                    checked = checked,
+                    onCheckedChange = { checked = it },
                     modifier = Modifier
                         .padding(end = 5.dp)
-                        .size(width = 40.dp, height = 40.dp),
-                    onClick = onClick,
-                ){
-                    Icon(
-                        Icons.Outlined.Favorite,
-                        contentDescription = "Localized description"
-                    )
+                        .size(width = 40.dp, height = 40.dp)
+                ) {
+                    val tint by animateColorAsState(if (checked) Color(0xFFEC407A) else Color(0xFFB0BEC5))
+                    Icon(Icons.Filled.Favorite, contentDescription = "Hjerteformet knapp", tint = tint)
                 }
                 Button(
                     modifier = Modifier
