@@ -25,11 +25,11 @@ import com.example.gladlaksapp.R
 
 @Composable
 fun LocalitySnippet(
-    locality: Locality?,
+    locality: Locality,
     isCollapsed: Boolean,
     onClick: () -> Unit,
-    onFavClick: () -> Unit,
 ) {
+
     val image: Painter = painterResource(R.drawable.locality_icon)
     var checked by remember { mutableStateOf(false) } //TODO: check if the locality is a favorite or not
 
@@ -60,6 +60,8 @@ fun LocalitySnippet(
                     )
                 }
                 //TODO: Koble til favoritter og database, endre farge om det er fav
+                //TODO: legge til handtering av klikk paa favoritt, maa endre isFavorite i Locality
+                //TODO: startfarge maa samsvare med isFavorite i Locality
                 IconToggleButton(
                     checked = checked,
                     onCheckedChange = { checked = it },
@@ -100,3 +102,4 @@ fun LocalitySnippet(
         }
     }
 }
+

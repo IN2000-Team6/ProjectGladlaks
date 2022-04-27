@@ -8,6 +8,7 @@ import com.example.gladlaksapp.datasources.NorKystRepository
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.example.gladlaksapp.models.database.LocalityDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -45,11 +46,13 @@ class MainViewModel: ViewModel() {
     }
 
     init {
+        //val database
         viewModelScope.launch(Dispatchers.IO) {
             val data = barentsWatchRepo.getLocalitiesInWater(
                 year = year,
                 week = week,
             )
+
             localities.postValue(data)
         }
     }
