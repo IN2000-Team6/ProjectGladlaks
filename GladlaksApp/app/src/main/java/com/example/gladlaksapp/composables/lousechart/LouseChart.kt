@@ -10,8 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,6 +40,10 @@ import com.patrykandpatryk.vico.core.entry.FloatEntry
 import com.patrykandpatryk.vico.core.entry.entryModelOf
 import kotlin.random.Random
 
+//TODO Break up composables and make test
+//TODO Add axes labels and legend
+//TODO Rewrite graph 2
+
 /**
  * Returns a list of floatentries - used for testing only
  * ! USED FOR TESTING ONLY !
@@ -52,7 +59,7 @@ fun getRandomEntries(n: Int) = List(size = n) {
 
 
 @Composable
-fun GroupedChart(
+fun CustomBarChart(
     chartEntryModelProducer: ChartEntryModelProducer,
     diffAnimationSpec: AnimationSpec<Float> = defaultDiffAnimationSpec
 ) {
@@ -110,48 +117,64 @@ fun GroupedChart(
             .padding(start = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
 
-        ) {
+            ) {
             Text(
-                text = "Utvikling av hunnlus",
+                text = "Hunnlus per uke",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
-        Chart(
+        ChartBody(
             chart = chart,
-            chartModelProducer = chartEntryModelProducer,
-            startAxis = createVerticalAxis {
-                label = textComponent(
-                    color = Color(0xFF01809C),
-                    textSize = 12.sp,
-                    background = shapeComponent(
-                        shape = CutCornerShape(
-                            CornerSize(percent=25),
-                            CornerSize(percent=50),
-                            CornerSize(percent=50),
-                            CornerSize(percent=25),
-                        ),
-                        color = Color(0xFF01809C).copy(alpha = 0.1f)
-                    ),
-                    padding = dimensionsOf(end = 8.dp, start = 4.dp)
-                )
-                axis = null
-                tick = null
-                guideline = LineComponent(
-                    Color(0xFF01809C).copy(alpha = 0.1f).toArgb(),
-                    1.dp.value
-                )
-            },
-            bottomAxis = bottomAxis(
-                label = textComponent(
-                    textSize = 12.sp
-                ),
-            ),
-            diffAnimationSpec = diffAnimationSpec,
-            marker = marker(),
-            modifier = Modifier.fillMaxHeight()
+            chartEntryModelProducer = chartEntryModelProducer,
+            diffAnimationSpec = diffAnimationSpec
         )
     }
+}
 
+//TODO Adapt chart to be reusable component
+@Composable
+fun ChartBody(
+    chart: ColumnChart,
+    chartEntryModelProducer: ChartEntryModelProducer,
+    diffAnimationSpec: AnimationSpec<Float>
+) {
+    Chart(
+        chart = chart,
+        chartModelProducer = chartEntryModelProducer,
+        startAxis = createVerticalAxis {
+            label = textComponent(
+                color = Color(0xFF01809C),
+                textSize = 12.sp,
+                background = shapeComponent(
+                    shape = CutCornerShape(
+                        CornerSize(percent=25),
+                        CornerSize(percent=50),
+                        CornerSize(percent=50),
+                        CornerSize(percent=25),
+                    ),
+                    color = Color(0xFF01809C).copy(alpha = 0.1f)
+                ),
+                padding = dimensionsOf(end = 8.dp, start = 4.dp)
+            )
+
+            axis = null
+            tick = null
+            guideline = LineComponent(
+                Color(0xFF01809C).copy(alpha = 0.1f).toArgb(),
+                1.dp.value
+            )
+
+        },
+        bottomAxis = bottomAxis(
+            label = textComponent(
+                textSize = 12.sp
+            ),
+        ),
+        diffAnimationSpec = diffAnimationSpec,
+        marker = marker(),
+        modifier = Modifier
+            .fillMaxHeight()
+    )
 }
 
 
@@ -169,10 +192,8 @@ fun PreviewLouseChart() {
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         InfoCard {
-            GroupedChart(chartEntries)
+            CustomBarChart(chartEntries)
         }
     }
-
-
 }
 

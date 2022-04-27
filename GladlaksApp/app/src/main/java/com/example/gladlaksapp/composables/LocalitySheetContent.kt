@@ -48,7 +48,7 @@ fun LocalitySheetContent(
                 LocalityInfo(selectedLocality, localityInfo = loadedLocality.localityWeek)
             }
             InfoCard {
-                GroupedChart(chartEntryModelProducer = model.groupedChartProducer)
+                CustomBarChart(chartEntryModelProducer = model.groupedChartProducer)
             }
             InfoCard {
                 Box(modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, end = 4.dp)) {
