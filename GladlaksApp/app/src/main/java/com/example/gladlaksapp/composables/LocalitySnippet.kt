@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.composables
 
+import android.app.Application
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -20,8 +21,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
+import com.example.gladlaksapp.models.database.FavoriteLocality
+import com.example.gladlaksapp.viewmodels.MainViewModel
 
 @Composable
 fun LocalitySnippet(
@@ -30,8 +36,8 @@ fun LocalitySnippet(
     onClick: () -> Unit,
 ) {
 
+
     val image: Painter = painterResource(R.drawable.locality_icon)
-    var checked by remember { mutableStateOf(false) } //TODO: check if the locality is a favorite or not
 
 
     if (locality != null) {
@@ -62,16 +68,9 @@ fun LocalitySnippet(
                 //TODO: Koble til favoritter og database, endre farge om det er fav
                 //TODO: legge til handtering av klikk paa favoritt, maa endre isFavorite i Locality
                 //TODO: startfarge maa samsvare med isFavorite i Locality
-                IconToggleButton(
-                    checked = checked,
-                    onCheckedChange = { checked = it },
-                    modifier = Modifier
-                        .padding(end = 5.dp)
-                        .size(width = 40.dp, height = 40.dp)
-                ) {
-                    val tint by animateColorAsState(if (checked) Color(0xFFEC407A) else Color(0xFFB0BEC5))
-                    Icon(Icons.Filled.Favorite, contentDescription = "Hjerteformet knapp", tint = tint)
-                }
+
+                FavoriteButton()
+
                 Button(
                     modifier = Modifier
                         .padding(end = 20.dp)
