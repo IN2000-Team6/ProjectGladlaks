@@ -21,25 +21,18 @@ import java.time.LocalDate
 import java.time.temporal.WeekFields
 import java.util.*
 
-class MainViewModel(application: Application): /*ViewModel(),*/ AndroidViewModel(application) {
+class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private val getAllLocalities: Flow<List<Locality>>
     private val localityRepository: LocalityRepository
 
-    /*private val getAllFavorites: List<FavoriteLocality>
-    private val favoriteRepository: FavoriteRepository*/
+
 
     private fun insertAll(localities: List<Locality>){
         viewModelScope.launch(Dispatchers.IO){
             localityRepository.insertAll(localities)
         }
     }
-
-    /*fun insertFavorite(favorite: FavoriteLocality){
-        viewModelScope.launch(Dispatchers.IO) {
-            favoriteRepository.insertFavorite(favorite)
-        }
-    }*/
 
     private val barentsWatchRepo = BarentswatchRepository
     private val norKystRepo = NorKystRepository
@@ -74,11 +67,6 @@ class MainViewModel(application: Application): /*ViewModel(),*/ AndroidViewModel
         val localityDao = LocalityDatabase.getDatabase(application).localityDao()
         localityRepository = LocalityRepository(localityDao)
         getAllLocalities = localityRepository.getAll()
-
-        /*val favoriteDao = LocalityDatabase.getDatabase(application).favoriteDao()
-        favoriteRepository = FavoriteRepository(favoriteDao)
-        getAllFavorites = favoriteRepository.getAll()*/
-
 
         viewModelScope.launch(Dispatchers.IO) {
             val data = barentsWatchRepo.getLocalitiesInWater(
