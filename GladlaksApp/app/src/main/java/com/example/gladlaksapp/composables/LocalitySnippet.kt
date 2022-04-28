@@ -35,7 +35,7 @@ fun LocalitySnippet(
     isCollapsed: Boolean,
     onClick: () -> Unit,
 ) {
-
+    var savedToFav by remember{ mutableStateOf(false)}
 
     val image: Painter = painterResource(R.drawable.locality_icon)
 
@@ -69,7 +69,10 @@ fun LocalitySnippet(
                 //TODO: legge til handtering av klikk paa favoritt, maa endre isFavorite i Locality
                 //TODO: startfarge maa samsvare med isFavorite i Locality
 
-                FavoriteButton()
+                FavoriteButton(
+                    savedToFav = savedToFav,
+                    onCheckedFavButton = {savedToFav = it}
+                )
 
                 Button(
                     modifier = Modifier
