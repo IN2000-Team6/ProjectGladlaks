@@ -10,35 +10,32 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.IconToggleButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
 @Composable
 fun FavoriteButton(
-    savedToFav : Boolean,
-    onCheckedFavButton: (Boolean) -> Unit
+    savedToFav: MutableState<Boolean>,
+    OnSaveClick: () -> Unit,
 ){
-   //val savedToFav = remember { mutableStateOf(false) }
 
-    IconToggleButton(
-        checked = savedToFav,
-        onCheckedChange = onCheckedFavButton,
+    IconButton(
+        onClick = {
+            savedToFav.value = !savedToFav.value
+        },
         //interactionSource = remember { DisabledInteractionSource() },
-        enabled = false,
         modifier = Modifier
             .padding(end = 5.dp)
             .size(width = 40.dp, height = 40.dp)
     ) {
         val tint by animateColorAsState(
-            if (savedToFav) Color(0xFFEC407A)
+            if (savedToFav.value) Color(0xFFEC407A)
             else Color(0xFFB0BEC5)
         )
         Icon(
@@ -48,8 +45,8 @@ fun FavoriteButton(
     }
 }
 
-class DisabledInteractionSource : MutableInteractionSource {
+/*class DisabledInteractionSource : MutableInteractionSource {
     override val interactions: Flow<Interaction> = emptyFlow()
     override suspend fun emit(interaction: Interaction) {}
     override fun tryEmit(interaction: Interaction) = true
-}
+}*/

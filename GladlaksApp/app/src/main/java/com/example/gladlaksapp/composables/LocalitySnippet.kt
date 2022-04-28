@@ -1,15 +1,9 @@
 package com.example.gladlaksapp.composables
 
-import android.app.Application
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.materialIcon
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -18,24 +12,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
-import com.example.gladlaksapp.models.database.FavoriteLocality
-import com.example.gladlaksapp.viewmodels.MainViewModel
 
 @Composable
 fun LocalitySnippet(
     locality: Locality,
     isCollapsed: Boolean,
-    onClick: () -> Unit,
+    savedToFav: MutableState<Boolean>,
+    OnExpandClick: () -> Unit,
+    OnSaveClick: () -> Unit,
 ) {
-    var savedToFav by remember{ mutableStateOf(false)}
 
     val image: Painter = painterResource(R.drawable.locality_icon)
 
@@ -71,14 +60,14 @@ fun LocalitySnippet(
 
                 FavoriteButton(
                     savedToFav = savedToFav,
-                    onCheckedFavButton = {savedToFav = it}
+                    OnSaveClick = OnSaveClick,
                 )
 
                 Button(
                     modifier = Modifier
                         .padding(end = 20.dp)
                         .size(width = 130.dp, height = 40.dp),
-                    onClick = onClick,
+                    onClick = OnExpandClick,
                     shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF9CDCDA),//MaterialTheme.colorScheme.secondaryContainer
