@@ -24,6 +24,8 @@ fun MapBottomSheet(
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
     val selectedPeekHeight = 95
+
+    val savedToFav = remember { mutableStateOf(false) }
     
     // Local state
     var selectedLocality by remember { mutableStateOf<Locality?>(null) }
@@ -55,6 +57,14 @@ fun MapBottomSheet(
             } else {
                 sheetState.bottomSheetState.collapse()
             }
+        }
+    }
+
+    fun saveToFavorites(){
+        coroutineScope.launch {
+
+            //TODO Method that inserts locality as favourite
+
         }
     }
 
@@ -90,10 +100,13 @@ fun MapBottomSheet(
                 )
                 Box(modifier = Modifier.padding(bottom = 25.dp)) {
                     selectedLocality?.let {
+
                         LocalitySnippet(
                             locality = it,
-                            onClick = ::toggleBottomSheet,
+                            OnExpandClick = ::toggleBottomSheet,
                             isCollapsed = sheetState.bottomSheetState.isCollapsed,
+                            OnSaveClick = ::saveToFavorites,
+                            savedToFav = savedToFav,
                         )
                     }
                 }

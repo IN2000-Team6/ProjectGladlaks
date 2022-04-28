@@ -1,14 +1,9 @@
 package com.example.gladlaksapp.composables
 
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.materialIcon
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -17,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.Locality
@@ -27,11 +21,12 @@ import com.example.gladlaksapp.R
 fun LocalitySnippet(
     locality: Locality,
     isCollapsed: Boolean,
-    onClick: () -> Unit,
+    savedToFav: MutableState<Boolean>,
+    OnExpandClick: () -> Unit,
+    OnSaveClick: () -> Unit,
 ) {
 
     val image: Painter = painterResource(R.drawable.locality_icon)
-    var checked by remember { mutableStateOf(false) } //TODO: check if the locality is a favorite or not
 
 
     if (locality != null) {
@@ -62,21 +57,17 @@ fun LocalitySnippet(
                 //TODO: Koble til favoritter og database, endre farge om det er fav
                 //TODO: legge til handtering av klikk paa favoritt, maa endre isFavorite i Locality
                 //TODO: startfarge maa samsvare med isFavorite i Locality
-                IconToggleButton(
-                    checked = checked,
-                    onCheckedChange = { checked = it },
-                    modifier = Modifier
-                        .padding(end = 5.dp)
-                        .size(width = 40.dp, height = 40.dp)
-                ) {
-                    val tint by animateColorAsState(if (checked) Color(0xFFEC407A) else Color(0xFFB0BEC5))
-                    Icon(Icons.Filled.Favorite, contentDescription = "Hjerteformet knapp", tint = tint)
-                }
+
+                FavoriteButton(
+                    savedToFav = savedToFav,
+                    OnSaveClick = OnSaveClick,
+                )
+
                 Button(
                     modifier = Modifier
                         .padding(end = 20.dp)
                         .size(width = 130.dp, height = 40.dp),
-                    onClick = onClick,
+                    onClick = OnExpandClick,
                     shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF9CDCDA),//MaterialTheme.colorScheme.secondaryContainer

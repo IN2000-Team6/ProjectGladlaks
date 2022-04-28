@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -61,6 +60,14 @@ fun FavoritesBottomSheet(
         }
     }
 
+    fun saveToFavorites(){
+        coroutineScope.launch {
+
+            //TODO Method that inserts locality as favourite
+
+        }
+    }
+
     // Side effects
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
         if (selectedLocality != null) {
@@ -101,10 +108,13 @@ fun FavoritesBottomSheet(
                 )
                 Box(modifier = Modifier.padding(bottom = 25.dp)) {
                     selectedLocality?.let {
+                        val savedToFav = remember { mutableStateOf(false) }
                         LocalitySnippet(
                             locality = it,
-                            onClick = ::toggleBottomSheet,
+                            OnExpandClick = ::toggleBottomSheet,
                             isCollapsed = sheetState.bottomSheetState.isCollapsed,
+                            savedToFav = savedToFav,
+                            OnSaveClick = ::saveToFavorites,
                         )
                     }
                 }
