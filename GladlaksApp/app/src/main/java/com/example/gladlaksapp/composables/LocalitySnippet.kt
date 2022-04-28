@@ -22,8 +22,8 @@ fun LocalitySnippet(
     locality: Locality,
     isCollapsed: Boolean,
     savedToFav: MutableState<Boolean>,
-    OnExpandClick: () -> Unit,
-    OnSaveClick: () -> Unit,
+    onExpandClick: () -> Unit,
+    onSaveClick: () -> Unit,
 ) {
 
     val image: Painter = painterResource(R.drawable.locality_icon)
@@ -60,14 +60,14 @@ fun LocalitySnippet(
 
                 FavoriteButton(
                     savedToFav = savedToFav,
-                    OnSaveClick = OnSaveClick,
+                    OnSaveClick = onSaveClick,
                 )
 
                 Button(
                     modifier = Modifier
                         .padding(end = 20.dp)
                         .size(width = 130.dp, height = 40.dp),
-                    onClick = OnExpandClick,
+                    onClick = onExpandClick,
                     shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF9CDCDA),//MaterialTheme.colorScheme.secondaryContainer

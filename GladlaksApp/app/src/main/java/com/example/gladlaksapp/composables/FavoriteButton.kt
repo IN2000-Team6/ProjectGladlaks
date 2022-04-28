@@ -26,9 +26,8 @@ fun FavoriteButton(
 ){
 
     IconButton(
-        onClick = {
-            savedToFav.value = !savedToFav.value
-        },
+        onClick = OnSaveClick,
+        //{ savedToFav.value = !savedToFav.value },
         //interactionSource = remember { DisabledInteractionSource() },
         modifier = Modifier
             .padding(end = 5.dp)

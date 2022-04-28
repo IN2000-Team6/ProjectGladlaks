@@ -103,9 +103,9 @@ fun MapBottomSheet(
 
                         LocalitySnippet(
                             locality = it,
-                            OnExpandClick = ::toggleBottomSheet,
+                            onExpandClick = ::toggleBottomSheet,
                             isCollapsed = sheetState.bottomSheetState.isCollapsed,
-                            OnSaveClick = ::saveToFavorites,
+                            onSaveClick = ::saveToFavorites,
                             savedToFav = savedToFav,
                         )
                     }

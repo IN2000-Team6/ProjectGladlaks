@@ -26,8 +26,8 @@ class MainViewModel(application: Application): /*ViewModel(),*/ AndroidViewModel
     private val getAllLocalities: Flow<List<Locality>>
     private val localityRepository: LocalityRepository
 
-    private val getAllFavorites: List<FavoriteLocality>
-    private val favoriteRepository: FavoriteRepository
+    /*private val getAllFavorites: List<FavoriteLocality>
+    private val favoriteRepository: FavoriteRepository*/
 
     private fun insertAll(localities: List<Locality>){
         viewModelScope.launch(Dispatchers.IO){
@@ -35,11 +35,11 @@ class MainViewModel(application: Application): /*ViewModel(),*/ AndroidViewModel
         }
     }
 
-    fun insertFavorite(favorite: FavoriteLocality){
+    /*fun insertFavorite(favorite: FavoriteLocality){
         viewModelScope.launch(Dispatchers.IO) {
             favoriteRepository.insertFavorite(favorite)
         }
-    }
+    }*/
 
     private val barentsWatchRepo = BarentswatchRepository
     private val norKystRepo = NorKystRepository
@@ -75,9 +75,9 @@ class MainViewModel(application: Application): /*ViewModel(),*/ AndroidViewModel
         localityRepository = LocalityRepository(localityDao)
         getAllLocalities = localityRepository.getAll()
 
-        val favoriteDao = LocalityDatabase.getDatabase(application).favoriteDao()
+        /*val favoriteDao = LocalityDatabase.getDatabase(application).favoriteDao()
         favoriteRepository = FavoriteRepository(favoriteDao)
-        getAllFavorites = favoriteRepository.getAll()
+        getAllFavorites = favoriteRepository.getAll()*/
 
 
         viewModelScope.launch(Dispatchers.IO) {

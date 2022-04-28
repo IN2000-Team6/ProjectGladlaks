@@ -111,10 +111,10 @@ fun FavoritesBottomSheet(
                         val savedToFav = remember { mutableStateOf(false) }
                         LocalitySnippet(
                             locality = it,
-                            OnExpandClick = ::toggleBottomSheet,
+                            onExpandClick = ::toggleBottomSheet,
                             isCollapsed = sheetState.bottomSheetState.isCollapsed,
                             savedToFav = savedToFav,
-                            OnSaveClick = ::saveToFavorites,
+                            onSaveClick = ::saveToFavorites,
                         )
                     }
                 }
