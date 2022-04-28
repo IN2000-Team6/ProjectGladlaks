@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.composables.screens
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -19,6 +20,7 @@ fun FavoritesScreen(
     val loadedLocality by model.localityDetail.observeAsState()
     val localityTemps by model.localityTemps.observeAsState()
 
+    Log.d("database loc", model.getAll().toString())
 
     FavoritesBottomSheet(
         localities = testLocalities,

@@ -5,11 +5,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gladlaksapp.composables.MapBottomSheet
+import com.example.gladlaksapp.viewmodels.LocalityViewModel
 import com.example.gladlaksapp.viewmodels.MainViewModel
 
 @Composable
 fun MapScreen(
-    model: MainViewModel = viewModel()
+    model: MainViewModel = viewModel(),
 ) {
     val localities by model.localities.observeAsState()
     val loadedLocality by model.localityDetail.observeAsState()

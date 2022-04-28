@@ -28,12 +28,3 @@ class LocalityViewModel(application: Application): AndroidViewModel(application)
         getAllFavorites = favoriteRepository.getAll()
     }
 }
-
-class LocalityViewModelFactory(application: Application): ViewModelProvider.Factory{
-    private val app = application
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T: ViewModel?> create (modelClass: Class<T>): T {
-        return LocalityViewModel(app) as T
-    }
-}
