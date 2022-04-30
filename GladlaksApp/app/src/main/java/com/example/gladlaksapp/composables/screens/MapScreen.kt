@@ -10,19 +10,22 @@ import com.example.gladlaksapp.viewmodels.MainViewModel
 
 @Composable
 fun MapScreen(
-    model: MainViewModel = viewModel(),
+    mViewModel: MainViewModel = viewModel()
+    //localityViewModel: LocalityViewModel,
 ) {
-    val localities by model.localities.observeAsState()
-    val loadedLocality by model.localityDetail.observeAsState()
-    val localityTemps by model.localityTemps.observeAsState()
+    //TODO Insert all localities to db using background thread
+
+    val localities by mViewModel.localities.observeAsState()
+    val loadedLocality by mViewModel.localityDetail.observeAsState()
+    val localityTemps by mViewModel.localityTemps.observeAsState()
 
     MapBottomSheet(
         localities = localities,
         loadedLocality = loadedLocality,
-        resetLoadedLocality = { model.resetLoadedLocality() },
+        resetLoadedLocality = { mViewModel.resetLoadedLocality() },
         localityTemps = localityTemps,
         loadLocalityDetails = { loc ->
-            model.loadLocalityDetails(loc)
+            mViewModel.loadLocalityDetails(loc)
         },
     )
 }

@@ -1,34 +1,29 @@
 package com.example.gladlaksapp.composables.screens
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gladlaksapp.composables.FavoritesBottomSheet
-import com.example.gladlaksapp.composables.MapBottomSheet
 import com.example.gladlaksapp.models.Locality
-import com.example.gladlaksapp.models.database.LocalityDatabase
 import com.example.gladlaksapp.viewmodels.MainViewModel
 
 @Composable
 fun FavoritesScreen(
-    model: MainViewModel = viewModel()
+    mViewModel: MainViewModel = viewModel()
 ) {
     //endre til databasekall?
-    val localities by model.localities.observeAsState()
-    val loadedLocality by model.localityDetail.observeAsState()
-    val localityTemps by model.localityTemps.observeAsState()
-
-    Log.d("database loc", model.getAll().toString())
+    val localities by mViewModel.localities.observeAsState()
+    val loadedLocality by mViewModel.localityDetail.observeAsState()
+    val localityTemps by mViewModel.localityTemps.observeAsState()
 
     FavoritesBottomSheet(
         localities = testLocalities,
         loadedLocality = loadedLocality,
-        resetLoadedLocality = { model.resetLoadedLocality() },
+        resetLoadedLocality = { mViewModel.resetLoadedLocality() },
         localityTemps = localityTemps,
         loadLocalityDetails = { loc ->
-            model.loadLocalityDetails(loc)
+            mViewModel.loadLocalityDetails(loc)
         },
     )
 }

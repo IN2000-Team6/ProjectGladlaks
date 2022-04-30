@@ -21,30 +21,7 @@ import java.time.LocalDate
 import java.time.temporal.WeekFields
 import java.util.*
 
-class MainViewModel(application: Application): AndroidViewModel(application) {
-
-    private val getAllLocalities: Flow<List<Locality>>
-    private val localityRepository: LocalityRepository
-
-    fun getAll(){
-        viewModelScope.launch (Dispatchers.IO) {
-
-            try {
-                localityRepository.getAll().collect { value ->
-                    println("Received $value")
-                }
-            } catch (e: Exception) {
-                println("The flow has thrown an exception: $e")
-
-            }
-        }
-    }
-
-    private fun insertAll(localities: List<Locality>){
-        viewModelScope.launch(Dispatchers.IO){
-            localityRepository.insertAll(localities)
-        }
-    }
+class MainViewModel: ViewModel() {
 
     private val barentsWatchRepo = BarentswatchRepository
     private val norKystRepo = NorKystRepository
@@ -76,17 +53,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     }
 
     init {
-        val localityDao = LocalityDatabase.getDatabase(application).localityDao()
-        localityRepository = LocalityRepository(localityDao)
-        getAllLocalities = localityRepository.getAll()
-
         viewModelScope.launch(Dispatchers.IO) {
             val data = barentsWatchRepo.getLocalitiesInWater(
                 year = year,
                 week = week,
             )
             localities.postValue(data)
-            insertAll(data)
         }
     }
 }

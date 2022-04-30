@@ -1,26 +1,13 @@
 package com.example.gladlaksapp
 
+import android.app.Application
 import android.os.Bundle
-import android.view.animation.OvershootInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.modifier.modifierLocalConsumer
-import androidx.compose.ui.res.painterResource
-import androidx.navigation.NavController
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gladlaksapp.composables.AppContainer
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,13 +17,18 @@ import com.example.gladlaksapp.composables.screens.FavoritesScreen
 import com.example.gladlaksapp.composables.screens.MapScreen
 import com.example.gladlaksapp.composables.screens.Screen
 import com.example.gladlaksapp.composables.screens.SplashScreen
-import kotlinx.coroutines.delay
+import com.example.gladlaksapp.viewmodels.LocalityViewModel
+import com.example.gladlaksapp.viewmodels.MainViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             AppContainer {
+
+                //val mViewModel: MainViewModel = viewModel()
+
+               // val localityViewModel: LocalityViewModel = ViewModelProvider.AndroidViewModelFactory(LocalContext.current.applicationContext as Application).create( LocalityViewModel::class.java)
 
                 val navController = rememberNavController()
 
@@ -46,10 +38,19 @@ class MainActivity : ComponentActivity() {
                         SplashScreen(navController = navController)
                     }
                     composable(Screen.Map.route) {
-                        BottomNavScreenContainer(navController = navController) { MapScreen() }
+                        BottomNavScreenContainer(navController = navController) {
+                            MapScreen(
+                                //mViewModel = mViewModel,
+                                //localityViewModel = localityViewModel,
+                            )
+                        }
                     }
                     composable(Screen.Favorites.route) {
-                        BottomNavScreenContainer(navController = navController) { FavoritesScreen() }
+                        BottomNavScreenContainer(navController = navController) {
+                            FavoritesScreen(
+                                //model = mViewModel
+                            )
+                        }
                     }
                     composable(Screen.Search.route) {
                         BottomNavScreenContainer(navController = navController) { Text("Søk side") }
