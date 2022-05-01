@@ -23,7 +23,6 @@ fun FavoritesBottomSheet(
     loadLocalityDetails: (Locality) -> Unit,
     resetLoadedLocality: () -> Unit,
 ) {
-    val database = LocalityDatabase
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
     val selectedPeekHeight = 0
