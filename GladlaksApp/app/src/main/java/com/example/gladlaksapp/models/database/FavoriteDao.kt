@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface FavoriteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavorite(favorite: FavoriteLocality)
+    suspend fun insertFavorite(favorite: FavoriteLocality)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavorites(favorites: List<FavoriteLocality>)

@@ -66,7 +66,7 @@ class MainViewModel @Inject constructor(
             )
             localities.postValue(data)
 
-            //TODO Check if database updates properly
+            //TODO Check if database updates properly - do past localities get deleted?
             localityRepository.insertAll(data)
         }
     }

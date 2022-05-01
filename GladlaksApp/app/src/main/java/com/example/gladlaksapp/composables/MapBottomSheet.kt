@@ -7,9 +7,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.example.gladlaksapp.models.database.FavoriteLocality
+import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -20,6 +23,8 @@ fun MapBottomSheet(
     loadedLocality: LocalityDetailsWrapper?,
     loadLocalityDetails: (Locality) -> Unit,
     resetLoadedLocality: () -> Unit,
+
+    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
 ) {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
@@ -60,11 +65,13 @@ fun MapBottomSheet(
         }
     }
 
+    //TODO Move to localitysnippet
     fun saveToFavorites(){
         coroutineScope.launch {
-
-            //TODO Method that inserts locality as favourite
-
+            val favoriteLocality = mutableStateOf(
+                selectedLocality?.let { FavoriteLocality(it.localityNo) }
+            )
+            favoriteViewModel.addFavoriteToDb(favoriteLocality.value)
         }
     }
 
