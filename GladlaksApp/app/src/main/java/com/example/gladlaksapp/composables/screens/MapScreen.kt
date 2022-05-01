@@ -3,15 +3,16 @@ package com.example.gladlaksapp.composables.screens
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gladlaksapp.composables.MapBottomSheet
-import com.example.gladlaksapp.viewmodels.LocalityViewModel
+import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.MainViewModel
 
 @Composable
 fun MapScreen(
-    mViewModel: MainViewModel = viewModel()
-    //localityViewModel: LocalityViewModel,
+    mViewModel: MainViewModel = viewModel(),
+    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
 ) {
     //TODO Insert all localities to db using background thread
 

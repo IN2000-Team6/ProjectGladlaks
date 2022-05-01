@@ -12,7 +12,9 @@ abstract class LocalityDatabase : RoomDatabase() {
     abstract fun favoriteDao(): FavoriteDao
 
     companion object {
-        @Volatile private var INSTANCE: LocalityDatabase? = null
+        const val DATABASE_NAME = "locality_database"
+
+        /*@Volatile private var INSTANCE: LocalityDatabase? = null
 
         fun getDatabase(context: Context) : LocalityDatabase{
             return INSTANCE ?: synchronized(this) {
@@ -24,6 +26,6 @@ abstract class LocalityDatabase : RoomDatabase() {
                 INSTANCE = instance
                 instance
             }
-        }
+        }*/
     }
 }

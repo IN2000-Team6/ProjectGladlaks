@@ -1,13 +1,9 @@
 package com.example.gladlaksapp
 
-import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Text
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gladlaksapp.composables.AppContainer
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,9 +13,9 @@ import com.example.gladlaksapp.composables.screens.FavoritesScreen
 import com.example.gladlaksapp.composables.screens.MapScreen
 import com.example.gladlaksapp.composables.screens.Screen
 import com.example.gladlaksapp.composables.screens.SplashScreen
-import com.example.gladlaksapp.viewmodels.LocalityViewModel
-import com.example.gladlaksapp.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
