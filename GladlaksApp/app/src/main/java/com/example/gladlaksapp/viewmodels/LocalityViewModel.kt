@@ -62,6 +62,6 @@ class LocalityViewModel(application: Application): AndroidViewModel(application)
         favoriteRepository = FavoriteRepository(favoriteDao)
         getAllFavorites = favoriteRepository.getAll()
 
-        //viewModelScope.launch(Dispatchers.IO) {  }
+        viewModelScope.launch(Dispatchers.IO) {  }
     }
 }

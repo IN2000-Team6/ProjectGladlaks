@@ -26,10 +26,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppContainer {
 
-                //val mViewModel: MainViewModel = viewModel()
-
-               // val localityViewModel: LocalityViewModel = ViewModelProvider.AndroidViewModelFactory(LocalContext.current.applicationContext as Application).create( LocalityViewModel::class.java)
-
                 val navController = rememberNavController()
 
                 //TODO: fjerne splashscreen fra stacken saa den kun kalles én gang
