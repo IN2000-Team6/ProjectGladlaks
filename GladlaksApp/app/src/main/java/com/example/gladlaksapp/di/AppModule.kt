@@ -2,6 +2,7 @@ package com.example.gladlaksapp.di
 
 import android.app.Application
 import androidx.room.Room
+import com.example.gladlaksapp.models.database.FavoriteRepository
 import com.example.gladlaksapp.models.database.LocalityDatabase
 import com.example.gladlaksapp.models.database.LocalityRepository
 import dagger.Module
@@ -32,5 +33,11 @@ object AppModule {
     @Singleton
     fun provideLocalityRepository(db: LocalityDatabase): LocalityRepository {
         return LocalityRepository(db.localityDao())
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteRepository(db: LocalityDatabase): FavoriteRepository {
+        return FavoriteRepository(db.favoriteDao())
     }
 }

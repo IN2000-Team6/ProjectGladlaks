@@ -11,7 +11,7 @@ import com.example.gladlaksapp.viewmodels.MainViewModel
 
 @Composable
 fun MapScreen(
-    mViewModel: MainViewModel = viewModel(),
+    mViewModel: MainViewModel = hiltViewModel(),
     favoriteViewModel: FavoriteViewModel = hiltViewModel(),
 ) {
     //TODO Insert all localities to db using background thread

@@ -14,14 +14,20 @@ import com.example.gladlaksapp.models.database.FavoriteLocality
 import com.example.gladlaksapp.models.database.FavoriteRepository
 import com.example.gladlaksapp.models.database.LocalityDatabase
 import com.example.gladlaksapp.models.database.LocalityRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.WeekFields
 import java.util.*
+import javax.inject.Inject
 
-class MainViewModel: ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    //TODO Include saved state handle?
+    private val localityRepository: LocalityRepository,
+): ViewModel() {
 
     private val barentsWatchRepo = BarentswatchRepository
     private val norKystRepo = NorKystRepository
@@ -59,6 +65,9 @@ class MainViewModel: ViewModel() {
                 week = week,
             )
             localities.postValue(data)
+
+            //TODO Check if database updates properly
+            localityRepository.insertAll(data)
         }
     }
 }

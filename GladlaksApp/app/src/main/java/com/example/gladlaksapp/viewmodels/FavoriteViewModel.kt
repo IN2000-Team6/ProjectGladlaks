@@ -17,6 +17,7 @@ import kotlin.coroutines.CoroutineContext
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
     //TODO Include saved state handle?
+    private val favoriteRepository: FavoriteRepository,
     private val localityRepository: LocalityRepository,
 ): ViewModel() {
 
