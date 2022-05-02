@@ -23,12 +23,6 @@ class FavoriteViewModel @Inject constructor(
 ): ViewModel() {
     lateinit var favorites: List<FavoriteLocality>
 
-    init{
-        viewModelScope.launch{
-           // favorites = favoriteRepository.getAll()
-        }
-    }
-
     suspend fun addFavoriteToDb(favoriteLocality: FavoriteLocality?){
         coroutineScope {
             if (favoriteLocality != null) {
@@ -37,9 +31,26 @@ class FavoriteViewModel @Inject constructor(
             //TODO Throw exception
         }
     }
-}
 
-data class LocalityViewState(
-    val localities: List<Locality> = emptyList(),
-    val selectedLocality: Locality? = null
-)
+    suspend fun deleteFavorite(favoriteLocality: FavoriteLocality?){
+        coroutineScope {
+            if (favoriteLocality != null) {
+                favoriteRepository.deleteFavorite(favoriteLocality)
+            }
+            //TODO Throw exception
+        }
+    }
+    suspend fun getAll(){
+        coroutineScope {
+            favorites = favoriteRepository.getAll()
+        }
+    }
+
+    suspend fun isSaved(locality: Locality): Boolean {
+        getAll()
+        val favorite = FavoriteLocality(locality.localityNo)
+        return favorite in favorites
+    }
+
+
+}

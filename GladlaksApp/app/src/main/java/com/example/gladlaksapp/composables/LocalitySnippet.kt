@@ -14,8 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
+import com.example.gladlaksapp.models.database.FavoriteLocality
+import com.example.gladlaksapp.viewmodels.FavoriteViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun LocalitySnippet(
@@ -23,7 +27,7 @@ fun LocalitySnippet(
     isCollapsed: Boolean,
     savedToFav: MutableState<Boolean>,
     onExpandClick: () -> Unit,
-    onSaveClick: () -> Unit,
+
 ) {
 
     val image: Painter = painterResource(R.drawable.locality_icon)
@@ -59,8 +63,8 @@ fun LocalitySnippet(
                 //TODO: startfarge maa samsvare med isFavorite i Locality
 
                 FavoriteButton(
-                    savedToFav = savedToFav,
-                    OnSaveClick = onSaveClick,
+                    //savedToFav = savedToFav,
+                    locality = locality,
                 )
 
                 Button(

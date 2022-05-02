@@ -1,9 +1,6 @@
 package com.example.gladlaksapp.models.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.flow.Flow
 
@@ -16,11 +13,14 @@ interface FavoriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavorites(favorites: List<FavoriteLocality>)
 
+    @Delete
+    suspend fun deleteFavorite(favorite: FavoriteLocality)
+
     //@Query("SELECT * FROM localities JOIN favorites ON localities.locality_no == favorites.locality_no")
     @Query("SELECT * FROM localities JOIN favorites ON favorites.locality_no == localities.locality_no")
-    fun getFavorites() : List<Locality>
+    suspend fun getFavorites() : List<Locality>
 
     @Query("SELECT * FROM favorites")
-    fun getAll() : List<FavoriteLocality>
+    suspend fun getAll() : List<FavoriteLocality>
 
 }

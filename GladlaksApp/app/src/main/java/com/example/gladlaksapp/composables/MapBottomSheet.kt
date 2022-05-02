@@ -23,8 +23,6 @@ fun MapBottomSheet(
     loadedLocality: LocalityDetailsWrapper?,
     loadLocalityDetails: (Locality) -> Unit,
     resetLoadedLocality: () -> Unit,
-
-    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
 ) {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
@@ -65,16 +63,6 @@ fun MapBottomSheet(
         }
     }
 
-    //TODO Move to localitysnippet
-    fun saveToFavorites(){
-        coroutineScope.launch {
-            val favoriteLocality = mutableStateOf(
-                selectedLocality?.let { FavoriteLocality(it.localityNo) }
-            )
-            favoriteViewModel.addFavoriteToDb(favoriteLocality.value)
-        }
-    }
-
     // Side effects
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
         if (selectedLocality != null) {
@@ -112,7 +100,6 @@ fun MapBottomSheet(
                             locality = it,
                             onExpandClick = ::toggleBottomSheet,
                             isCollapsed = sheetState.bottomSheetState.isCollapsed,
-                            onSaveClick = ::saveToFavorites,
                             savedToFav = savedToFav,
                         )
                     }

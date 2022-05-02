@@ -113,7 +113,7 @@ fun FavoritesBottomSheet(
                             onExpandClick = ::toggleBottomSheet,
                             isCollapsed = sheetState.bottomSheetState.isCollapsed,
                             savedToFav = savedToFav,
-                            onSaveClick = ::saveToFavorites,
+
                         )
                     }
                 }

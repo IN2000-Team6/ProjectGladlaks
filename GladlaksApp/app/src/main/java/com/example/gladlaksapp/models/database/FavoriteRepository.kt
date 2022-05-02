@@ -4,8 +4,9 @@ class FavoriteRepository (
     private val favoriteDao: FavoriteDao
 ) {
 
+    suspend fun getAll() = favoriteDao.getAll()
+
     suspend fun insertFavorite(favorite: FavoriteLocality) = favoriteDao.insertFavorite(favorite)
 
-    fun getAll() = favoriteDao.getAll()
-
+    suspend fun deleteFavorite(favorite: FavoriteLocality) = favoriteDao.deleteFavorite(favorite)
 }
