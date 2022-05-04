@@ -28,11 +28,21 @@ fun FavoriteButton(
         mutableStateOf(false)
     }
 
+    fun tintColor(): Color {
+        coroutineScope.launch {
+            isFavorite.value = favoriteViewModel.isFavorite(locality)
+        }
+        return if (isFavorite.value)
+            Color(0xFFEC407A)
+        else
+            Color(0xFFB0BEC5)
+    }
+
     //Added saveToFavorites here so only icon button recomposes on click (?)
     fun saveToFavorites(){
         coroutineScope.launch {
             val favoriteLocality = mutableStateOf(
-                locality?.let { FavoriteLocality(it.localityNo) }
+                FavoriteLocality(locality.localityNo)
             )
             favoriteViewModel.addFavoriteToDb(favoriteLocality.value)
         }
@@ -41,7 +51,7 @@ fun FavoriteButton(
     fun deleteFavorite(){
         coroutineScope.launch{
             val favoriteLocality = mutableStateOf(
-                locality?.let { FavoriteLocality(it.localityNo) }
+                FavoriteLocality(locality.localityNo)
             )
             favoriteViewModel.deleteFavorite(favoriteLocality.value)
         }
@@ -68,8 +78,9 @@ fun FavoriteButton(
             .size(width = 40.dp, height = 40.dp),
     ) {
         val tint by animateColorAsState(
-            if (isFavorite.value) Color(0xFFEC407A)
-            else Color(0xFFB0BEC5)
+            tintColor()
+            //if (isFavorite()) Color(0xFFEC407A)
+            //else Color(0xFFB0BEC5)
         )
         Icon(
             Icons.Filled.Favorite,

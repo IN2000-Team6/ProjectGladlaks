@@ -27,8 +27,6 @@ fun MapBottomSheet(
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
     val selectedPeekHeight = 95
-
-    val savedToFav = remember { mutableStateOf(false) }
     
     // Local state
     var selectedLocality by remember { mutableStateOf<Locality?>(null) }
@@ -100,7 +98,6 @@ fun MapBottomSheet(
                             locality = it,
                             onExpandClick = ::toggleBottomSheet,
                             isCollapsed = sheetState.bottomSheetState.isCollapsed,
-                            savedToFav = savedToFav,
                         )
                     }
                 }

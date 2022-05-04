@@ -18,15 +18,8 @@ import kotlinx.coroutines.launch
 fun FavoritesScreen(
     lfViewModel: LoadedFavoriteViewModel = hiltViewModel()
 ) {
-    /*var localities: List<Locality>
 
-    val coroutineScope = rememberCoroutineScope()
-
-    suspend fun getFavoriteLocalities(){
-        coroutineScope.launch {
-            localities = favoriteViewModel.getFavoriteLocalities()
-        }
-    }*/
+    //val localities = testLocalities
     val localities by lfViewModel.localities.observeAsState()
     val loadedLocality by lfViewModel.localityDetail.observeAsState()
     val localityTemps by lfViewModel.localityTemps.observeAsState()
@@ -42,6 +35,7 @@ fun FavoritesScreen(
         },
     )
 }
+
 // DUMMY DATA
 val testLocalities = arrayListOf(
     Locality(localityNo = 1, name="a", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false),

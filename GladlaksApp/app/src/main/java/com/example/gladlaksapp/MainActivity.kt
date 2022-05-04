@@ -32,15 +32,12 @@ class MainActivity : ComponentActivity() {
                     composable(Screen.Map.route) {
                         BottomNavScreenContainer(navController = navController) {
                             MapScreen(
-                                //mViewModel = mViewModel,
-                                //localityViewModel = localityViewModel,
                             )
                         }
                     }
                     composable(Screen.Favorites.route) {
                         BottomNavScreenContainer(navController = navController) {
                             FavoritesScreen(
-                                //model = mViewModel
                             )
                         }
                     }
