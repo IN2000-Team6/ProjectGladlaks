@@ -28,7 +28,6 @@ fun FavoriteButton(
         mutableStateOf(false)
     }
 
-
     fun isFavorite(): Boolean {
         coroutineScope.launch {
             isFavorite.value = !favoriteViewModel.isSaved(locality)

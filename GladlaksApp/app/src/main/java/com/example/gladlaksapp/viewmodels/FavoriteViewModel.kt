@@ -19,9 +19,14 @@ import kotlin.coroutines.CoroutineContext
 class FavoriteViewModel @Inject constructor(
     //TODO Include saved state handle?
     private val favoriteRepository: FavoriteRepository,
-    private val localityRepository: LocalityRepository,
 ): ViewModel() {
     lateinit var favorites: List<FavoriteLocality>
+
+    private suspend fun getAll(){
+        coroutineScope {
+            favorites = favoriteRepository.getAll()
+        }
+    }
 
     suspend fun addFavoriteToDb(favoriteLocality: FavoriteLocality?){
         coroutineScope {
@@ -40,17 +45,10 @@ class FavoriteViewModel @Inject constructor(
             //TODO Throw exception
         }
     }
-    suspend fun getAll(){
-        coroutineScope {
-            favorites = favoriteRepository.getAll()
-        }
-    }
 
     suspend fun isSaved(locality: Locality): Boolean {
         getAll()
         val favorite = FavoriteLocality(locality.localityNo)
         return favorite in favorites
     }
-
-
 }

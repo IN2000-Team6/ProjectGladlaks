@@ -59,14 +59,6 @@ fun FavoritesBottomSheet(
         }
     }
 
-    fun saveToFavorites(){
-        coroutineScope.launch {
-
-            //TODO Method that inserts locality as favourite
-
-        }
-    }
-
     // Side effects
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
         if (selectedLocality != null) {

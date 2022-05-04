@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.models.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +19,7 @@ interface FavoriteDao {
 
     //@Query("SELECT * FROM localities JOIN favorites ON localities.locality_no == favorites.locality_no")
     @Query("SELECT * FROM localities JOIN favorites ON favorites.locality_no == localities.locality_no")
-    suspend fun getFavorites() : List<Locality>
+    fun getFavorites() : LiveData<List<Locality>>
 
     @Query("SELECT * FROM favorites")
     suspend fun getAll() : List<FavoriteLocality>
