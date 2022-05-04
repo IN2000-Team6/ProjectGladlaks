@@ -28,13 +28,6 @@ fun FavoriteButton(
         mutableStateOf(false)
     }
 
-    fun isFavorite(): Boolean {
-        coroutineScope.launch {
-            isFavorite.value = !favoriteViewModel.isSaved(locality)
-        }
-        return isFavorite.value
-    }
-
     //Added saveToFavorites here so only icon button recomposes on click (?)
     fun saveToFavorites(){
         coroutineScope.launch {
@@ -55,10 +48,16 @@ fun FavoriteButton(
     }
 
     fun toggleFavorite(){
-        if (!isFavorite()){
+        println("saved: "+isFavorite.value)
+        if (!isFavorite.value){
             saveToFavorites()
+            println("saved")
         }else{
             deleteFavorite()
+            println("deleted")
+        }
+        coroutineScope.launch{
+            isFavorite.value = favoriteViewModel.isFavorite(locality)
         }
     }
 

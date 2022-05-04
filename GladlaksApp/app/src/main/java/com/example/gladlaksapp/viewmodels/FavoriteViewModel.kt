@@ -46,7 +46,7 @@ class FavoriteViewModel @Inject constructor(
         }
     }
 
-    suspend fun isSaved(locality: Locality): Boolean {
+    suspend fun isFavorite(locality: Locality): Boolean {
         getAll()
         val favorite = FavoriteLocality(locality.localityNo)
         return favorite in favorites
