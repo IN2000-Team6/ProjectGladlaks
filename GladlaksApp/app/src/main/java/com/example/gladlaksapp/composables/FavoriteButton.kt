@@ -57,18 +57,16 @@ fun FavoriteButton(
         }
     }
 
+    //TODO store isFavorite mutable state in view model?
     fun toggleFavorite(){
-        println("saved: "+isFavorite.value)
         if (!isFavorite.value){
             saveToFavorites()
-            println("saved")
+            isFavorite.value = true
         }else{
             deleteFavorite()
-            println("deleted")
+            isFavorite.value = false
         }
-        coroutineScope.launch{
-            isFavorite.value = favoriteViewModel.isFavorite(locality)
-        }
+
     }
 
     IconButton(

@@ -61,7 +61,6 @@ fun LocalitySnippet(
             //TODO: startfarge maa samsvare med isFavorite i Locality
 
             FavoriteButton(
-                //savedToFav = savedToFav,
                 locality = locality,
             )
 
