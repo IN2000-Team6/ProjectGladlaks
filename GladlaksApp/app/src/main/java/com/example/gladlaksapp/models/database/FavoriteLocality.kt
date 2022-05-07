@@ -10,5 +10,6 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "favorites")
 data class FavoriteLocality(
-    @PrimaryKey @ColumnInfo(name="locality_no") val localityNo: Int
+    @PrimaryKey @ColumnInfo(name="locality_no") val localityNo: Int,
+    val isFavorite: Boolean
 )

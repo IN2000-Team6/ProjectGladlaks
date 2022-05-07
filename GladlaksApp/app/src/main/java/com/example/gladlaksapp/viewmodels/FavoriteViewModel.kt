@@ -1,54 +1,42 @@
 package com.example.gladlaksapp.viewmodels
 
-import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.database.FavoriteLocality
 import com.example.gladlaksapp.models.database.FavoriteRepository
-import com.example.gladlaksapp.models.database.LocalityDatabase
-import com.example.gladlaksapp.models.database.LocalityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
     //TODO Include saved state handle?
     private val favoriteRepository: FavoriteRepository,
 ): ViewModel() {
-    lateinit var favorites: List<FavoriteLocality>
 
-    private suspend fun getAll(){
-        coroutineScope {
-            favorites = favoriteRepository.getAll()
+    //TODO make livedata boolean observable in button and dont change it
+
+    val favorites = MutableLiveData<List<FavoriteLocality>>()
+
+    init {
+        viewModelScope.launch {
+            favorites.postValue(favoriteRepository.getAll())
         }
     }
 
-    suspend fun addFavoriteToDb(favoriteLocality: FavoriteLocality?){
+    suspend fun toggleFavorite(locality: Locality){
         coroutineScope {
-            if (favoriteLocality != null) {
-                favoriteRepository.insertFavorite(favoriteLocality)
+            if (favoriteRepository.checkIfFavorite(locality.localityNo)){
+                favoriteRepository.deleteFavorite(locality.localityNo)
+                Log.d("Favorite value", "Deleted!")
+            }else{
+                favoriteRepository.addFavorite(locality.localityNo)
+                Log.d("Favorite value", "Added!")
             }
-            //TODO Throw exception
         }
     }
 
-    suspend fun deleteFavorite(favoriteLocality: FavoriteLocality?){
-        coroutineScope {
-            if (favoriteLocality != null) {
-                favoriteRepository.deleteFavorite(favoriteLocality)
-            }
-            //TODO Throw exception
-        }
-    }
-
-    suspend fun isFavorite(locality: Locality): Boolean {
-        getAll()
-        val favorite = FavoriteLocality(locality.localityNo)
-        return favorite in favorites
-    }
 }

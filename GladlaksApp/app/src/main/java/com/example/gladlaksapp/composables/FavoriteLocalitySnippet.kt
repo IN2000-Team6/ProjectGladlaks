@@ -49,10 +49,15 @@ fun FavoriteLocalitySnippet(
                         style = MaterialTheme.typography.labelLarge,
                     )
                 }
+               /* FavoriteButton(
+                    locality = locality,
+                )
+
+                */
                 Button(
                     modifier = Modifier
                         .padding(end = 20.dp)
-                        .size(width = 150.dp, height = 40.dp),
+                        .size(width = 130.dp, height = 40.dp),
                     onClick = {
                             onClick(locality)
                             true},

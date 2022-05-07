@@ -17,9 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
-import com.example.gladlaksapp.models.database.FavoriteLocality
-import com.example.gladlaksapp.viewmodels.FavoriteViewModel
-import kotlinx.coroutines.launch
 
 @Composable
 fun LocalitySnippet(

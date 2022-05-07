@@ -1,7 +1,6 @@
 package com.example.gladlaksapp.composables
 
 import android.util.Log
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
@@ -9,6 +8,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -21,30 +21,23 @@ import kotlinx.coroutines.launch
 @Composable
 fun FavoriteButton(
     locality: Locality,
-    favoriteViewModel: FavoriteViewModel = hiltViewModel(),
+    //isFavorite: Boolean,
+    favViewModel: FavoriteViewModel = hiltViewModel(),
 ){
+    //TODO rewrite favorite status
     val coroutineScope = rememberCoroutineScope()
 
-    var isFavorite by remember {
-        mutableStateOf(locality.isFavorite)
-    }
+    val favorites by favViewModel.favorites.observeAsState()
+
+    val isFavorite = favorites?.any { it.localityNo == locality.localityNo }
 
     val redColor = Color(0xFFEC407A)
     val grayColor = Color(0xFFB0BEC5)
 
     fun toggleFavorite(){
         coroutineScope.launch {
-            val favoriteLocality = mutableStateOf(
-                FavoriteLocality(locality.localityNo)
-            )
-
-            if (isFavorite) {
-                favoriteViewModel.deleteFavorite(favoriteLocality.value)
-                isFavorite = false
-            } else {
-                favoriteViewModel.addFavoriteToDb(favoriteLocality.value)
-                isFavorite = true
-            }
+            favViewModel.toggleFavorite(locality)
+            Log.d("Check bool", "$isFavorite, (${favorites?.size})")
         }
     }
 
@@ -57,6 +50,8 @@ fun FavoriteButton(
         Icon(
             Icons.Filled.Favorite,
             contentDescription = "Hjerteformet knapp",
-            tint = if (isFavorite) redColor else grayColor)
+            tint = redColor, //if (isFavorite == true) redColor else grayColor),
+        )
     }
+
 }
