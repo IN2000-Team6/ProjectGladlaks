@@ -28,7 +28,8 @@ fun FavoritesScreen(
         },
     )
 }
-// DUMMY DATA
+
+
 val testLocalities = arrayListOf(
     Locality(localityNo = 1, name="a", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false),
     Locality(localityNo = 2, name="b", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false),
