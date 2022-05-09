@@ -2,6 +2,7 @@ package com.example.gladlaksapp.composables
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Paint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -104,46 +105,8 @@ fun LocalityMap(
                 }
             }
         }
-        Box(modifier = Modifier
-            .padding(10.dp)
-            .align(Alignment.TopEnd)
-            .clip(RoundedCornerShape(15.dp))
-        ){
-            Box(modifier = Modifier
-                .height(40.dp)
-                .width(150.dp)
-                .align(Alignment.TopEnd)
-                .background(Color(0xB4FFFFFF))
-                .clip(RoundedCornerShape(15.dp))
-            ){
-                Column(modifier = Modifier
-                    .align(Alignment.Center)
-                    .fillMaxSize()
-                ) {
-                    Row(Modifier.padding(start = 10.dp, top = 3.dp)) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_white_border_marker_t),
-                            contentDescription = "Turqoise Icon",
-                            modifier = Modifier.size(15.dp)
-                        )
-                        Text(
-                            text = " = Rapportert data",
-                            style = MaterialTheme.typography.bodySmall)
-
-                    }
-                    Row(Modifier.padding(start = 10.dp, top = 3.dp)) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_white_border_marker_g),
-                            contentDescription = "Gray Icon",
-                            modifier = Modifier.size(15.dp)
-                        )
-                        Text(
-                            text = " = Ikke rapportert data",
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                    }
-                }
-            }
+        Box(modifier = Modifier.align(Alignment.TopEnd)) {
+            MapMarkerColorInfoBox()
         }
     }
 }
