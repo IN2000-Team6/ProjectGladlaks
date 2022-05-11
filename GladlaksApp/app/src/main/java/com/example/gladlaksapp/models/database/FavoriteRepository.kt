@@ -1,15 +1,18 @@
 package com.example.gladlaksapp.models.database
 
+import kotlinx.coroutines.flow.Flow
+
 class FavoriteRepository (
     private val favoriteDao: FavoriteDao
 ) {
-    suspend fun getAll() = favoriteDao.getAll()
+    val favoritesFlow: Flow<List<FavoriteLocality>>
+        get() = favoriteDao.getAll()
 
-    fun getFavoriteLocalities() = favoriteDao.getFavorites()
+    fun getFavorite(localityNo: Int) = favoriteDao.getFavorite(localityNo)
+
+    fun getFavoriteLocalities() = favoriteDao.getFavoriteLocalities()
 
     suspend fun insertFavorites(favorites: List<FavoriteLocality>) = favoriteDao.insertFavorites(favorites)
-
-    suspend fun checkIfFavorite(localityNo: Int) = favoriteDao.checkIfFavorite(localityNo)
 
     suspend fun addFavorite(localityNo: Int) = favoriteDao.addFavorite(localityNo)
 

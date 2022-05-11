@@ -1,15 +1,21 @@
 package com.example.gladlaksapp.composables
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.example.gladlaksapp.models.database.FavoriteLocality
+import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -20,17 +26,30 @@ fun MapBottomSheet(
     loadedLocality: LocalityDetailsWrapper?,
     loadLocalityDetails: (Locality) -> Unit,
     resetLoadedLocality: () -> Unit,
+    favViewModel: FavoriteViewModel = hiltViewModel(),
 ) {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
     val selectedPeekHeight = 95
-    
+
     // Local state
     var selectedLocality by remember { mutableStateOf<Locality?>(null) }
     var peekHeight by remember { mutableStateOf(initialPeekHeight) }
     val sheetState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
     )
+
+    val favorites by favViewModel.favorites.observeAsState()
+    var favoriteLocality by remember { mutableStateOf<FavoriteLocality?>(null) }
+
+    val redColor = Color(0xFFEC407A)
+    val grayColor = Color(0xFFB0BEC5)
+    val favButtonTint = if (favoriteLocality?.isFavorite == true) redColor else grayColor
+
+    LaunchedEffect(favorites, selectedLocality) {
+        if (favorites != null && selectedLocality != null)
+            favoriteLocality = favorites?.filter { it.localityNo == selectedLocality?.localityNo }?.get(0)
+    }
 
     // Event handlers
     fun onMarkerClick(locality: Locality) {
@@ -54,6 +73,16 @@ fun MapBottomSheet(
                 sheetState.bottomSheetState.expand()
             } else {
                 sheetState.bottomSheetState.collapse()
+            }
+        }
+    }
+
+    fun toggleFavorite() {
+        coroutineScope.launch {
+            if (favoriteLocality != null) {
+                Log.d("isFav", "${favoriteLocality?.isFavorite}")
+                if (favoriteLocality?.isFavorite == false) favViewModel.addFavorite(favoriteLocality!!)
+                else favoriteLocality?.let { favViewModel.deleteFavorite(it) }
             }
         }
     }
@@ -95,6 +124,9 @@ fun MapBottomSheet(
                             locality = it,
                             onExpandClick = ::toggleBottomSheet,
                             isCollapsed = sheetState.bottomSheetState.isCollapsed,
+
+                            toggleFavorite = ::toggleFavorite,
+                            favButtonTint = favButtonTint,
                         )
                     }
                 }

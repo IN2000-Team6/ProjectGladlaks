@@ -97,7 +97,7 @@ fun FavoritesBottomSheet(
                     isExpanded = sheetState.bottomSheetState.isExpanded,
                     onClick = ::toggleBottomSheet,
                 )
-                Box(modifier = Modifier.padding(bottom = 25.dp)) {
+/*                Box(modifier = Modifier.padding(bottom = 25.dp)) {
                     selectedLocality?.let {
                         LocalitySnippet(
                             locality = it,
@@ -106,6 +106,8 @@ fun FavoritesBottomSheet(
                         )
                     }
                 }
+
+ */
                 LocalitySheetContent(
                     selectedLocality = selectedLocality,
                     loadedLocality = loadedLocality,

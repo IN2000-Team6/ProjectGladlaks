@@ -20,29 +20,11 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun FavoriteButton(
-    locality: Locality,
-    //isFavorite: Boolean,
-    favViewModel: FavoriteViewModel = hiltViewModel(),
+    toggleFavorite: () -> Unit,
+    favButtonTint: Color
 ){
-    //TODO rewrite favorite status
-    val coroutineScope = rememberCoroutineScope()
-
-    val favorites by favViewModel.favorites.observeAsState()
-
-    val isFavorite = favorites?.any { it.localityNo == locality.localityNo }
-
-    val redColor = Color(0xFFEC407A)
-    val grayColor = Color(0xFFB0BEC5)
-
-    fun toggleFavorite(){
-        coroutineScope.launch {
-            favViewModel.toggleFavorite(locality)
-            Log.d("Check bool", "$isFavorite, (${favorites?.size})")
-        }
-    }
-
     IconButton(
-        onClick = ::toggleFavorite,
+        onClick = toggleFavorite,
         modifier = Modifier
             .padding(end = 5.dp)
             .size(width = 40.dp, height = 40.dp),
@@ -50,8 +32,34 @@ fun FavoriteButton(
         Icon(
             Icons.Filled.Favorite,
             contentDescription = "Hjerteformet knapp",
-            tint = redColor, //if (isFavorite == true) redColor else grayColor),
+            tint = favButtonTint
         )
     }
-
 }
+
+//TODO rewrite favorite status
+//val coroutineScope = rememberCoroutineScope()
+/*
+    val favorites by favViewModel.favorites.observeAsState()
+    //    val favorites = favViewModel.favorites
+
+    val isFavorite = favorites?.filter { it.localityNo == locality.localityNo }
+    val len = favorites?.size
+
+    LaunchedEffect(key1 = null) {
+        favViewModel.loadFavorites()
+    }
+
+
+
+    fun toggleFavorite(){
+        coroutineScope.launch {
+            favViewModel.toggleFavorite(locality)
+            Log.d("Check bool", "$isFavorite, ($len)")
+            Log.d("Selected loc", "${locality.localityNo}")
+            Log.d("loc in favs", "${favorites?.filter{it.localityNo == locality.localityNo}}")
+            Log.d("Check bool", "After: $isFavorite, ($len)")
+        }
+    }
+
+ */

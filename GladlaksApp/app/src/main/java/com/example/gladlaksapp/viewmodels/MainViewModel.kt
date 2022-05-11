@@ -38,7 +38,7 @@ class MainViewModel @Inject constructor(
     private val year = now.year
 
     val localities = MutableLiveData<List<Locality>>()
-    val localityDetail = MutableLiveData<LocalityDetailsWrapper>()
+    val localityDetail = MutableLiveData<LocalityDetailsWrapper?>()
     val localityTemps = MutableLiveData<List<GraphLine>>()
 
     fun resetLoadedLocality() = localityDetail.postValue(null)
@@ -70,6 +70,7 @@ class MainViewModel @Inject constructor(
 
             //TODO Check if database updates properly - do past localities get deleted?
             localityRepository.insertAll(data)
+            //TODO favorites column likely gets overwritten
             favoriteRepository.insertFavorites( data.map{FavoriteLocality(it.localityNo,false)} )
         }
     }

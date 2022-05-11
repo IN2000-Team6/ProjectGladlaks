@@ -24,6 +24,9 @@ fun LocalitySnippet(
     isCollapsed: Boolean,
     onExpandClick: () -> Unit,
 
+    toggleFavorite: () -> Unit,
+    favButtonTint: Color
+
 ) {
 
     val image: Painter = painterResource(R.drawable.locality_icon)
@@ -58,7 +61,8 @@ fun LocalitySnippet(
             //TODO: startfarge maa samsvare med isFavorite i Locality
 
             FavoriteButton(
-                locality = locality,
+                toggleFavorite = toggleFavorite,
+                favButtonTint = favButtonTint,
             )
 
             Button(

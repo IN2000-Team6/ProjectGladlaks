@@ -1,6 +1,8 @@
 package com.example.gladlaksapp.viewmodels
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.database.FavoriteLocality
@@ -17,25 +19,20 @@ class FavoriteViewModel @Inject constructor(
     private val favoriteRepository: FavoriteRepository,
 ): ViewModel() {
 
-    //TODO make livedata boolean observable in button and dont change it
+    //TODO add/delete bug
+    //TODO livedata boolean isfavorite
 
-    val favorites = MutableLiveData<List<FavoriteLocality>>()
+    val favorites: LiveData<List<FavoriteLocality>> = favoriteRepository.favoritesFlow.asLiveData()
 
-    init {
-        viewModelScope.launch {
-            favorites.postValue(favoriteRepository.getAll())
+    suspend fun addFavorite(locality: FavoriteLocality){
+        coroutineScope {
+            favoriteRepository.addFavorite(locality.localityNo)
         }
     }
 
-    suspend fun toggleFavorite(locality: Locality){
+    suspend fun deleteFavorite(locality: FavoriteLocality){
         coroutineScope {
-            if (favoriteRepository.checkIfFavorite(locality.localityNo)){
-                favoriteRepository.deleteFavorite(locality.localityNo)
-                Log.d("Favorite value", "Deleted!")
-            }else{
-                favoriteRepository.addFavorite(locality.localityNo)
-                Log.d("Favorite value", "Added!")
-            }
+            favoriteRepository.deleteFavorite(locality.localityNo)
         }
     }
 
