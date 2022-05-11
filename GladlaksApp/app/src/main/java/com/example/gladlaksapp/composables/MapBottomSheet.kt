@@ -62,19 +62,22 @@ fun MapBottomSheet(
         peekHeight = selectedPeekHeight
     }
 
-
-    fun onMapOrArrowClick() {
-        coroutineScope.launch {
-            sheetState.bottomSheetState.collapse()
-            peekHeight = initialPeekHeight
-        }
-    }
-
     fun toggleBottomSheet() {
         coroutineScope.launch {
             if (sheetState.bottomSheetState.isCollapsed) {
                 sheetState.bottomSheetState.expand()
             } else {
+                sheetState.bottomSheetState.collapse()
+            }
+        }
+    }
+
+    fun onMapOrArrowClick() {
+        coroutineScope.launch {
+            if (sheetState.bottomSheetState.isCollapsed) {
+                sheetState.bottomSheetState.expand()
+            } else {
+                peekHeight = selectedPeekHeight
                 sheetState.bottomSheetState.collapse()
             }
         }
