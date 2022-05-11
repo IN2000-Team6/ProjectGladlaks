@@ -134,7 +134,6 @@ fun FavoritesBottomSheet(
                         )
                     }
                 }
-
                 LocalitySheetContent(
                     selectedLocality = selectedLocality,
                     loadedLocality = loadedLocality,

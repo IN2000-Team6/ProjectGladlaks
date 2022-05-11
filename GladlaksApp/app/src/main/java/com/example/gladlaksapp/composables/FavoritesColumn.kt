@@ -66,29 +66,41 @@ fun FavoritesColumn(
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
-        for (loc in favoritesList){
-            Box(
-                modifier = Modifier.padding(vertical = 2.dp)
-            ) {
-                InfoCard {
-                    SnippetWrapper {
-                        FavoriteLocalitySnippet(
-                            locality = loc,
-                            isCollapsed = isCollapsed,
-                            //TODO state hoist!
-                            onExpandClick = {
-                                onButtonClick(loc)
-                                true
-                            },
-                            toggleFavorite = toggleFavorite,
-                            favButtonTint = favButtonTint,
-                        )
-                    }
+        if (favoritesList.isNotEmpty()){
+            for (loc in favoritesList) {
+                Box(
+                    modifier = Modifier.padding(vertical = 2.dp)
+                ) {
+                    InfoCard {
+                        SnippetWrapper {
+                            FavoriteLocalitySnippet(
+                                locality = loc,
+                                isCollapsed = isCollapsed,
+                                //TODO state hoist!
+                                onExpandClick = {
+                                    onButtonClick(loc)
+                                    true
+                                },
+                                toggleFavorite = toggleFavorite,
+                                favButtonTint = favButtonTint,
+                            )
+                        }
                     }
                 }
             }
+        }else{
+            Box(
+                modifier = Modifier.padding(vertical = 2.dp).fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ){
+                Text("Ingen favoritter",
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.titleMedium,
+                )
+            }
         }
     }
+}
 
 @Composable
 fun SnippetWrapper(
