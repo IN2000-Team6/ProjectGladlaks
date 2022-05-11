@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
 
@@ -81,13 +80,6 @@ fun LocalitySnippet(
                         text = if (isCollapsed) "Se mer" else "Se mindre",
                     )
                 }
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-
-
             }
         }
     }
