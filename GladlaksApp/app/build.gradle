@@ -57,10 +57,10 @@ kapt {
 }
 
 dependencies {
-    def lifecycle_version = "2.5.0-alpha01"
+    def lifecycle_version = '2.5.0-alpha01'
     def ktor_version = '1.6.7'
     def room_version = '2.4.2'
-    def nav_version = "2.4.2"
+    def nav_version = '2.4.2'
 
     // ------------- Built in dependencies ------------- //
     implementation 'androidx.core:core-ktx:1.7.0'

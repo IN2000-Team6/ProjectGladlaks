@@ -37,21 +37,15 @@ fun CustomLineChart(
     val size = (textSize.dp).value
     val colors = listOf(Color(0xFFFFBDAE), Color(0xFF9c4331))
 
-    Column {
-        Row(
+    Column() {
+        Text(
+            text = "Sjøtemperatur",
+            style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-
-        ){
-            Text(
-                text = "Sjøtemperatur",
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge,
-            )
-        }
+                .padding(bottom = 15.dp, top = 15.dp),
+            textAlign = TextAlign.Center,
+        )
 
         AndroidView(
             modifier = Modifier
