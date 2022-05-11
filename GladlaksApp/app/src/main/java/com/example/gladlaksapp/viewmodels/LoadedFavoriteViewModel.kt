@@ -1,9 +1,6 @@
 package com.example.gladlaksapp.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.datasources.NorKystRepository
 import com.example.gladlaksapp.models.GraphLine
@@ -22,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoadedFavoriteViewModel @Inject constructor(
-    private val favoriteRepository: FavoriteRepository,
+    favoriteRepository: FavoriteRepository,
 ) : ViewModel() {
     private val barentsWatchRepo = BarentswatchRepository
     private val norKystRepo = NorKystRepository
@@ -30,8 +27,8 @@ class LoadedFavoriteViewModel @Inject constructor(
     private val week = now.get(WeekFields.of(Locale.GERMANY).weekOfYear())
     private val year = now.year
 
-    val localities: LiveData<List<Locality>> = favoriteRepository.getFavoriteLocalities()
-    val localityDetail = MutableLiveData<LocalityDetailsWrapper>()
+    val localities: LiveData<List<Locality>> = favoriteRepository.loadedFavoritesFlow.asLiveData()
+    val localityDetail = MutableLiveData<LocalityDetailsWrapper?>()
     val localityTemps = MutableLiveData<List<GraphLine>>()
 
     fun resetLoadedLocality() = localityDetail.postValue(null)

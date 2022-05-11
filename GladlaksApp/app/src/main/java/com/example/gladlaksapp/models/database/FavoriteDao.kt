@@ -19,7 +19,7 @@ interface FavoriteDao {
     suspend fun insertFavorites(favorites: List<FavoriteLocality>)
 
     @Query("SELECT * FROM favorites JOIN localities ON favorites.locality_no == localities.locality_no WHERE favorites.isFavorite == 1")
-    fun getFavoriteLocalities() : LiveData<List<Locality>>
+    fun getFavoriteLocalities() : Flow<List<Locality>>
 
     @Query("SELECT * FROM favorites")
     fun getAll() : Flow<List<FavoriteLocality>>

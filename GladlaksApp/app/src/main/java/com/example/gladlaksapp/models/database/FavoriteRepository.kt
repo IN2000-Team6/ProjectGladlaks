@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.models.database
 
+import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.flow.Flow
 
 class FavoriteRepository (
@@ -8,9 +9,8 @@ class FavoriteRepository (
     val favoritesFlow: Flow<List<FavoriteLocality>>
         get() = favoriteDao.getAll()
 
-    fun getFavorite(localityNo: Int) = favoriteDao.getFavorite(localityNo)
-
-    fun getFavoriteLocalities() = favoriteDao.getFavoriteLocalities()
+    val loadedFavoritesFlow: Flow<List<Locality>>
+        get() = favoriteDao.getFavoriteLocalities()
 
     suspend fun insertFavorites(favorites: List<FavoriteLocality>) = favoriteDao.insertFavorites(favorites)
 
