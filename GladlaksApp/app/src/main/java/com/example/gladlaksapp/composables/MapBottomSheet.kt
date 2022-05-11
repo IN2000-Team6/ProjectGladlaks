@@ -50,7 +50,8 @@ fun MapBottomSheet(
 
     LaunchedEffect(favorites, selectedLocality) {
         if (favorites != null && selectedLocality != null)
-            favoriteLocality = favorites?.filter { it.localityNo == selectedLocality?.localityNo }?.get(0)
+            favoriteLocality =
+                favorites?.filter { it.localityNo == selectedLocality?.localityNo }?.get(0)
     }
 
     // Event handlers
@@ -72,7 +73,15 @@ fun MapBottomSheet(
         }
     }
 
-    fun onMapOrArrowClick() {
+    fun onMapClick() {
+        coroutineScope.launch {
+            peekHeight = initialPeekHeight
+            sheetState.bottomSheetState.collapse()
+
+        }
+    }
+
+    fun onArrowClick() {
         coroutineScope.launch {
             if (sheetState.bottomSheetState.isCollapsed) {
                 sheetState.bottomSheetState.expand()
@@ -110,7 +119,7 @@ fun MapBottomSheet(
             LocalityMap(
                 localities = localities,
                 onMarkerClick = ::onMarkerClick,
-                onMapClick = ::onMapOrArrowClick,
+                onMapClick = ::onMapClick,
             )
         },
         sheetContent = {
@@ -121,7 +130,7 @@ fun MapBottomSheet(
             ) {
                 ToggleArrowButton(
                     isExpanded = sheetState.bottomSheetState.isExpanded,
-                    onClick = ::onMapOrArrowClick,
+                    onClick = ::onArrowClick,
                 )
                 Box(modifier = Modifier.padding(bottom = 25.dp)) {
                     selectedLocality?.let {
