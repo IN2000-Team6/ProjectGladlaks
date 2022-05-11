@@ -7,7 +7,7 @@ import io.ktor.client.features.json.*
 import io.ktor.client.request.*
 
 object NorKystNetworkDataSource {
-    private const val temperatureUrl = "http://10.0.2.2:8080/temperature?lat=%s&lon=%s&depth=%s"
+    private const val temperatureUrl = "http://158.37.63.93:8080/temperature?lat=%s&lon=%s&depth=%s"
 
     private val client = HttpClient(CIO) {
         install(JsonFeature) {

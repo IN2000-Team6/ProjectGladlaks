@@ -1,6 +1,7 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.lousechart
 
 import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.CutCornerShape
@@ -10,16 +11,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.layout
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.gladlaksapp.composables.lousechart.marker
+import com.example.gladlaksapp.composables.InfoCard
 import com.patrykandpatryk.vico.compose.axis.horizontal.bottomAxis
 import com.patrykandpatryk.vico.compose.chart.Chart
 import com.patrykandpatryk.vico.compose.chart.column.columnChart
@@ -28,17 +29,14 @@ import com.patrykandpatryk.vico.compose.component.shape.lineComponent
 import com.patrykandpatryk.vico.compose.component.shape.textComponent
 import com.patrykandpatryk.vico.compose.component.shapeComponent
 import com.patrykandpatryk.vico.compose.dimensions.dimensionsOf
-import com.patrykandpatryk.vico.core.axis.formatter.AxisValueFormatter
 import com.patrykandpatryk.vico.core.axis.vertical.createVerticalAxis
 import com.patrykandpatryk.vico.core.chart.column.ColumnChart
 import com.patrykandpatryk.vico.core.chart.decoration.ThresholdLine
 import com.patrykandpatryk.vico.core.component.shape.LineComponent
 import com.patrykandpatryk.vico.core.component.shape.ShapeComponent
 import com.patrykandpatryk.vico.core.component.shape.Shapes
-import com.patrykandpatryk.vico.core.entry.ChartEntryModel
 import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
 import com.patrykandpatryk.vico.core.entry.FloatEntry
-import com.patrykandpatryk.vico.core.entry.entryModelOf
 import kotlin.random.Random
 
 //TODO Break up composables and make test
@@ -108,42 +106,26 @@ fun CustomBarChart(
             )
         )
     )
-    Column(modifier = Modifier
-        .fillMaxHeight(),
-        //verticalArrangement = Arrangement.SpaceEvenly
+
+    // TODO: remove hardcoded values
+    val legends = listOf(
+        Pair(MaterialTheme.colorScheme.secondary, "2021"),
+        Pair(MaterialTheme.colorScheme.primary, "2022"),
+    )
+
+    val indicatorSize = 13
+
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(vertical = 16.dp)
     ) {
-        //TODO The way this component is handled is not very good. Should separate a lot of these things
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-
-            ) {
-            Text(
-                text = "Hunnlus per uke",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-        /* Row(
-             modifier = Modifier
-                 .fillMaxWidth()
-                 .weight(1f),
-             verticalAlignment = Alignment.CenterVertically
-         ) {
-             Text(
-                 text = "Ant" ,//all hunnlus per fisk,
-                 style = MaterialTheme.typography.bodySmall,
-                 //textAlign = TextAlign,
-                 modifier = Modifier
-                     .padding(2.dp)
-                     //.rotate(-90f)
-             )
-
-             Box(
-                 modifier = Modifier
-                     .padding(6.dp)
-                     .fillMaxSize()
-             ){*/
+        Text(
+            text = "Hunnlus per uke",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+        )
         Row(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -155,14 +137,12 @@ fun CustomBarChart(
                 .rotate(-90f)
                 .padding(8.dp)
             )
-
             ChartBody(
                 chart = chart,
                 chartEntryModelProducer = chartEntryModelProducer,
                 diffAnimationSpec = diffAnimationSpec
             )
         }
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -172,9 +152,28 @@ fun CustomBarChart(
             Text(
                 text = "Uker",
                 style = MaterialTheme.typography.bodySmall,
-                //textAlign = TextAlign.Center,
                 modifier = Modifier.padding(end=6.dp)
             )
+        }
+        Row(
+            modifier = Modifier.padding(top = 8.dp, end = 6.dp).fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End,
+        ) {
+            legends.forEach { bar ->
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(4.dp))
+                        .width(indicatorSize.dp)
+                        .height(indicatorSize.dp)
+                        .background(bar.first)
+                )
+                Text(
+                    modifier = Modifier.padding(start = 5.dp, end = 10.dp),
+                    style = MaterialTheme.typography.bodySmall,
+                    text = bar.second
+                )
+            }
         }
     }
 }
@@ -235,7 +234,6 @@ fun ChartBody(
             .fillMaxHeight()
     )
 }
-
 
 @Preview(showBackground = true, widthDp = 320, heightDp = 600)
 @Composable

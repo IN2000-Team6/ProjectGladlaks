@@ -3,7 +3,6 @@ package com.example.gladlaksapp.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gladlaksapp.composables.getRandomEntries
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.datasources.NorKystRepository
 import com.example.gladlaksapp.models.*
