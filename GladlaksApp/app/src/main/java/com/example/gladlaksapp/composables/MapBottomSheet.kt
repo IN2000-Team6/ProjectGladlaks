@@ -14,8 +14,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
-import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
-import com.patrykandpatryk.vico.core.entry.ChartModelProducer
 import com.example.gladlaksapp.models.database.FavoriteLocality
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import kotlinx.coroutines.launch

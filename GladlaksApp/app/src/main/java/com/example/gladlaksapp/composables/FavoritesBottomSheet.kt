@@ -1,7 +1,6 @@
 package com.example.gladlaksapp.composables
 
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -17,7 +16,7 @@ import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.models.database.FavoriteLocality
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
-import com.example.gladlaksapp.viewmodels.LoadedFavoriteViewModel
+import com.example.gladlaksapp.viewmodels.LocalityViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -27,10 +26,10 @@ fun FavoritesBottomSheet(
     loadedLocality: LocalityDetailsWrapper?,
     loadLocalityDetails: (Locality) -> Unit,
     resetLoadedLocality: () -> Unit,
-    lfViewModel: LoadedFavoriteViewModel = hiltViewModel(),
+    locViewModel: LocalityViewModel = hiltViewModel(),
     favViewModel: FavoriteViewModel = hiltViewModel(),
 ) {
-    val localities by lfViewModel.localities.observeAsState()
+    val localities by locViewModel.favoriteLocalities.observeAsState()
 
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0

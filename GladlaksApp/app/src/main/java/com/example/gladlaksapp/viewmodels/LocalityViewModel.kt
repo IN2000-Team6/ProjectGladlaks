@@ -2,6 +2,7 @@ package com.example.gladlaksapp.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.datasources.NorKystRepository
@@ -22,7 +23,7 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
- class MainViewModel @Inject constructor(
+ class LocalityViewModel @Inject constructor(
     //TODO Include saved state handle?
     private val localityRepository: LocalityRepository,
     private val favoriteRepository: FavoriteRepository,
@@ -35,9 +36,10 @@ import javax.inject.Inject
     private val year = now.year
 
     val localities = MutableLiveData<List<Locality>>()
+    val favoriteLocalities = favoriteRepository.loadedFavoritesFlow.asLiveData()
     val localityDetail = MutableLiveData<LocalityDetailsWrapper?>()
     val localityTemps = MutableLiveData<List<GraphLine>>()
-    val groupedChartProducer= ChartEntryModelProducer() // Louse chart data goes here - similar to LiveData
+    val groupedChartProducer = ChartEntryModelProducer() // Louse chart data goes here - similar to LiveData
 
     fun resetLoadedLocality() = localityDetail.postValue(null)
 

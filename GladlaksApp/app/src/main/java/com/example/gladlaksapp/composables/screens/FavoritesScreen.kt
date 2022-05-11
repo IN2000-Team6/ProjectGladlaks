@@ -5,21 +5,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.composables.FavoritesBottomSheet
-import com.example.gladlaksapp.viewmodels.LoadedFavoriteViewModel
+import com.example.gladlaksapp.viewmodels.LocalityViewModel
 
 @Composable
 fun FavoritesScreen(
-    lfViewModel: LoadedFavoriteViewModel = hiltViewModel()
+    locViewModel: LocalityViewModel = hiltViewModel()
 ) {
-    val loadedLocality by lfViewModel.localityDetail.observeAsState()
-    val localityTemps by lfViewModel.localityTemps.observeAsState()
+    val loadedLocality by locViewModel.localityDetail.observeAsState()
+    val localityTemps by locViewModel.localityTemps.observeAsState()
 
     FavoritesBottomSheet(
         loadedLocality = loadedLocality,
-        resetLoadedLocality = { lfViewModel.resetLoadedLocality() },
+        resetLoadedLocality = { locViewModel.resetLoadedLocality() },
         localityTemps = localityTemps,
         loadLocalityDetails = { loc ->
-            lfViewModel.loadLocalityDetails(loc)
+            locViewModel.loadLocalityDetails(loc)
         },
     )
 }
