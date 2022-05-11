@@ -22,7 +22,7 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+ class MainViewModel @Inject constructor(
     //TODO Include saved state handle?
     private val localityRepository: LocalityRepository,
     private val favoriteRepository: FavoriteRepository,
