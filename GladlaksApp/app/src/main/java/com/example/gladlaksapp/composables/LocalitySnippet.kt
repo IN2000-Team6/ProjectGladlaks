@@ -26,8 +26,7 @@ fun LocalitySnippet(
     toggleFavorite: () -> Unit,
     favButtonTint: Color
 ) {
-    val image_g: Painter = painterResource(R.drawable.ic_marker_icon_g)
-    val image_t: Painter = painterResource(R.drawable.ic_marker_icon_t)
+    val image: Painter = painterResource(R.drawable.locality_icon)
 
     if (locality != null) {
         Box(modifier = Modifier.fillMaxWidth()){
@@ -35,7 +34,7 @@ fun LocalitySnippet(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Image(painter = if (locality.hasReportedLice) image_t else image_g,
+                Image(painter = image,
                     contentDescription = "IKON",
                     modifier = Modifier.padding(start = 20.dp)
                 )
