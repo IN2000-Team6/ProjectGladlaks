@@ -1,15 +1,10 @@
 package com.example.gladlaksapp.viewmodels
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.datasources.NorKystRepository
-import com.example.gladlaksapp.models.*
-import com.patrykandpatryk.vico.core.entry.ChartEntry
 import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
 import com.patrykandpatryk.vico.core.entry.FloatEntry
 import com.example.gladlaksapp.models.GraphLine
@@ -17,16 +12,13 @@ import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.database.FavoriteLocality
 import com.example.gladlaksapp.models.database.FavoriteRepository
-import com.example.gladlaksapp.models.database.LocalityDatabase
 import com.example.gladlaksapp.models.database.LocalityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.WeekFields
 import java.util.*
-import kotlin.random.Random
 import javax.inject.Inject
 
 @HiltViewModel
