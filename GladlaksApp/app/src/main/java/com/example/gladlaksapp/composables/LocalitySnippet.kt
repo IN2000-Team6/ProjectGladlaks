@@ -23,7 +23,8 @@ fun LocalitySnippet(
     isCollapsed: Boolean,
     onClick: () -> Unit,
 ) {
-    val image: Painter = painterResource(R.drawable.locality_icon)
+    val image_g: Painter = painterResource(R.drawable.ic_marker_icon_g)
+    val image_t: Painter = painterResource(R.drawable.ic_marker_icon_t)
 
     if (locality != null) {
         Box(modifier = Modifier.fillMaxWidth()){
@@ -31,7 +32,7 @@ fun LocalitySnippet(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Image(painter = image,
+                Image(painter = if (locality.hasReportedLice) image_t else image_g,
                     contentDescription = "IKON",
                     modifier = Modifier.padding(start = 20.dp)
                 )
