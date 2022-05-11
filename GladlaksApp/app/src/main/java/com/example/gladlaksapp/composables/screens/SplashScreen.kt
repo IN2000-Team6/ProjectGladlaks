@@ -29,13 +29,13 @@ fun SplashScreen(navController: NavController) {
         scale.animateTo(
             targetValue = 1f,
             animationSpec = tween(
-                durationMillis = 3000,
+                durationMillis = 2000,
                 easing = {
                     OvershootInterpolator(2f).getInterpolation(it)
                 }
             )
         )
-        delay(3000L)
+        delay(700L)
         navController.popBackStack()
         navController.navigate(Screen.Map.route)
     }
