@@ -14,6 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
+import com.patrykandpatryk.vico.core.entry.ChartModelProducer
 import com.example.gladlaksapp.models.database.FavoriteLocality
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import kotlinx.coroutines.launch
@@ -60,7 +62,8 @@ fun MapBottomSheet(
         peekHeight = selectedPeekHeight
     }
 
-    fun onMapClick() {
+
+    fun onMapOrArrowClick() {
         coroutineScope.launch {
             sheetState.bottomSheetState.collapse()
             peekHeight = initialPeekHeight
@@ -104,7 +107,7 @@ fun MapBottomSheet(
             LocalityMap(
                 localities = localities,
                 onMarkerClick = ::onMarkerClick,
-                onMapClick = ::onMapClick,
+                onMapClick = ::onMapOrArrowClick,
             )
         },
         sheetContent = {
@@ -115,7 +118,7 @@ fun MapBottomSheet(
             ) {
                 ToggleArrowButton(
                     isExpanded = sheetState.bottomSheetState.isExpanded,
-                    onClick = ::toggleBottomSheet,
+                    onClick = ::onMapOrArrowClick,
                 )
                 Box(modifier = Modifier.padding(bottom = 25.dp)) {
                     selectedLocality?.let {

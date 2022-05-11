@@ -95,6 +95,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     "androidx.lifecycle:lifecycle-viewmodel.ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
     "androidx.lifecycle:lifecycle-livedata.ktx:$lifecycle_version"
 
     // ------------- Google maps ------------- //
@@ -106,6 +107,10 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$nav_version"
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    // ------------- Vico Charts ------------- //
+    implementation "com.patrykandpatryk.vico:compose:1.0.0-alpha.2"
+    implementation "com.patrykandpatryk.vico:compose-m3:1.0.0-alpha.2"
+
     // ------------- Room ------------- //
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
@@ -116,6 +121,4 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.38.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("com.google.dagger:hilt-android-compiler:2.38.1")
-
-
 }
