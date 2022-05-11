@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.composables
 
+
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,25 +15,26 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
-import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
-import com.patrykandpatryk.vico.core.entry.ChartModelProducer
 import com.example.gladlaksapp.models.database.FavoriteLocality
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
+import com.example.gladlaksapp.viewmodels.LoadedFavoriteViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
-fun MapBottomSheet(
-    localities: List<Locality>?,
+fun FavoritesBottomSheet(
     localityTemps: List<GraphLine>?,
     loadedLocality: LocalityDetailsWrapper?,
     loadLocalityDetails: (Locality) -> Unit,
     resetLoadedLocality: () -> Unit,
+    lfViewModel: LoadedFavoriteViewModel = hiltViewModel(),
     favViewModel: FavoriteViewModel = hiltViewModel(),
 ) {
+    val localities by lfViewModel.localities.observeAsState()
+
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
-    val selectedPeekHeight = 95
+    val selectedPeekHeight = 0
 
     // Local state
     var selectedLocality by remember { mutableStateOf<Locality?>(null) }
@@ -50,31 +52,29 @@ fun MapBottomSheet(
 
     LaunchedEffect(favorites, selectedLocality) {
         if (favorites != null && selectedLocality != null)
-            favoriteLocality = favorites?.filter { it.localityNo == selectedLocality?.localityNo }?.get(0)
+            favoriteLocality =
+                favorites?.filter { it.localityNo == selectedLocality?.localityNo }?.get(0)
     }
 
     // Event handlers
-    fun onMarkerClick(locality: Locality) {
-        if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
-            resetLoadedLocality()
-        }
-        selectedLocality = locality
-        peekHeight = selectedPeekHeight
-    }
-
-
-    fun onMapOrArrowClick() {
+    fun onButtonClick(locality: Locality) {
         coroutineScope.launch {
-            sheetState.bottomSheetState.collapse()
-            peekHeight = initialPeekHeight
+            if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
+                resetLoadedLocality()
+            }
+            selectedLocality = locality
+            sheetState.bottomSheetState.expand()
         }
+
     }
 
     fun toggleBottomSheet() {
         coroutineScope.launch {
+            //sheetState.bottomSheetState.expand()
             if (sheetState.bottomSheetState.isCollapsed) {
                 sheetState.bottomSheetState.expand()
             } else {
+                peekHeight = selectedPeekHeight
                 sheetState.bottomSheetState.collapse()
             }
         }
@@ -83,7 +83,6 @@ fun MapBottomSheet(
     fun toggleFavorite() {
         coroutineScope.launch {
             if (favoriteLocality != null) {
-                Log.d("isFav", "${favoriteLocality?.isFavorite}")
                 if (favoriteLocality?.isFavorite == false) favViewModel.addFavorite(favoriteLocality!!)
                 else favoriteLocality?.let { favViewModel.deleteFavorite(it) }
             }
@@ -92,7 +91,7 @@ fun MapBottomSheet(
 
     // Side effects
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
-        if (selectedLocality != null) {
+        if ((selectedLocality != null)) {
             if (loadedLocality == null || loadedLocality.localityName != selectedLocality!!.name) {
                 loadLocalityDetails(selectedLocality!!)
             }
@@ -104,11 +103,15 @@ fun MapBottomSheet(
         sheetPeekHeight = peekHeight.dp,
         scaffoldState = sheetState,
         content = {
-            LocalityMap(
-                localities = localities,
-                onMarkerClick = ::onMarkerClick,
-                onMapClick = ::onMapOrArrowClick,
-            )
+            if (localities != null) {
+                FavoritesColumn(
+                    favoritesList = localities!!,
+                    toggleFavorite = ::toggleFavorite,
+                    onButtonClick = ::onButtonClick,
+                    isCollapsed = sheetState.bottomSheetState.isCollapsed,
+                    favButtonTint = redColor,
+                )
+            }
         },
         sheetContent = {
             Column(
@@ -118,25 +121,24 @@ fun MapBottomSheet(
             ) {
                 ToggleArrowButton(
                     isExpanded = sheetState.bottomSheetState.isExpanded,
-                    onClick = ::onMapOrArrowClick,
+                    onClick = ::toggleBottomSheet,
                 )
                 Box(modifier = Modifier.padding(bottom = 25.dp)) {
                     selectedLocality?.let {
-
                         LocalitySnippet(
                             locality = it,
                             onExpandClick = ::toggleBottomSheet,
                             isCollapsed = sheetState.bottomSheetState.isCollapsed,
-
                             toggleFavorite = ::toggleFavorite,
                             favButtonTint = favButtonTint,
                         )
                     }
                 }
+
                 LocalitySheetContent(
                     selectedLocality = selectedLocality,
                     loadedLocality = loadedLocality,
-                    graphLines = localityTemps,
+                    graphLines = localityTemps
                 )
             }
         },

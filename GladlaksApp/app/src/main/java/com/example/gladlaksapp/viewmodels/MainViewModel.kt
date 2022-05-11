@@ -1,5 +1,8 @@
 package com.example.gladlaksapp.viewmodels
 
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,14 +12,30 @@ import com.example.gladlaksapp.models.*
 import com.patrykandpatryk.vico.core.entry.ChartEntry
 import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
 import com.patrykandpatryk.vico.core.entry.FloatEntry
+import com.example.gladlaksapp.models.GraphLine
+import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.example.gladlaksapp.models.Locality
+import com.example.gladlaksapp.models.database.FavoriteLocality
+import com.example.gladlaksapp.models.database.FavoriteRepository
+import com.example.gladlaksapp.models.database.LocalityDatabase
+import com.example.gladlaksapp.models.database.LocalityRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.WeekFields
 import java.util.*
 import kotlin.random.Random
+import javax.inject.Inject
 
-class MainViewModel: ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    //TODO Include saved state handle?
+    private val localityRepository: LocalityRepository,
+    private val favoriteRepository: FavoriteRepository,
+): ViewModel() {
+
     private val barentsWatchRepo = BarentswatchRepository
     private val norKystRepo = NorKystRepository
     private val now = LocalDate.now()
@@ -24,7 +43,7 @@ class MainViewModel: ViewModel() {
     private val year = now.year
 
     val localities = MutableLiveData<List<Locality>>()
-    val localityDetail = MutableLiveData<LocalityDetailsWrapper>()
+    val localityDetail = MutableLiveData<LocalityDetailsWrapper?>()
     val localityTemps = MutableLiveData<List<GraphLine>>()
     val groupedChartProducer= ChartEntryModelProducer() // Louse chart data goes here - similar to LiveData
 
@@ -66,11 +85,16 @@ class MainViewModel: ViewModel() {
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val data = barentsWatchRepo.getLocalities(
+            val data = barentsWatchRepo.getLocalitiesInWater(
                 year = year,
                 week = week,
             )
-            localities.postValue(data.localities)
+            localities.postValue(data)
+
+            //TODO Check if database updates properly - do past localities get deleted?
+            localityRepository.insertAll(data)
+            //TODO favorites column likely gets overwritten
+            favoriteRepository.insertFavorites( data.map{FavoriteLocality(it.localityNo,false)} )
         }
     }
 }

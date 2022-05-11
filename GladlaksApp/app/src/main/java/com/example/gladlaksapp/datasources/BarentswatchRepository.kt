@@ -11,16 +11,6 @@ object BarentswatchRepository {
     private val datasource = BarentswatchNetworkDataSource
 
     /**
-     * Get all localities from BarentsWatch
-     * @param year the year
-     * @param week the calendar week
-     * @return LocalitiesWrapper
-     */
-    suspend fun getLocalities(year: Int, week: Int) : LocalitiesWrapper {
-        return datasource.getLocalities(year,week)
-    }
-
-    /**
      * Get all localities that are in water
      * @param year the year
      * @param week the calendar week

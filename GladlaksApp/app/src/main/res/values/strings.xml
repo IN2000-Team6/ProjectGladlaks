@@ -27,4 +27,13 @@
 
     <!-- Map styling ID-->
     <string name="map_id">3c0ea453acdddbaf</string>
+
+
+    <!-- Favorites items -->
+    <string name="favoritter">Favoritter</string>
+
+    <string name="text_logo_app_name">Tekst: GladLaks</string>
+    <string name="Splash">Splash</string>
+    <string name="text_splash_screen">Splash Screen</string>
+
 </resources>

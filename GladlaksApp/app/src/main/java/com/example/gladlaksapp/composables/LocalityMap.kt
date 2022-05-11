@@ -2,19 +2,27 @@ package com.example.gladlaksapp.composables
 
 import android.content.Context
 import android.graphics.Bitmap
-import androidx.compose.foundation.layout.fillMaxSize
+import android.graphics.Paint
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.graphics.drawable.toBitmap
 import com.example.gladlaksapp.R
 import com.example.gladlaksapp.models.Locality
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.*
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -70,28 +78,35 @@ fun LocalityMap(
         }
     }
 
-    GoogleMap(
-        modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState,
-        onMapClick = { onMapClick() }
-    ) {
-        if (localities != null) {
-            val iconT = createMarkerIcon_T(LocalContext.current, markerSize.toInt())
-            val iconP = createMarkerIcon_P(LocalContext.current, markerSize.toInt())
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
 
-            for (loc in localities) {
-                if (!loc.isOnLand) {
-                    Marker(
-                        icon = decideMarkerColor(loc, iconT, iconP),
-                        position = LatLng(loc.lat, loc.lon),
-                        anchor = Offset(0.5f, 0.6f),
+    ){
+        GoogleMap(
+            modifier = Modifier.fillMaxSize(),
+            cameraPositionState = cameraPositionState,
+            onMapClick = { onMapClick() }
+        ) {
+            if (localities != null) {
+                val iconT = createMarkerIcon_T(LocalContext.current, markerSize.toInt())
+                val iconG = createMarkerIcon_G(LocalContext.current, markerSize.toInt())
+
+                for (loc in localities) {
+                    SmartMarker(
+                        loc = loc,
                         onClick = {
                             onMarkerClick(loc)
                             true
                         },
+                        iconT = iconT,
+                        iconP = iconG
                     )
                 }
             }
+        }
+        Box(modifier = Modifier.align(Alignment.TopEnd)) {
+            MapMarkerColorInfoBox()
         }
     }
 }
@@ -106,9 +121,9 @@ fun createMarkerIcon_T(context: Context, size: Int): BitmapDescriptor {
     return BitmapDescriptorFactory.fromBitmap(bitmapIcon)
 }
 
-fun createMarkerIcon_P(context: Context, size: Int): BitmapDescriptor {
+fun createMarkerIcon_G(context: Context, size: Int): BitmapDescriptor {
     val bitmapIcon = Bitmap.createScaledBitmap(
-        getDrawable(context, R.drawable.ic_white_border_marker_p)!!.toBitmap(50, 50),
+        getDrawable(context, R.drawable.ic_white_border_marker_g)!!.toBitmap(50, 50),
         size,
         size,
         false
@@ -116,12 +131,17 @@ fun createMarkerIcon_P(context: Context, size: Int): BitmapDescriptor {
     return BitmapDescriptorFactory.fromBitmap(bitmapIcon)
 }
 
-fun decideMarkerColor(loc: Locality, iconT: BitmapDescriptor, iconP: BitmapDescriptor): BitmapDescriptor{
-    return if(loc.hasReportedLice){
-        iconT
-    }else{
-        iconP
-    }
+@Composable
+fun SmartMarker(loc: Locality, onClick: (Marker) -> Boolean, iconT: BitmapDescriptor, iconP: BitmapDescriptor){
+    Marker(
+        icon = if (loc.hasReportedLice) iconT else iconP,
+        position = LatLng(loc.lat, loc.lon),
+        anchor = Offset(0.5f, 0.6f),
+        onClick = onClick,
+        zIndex = if (loc.hasReportedLice) Float.MAX_VALUE else 0f
+    )
 }
+
+
 
 

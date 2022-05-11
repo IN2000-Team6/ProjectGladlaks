@@ -4,51 +4,44 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.gladlaksapp.R
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.gladlaksapp.composables.screens.Screen
 
 @Composable
 fun MainNavigation(
-    onClick: () -> Unit,
-    selectedItemIndex: Int,
+    items: List<Screen>,
+    controller: NavController
 ) {
-    val backgroundColor = Color(0xFF01809C)
-    val items = listOf(
-        NavItem(R.string.locality, Icons.Filled.Place),
-        NavItem(R.string.favorites, Icons.Filled.Favorite),
-        NavItem(R.string.search, Icons.Filled.Search),
-        NavItem(R.string.settings, Icons.Filled.Settings),
-    )
+    fun onNavClick(screen: Screen) {
+        controller.navigate(screen.route) {
+            popUpTo(controller.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
 
     BottomNavigation (backgroundColor = Color(0xFFe9f2f1)) {
-        items.forEachIndexed { index, item ->
-            val label = stringResource(item.labelId)
+        val navBackStackEntry by controller.currentBackStackEntryAsState()
+        val currentDestination = navBackStackEntry?.destination
+
+        items.forEach { screen ->
+            val label = stringResource(screen.resourceId)
+
             BottomNavigationItem(
-                selected = selectedItemIndex == index,
-                onClick = onClick,
+                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                onClick = { onNavClick(screen) },
                 label = { Text(label) },
-                icon = { Icon(item.icon, contentDescription = label, tint = backgroundColor)}
+                icon = { Icon(screen.icon, contentDescription = label, tint = Color(0xFF01809C))}
             )
         }
     }
-}
-
-data class NavItem(
-    val labelId: Int,
-    val icon: ImageVector,
-)
-
-@Preview
-@Composable
-fun DisplayMainNavigation() {
-    MainNavigation(
-        onClick = { },
-        selectedItemIndex = 0,
-    )
 }

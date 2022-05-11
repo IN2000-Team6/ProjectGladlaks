@@ -34,6 +34,7 @@ fun LocalitySheetContent(
             .verticalScroll(rememberScrollState())
             .padding(bottom = 20.dp)
     ) {
+        WeekDatesSnippet()
         if (loadedLocality == null || graphLines == null || selectedLocality == null) {
             Column(
                 modifier = Modifier

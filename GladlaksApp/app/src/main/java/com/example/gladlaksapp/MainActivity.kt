@@ -3,48 +3,50 @@ package com.example.gladlaksapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import com.example.gladlaksapp.viewmodels.MainViewModel
+import androidx.compose.material3.Text
 import com.example.gladlaksapp.composables.AppContainer
-import com.example.gladlaksapp.composables.BottomNavLayout
-import com.example.gladlaksapp.composables.MainNavigation
-import com.example.gladlaksapp.composables.MapBottomSheet
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.gladlaksapp.composables.BottomNavScreenContainer
+import com.example.gladlaksapp.composables.screens.FavoritesScreen
+import com.example.gladlaksapp.composables.screens.MapScreen
+import com.example.gladlaksapp.composables.screens.Screen
+import com.example.gladlaksapp.composables.screens.SplashScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val model: MainViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
-            val localities by model.localities.observeAsState()
-            val loadedLocality by model.localityDetail.observeAsState()
-            val localityTemps by model.localityTemps.observeAsState()
-
             AppContainer {
-                BottomNavLayout(
-                    content = {
-                        MapBottomSheet(
-                            localities = localities,
-                            loadedLocality = loadedLocality,
-                            resetLoadedLocality = { model.resetLoadedLocality() },
-                            localityTemps = localityTemps,
-                            loadLocalityDetails = { loc ->
-                                model.loadLocalityDetails(loc)
-                            },
-                        )
-                      },
-                    bottomNavContent = {
-                        MainNavigation(
-                            selectedItemIndex = 0,
-                            onClick = { /*TODO implement state for navigation */ },
-                        )
-                    }
-                )
 
+                val navController = rememberNavController()
+
+                //TODO: fjerne splashscreen fra stacken saa den kun kalles én gang
+                NavHost(navController = navController, startDestination = getString(R.string.text_splash_screen)) {
+                    composable(getString(R.string.text_splash_screen)) {
+                        SplashScreen(navController = navController)
+                    }
+                    composable(Screen.Map.route) {
+                        BottomNavScreenContainer(navController = navController) {
+                            MapScreen(
+                            )
+                        }
+                    }
+                    composable(Screen.Favorites.route) {
+                        BottomNavScreenContainer(navController = navController) {
+                            FavoritesScreen(
+                            )
+                        }
+                    }
+                    composable(Screen.Search.route) {
+                        BottomNavScreenContainer(navController = navController) { Text("Søk side") }
+                    }
+                }
             }
         }
     }
 }
+

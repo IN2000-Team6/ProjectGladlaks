@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -50,9 +52,15 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     def lifecycle_version = "2.5.0-alpha01"
     def ktor_version = '1.6.7'
+    def room_version = '2.4.2'
+    def nav_version = "2.4.2"
 
     // ------------- Built in dependencies ------------- //
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -70,6 +78,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    testImplementation "androidx.room:room-testing:$room_version"
 
 
     /////////////////////// Custom dependencies ///////////////////////
@@ -81,8 +90,10 @@ dependencies {
     implementation "io.ktor:ktor-client-gson:$ktor_version"
 
     // ------------- Lifecycle & Coroutine dependencies ------------- //
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
     implementation "androidx.activity:activity-ktx:1.5.0-alpha03"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     "androidx.lifecycle:lifecycle-viewmodel.ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
     "androidx.lifecycle:lifecycle-livedata.ktx:$lifecycle_version"
@@ -93,9 +104,21 @@ dependencies {
 
     // ------------- Other ------------- //
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     // ------------- Vico Charts ------------- //
     implementation "com.patrykandpatryk.vico:compose:1.0.0-alpha.2"
     implementation "com.patrykandpatryk.vico:compose-m3:1.0.0-alpha.2"
+
+    // ------------- Room ------------- //
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // ------------- Hilt ------------- //
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
 }
