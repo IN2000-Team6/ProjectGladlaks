@@ -27,10 +27,9 @@ import javax.inject.Inject
     //TODO Include saved state handle?
     private val localityRepository: LocalityRepository,
     private val favoriteRepository: FavoriteRepository,
+    private val barentsWatchRepo: BarentswatchRepository,
+    private val norKystRepo: NorKystRepository,
 ): ViewModel() {
-
-    private val barentsWatchRepo = BarentswatchRepository
-    private val norKystRepo = NorKystRepository
     private val now = LocalDate.now()
     private val week = now.get(WeekFields.of(Locale.GERMANY).weekOfYear())
     private val year = now.year

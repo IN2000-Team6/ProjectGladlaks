@@ -3,17 +3,18 @@ package com.example.gladlaksapp.datasources
 import com.example.gladlaksapp.models.GraphCoords
 import com.example.gladlaksapp.models.GraphLine
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-object NorKystRepository {
-    private val datasource = NorKystNetworkDataSource
-
+class NorKystRepository(
+    private val dataSource: NorKystNetworkDataSource
+) {
     suspend fun getLocalityTemperature(
         lat: Double,
         lon: Double,
     ) = coroutineScope {
         val temps = awaitAll(
-            async { datasource.getLocalityTemperature(lat, lon, 1) },
-            async { datasource.getLocalityTemperature(lat, lon, 2) }
+            async { dataSource.getLocalityTemperature(lat, lon, 1) },
+            async { dataSource.getLocalityTemperature(lat, lon, 2) }
         )
 
         return@coroutineScope temps.map { line ->

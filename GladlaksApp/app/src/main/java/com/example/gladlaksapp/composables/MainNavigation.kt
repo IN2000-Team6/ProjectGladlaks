@@ -24,7 +24,6 @@ fun MainNavigation(
             popUpTo(controller.graph.findStartDestination().id) {
                 saveState = true
             }
-            launchSingleTop = true
             restoreState = true
         }
     }
