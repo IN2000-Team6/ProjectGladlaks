@@ -19,10 +19,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoadedFavoriteViewModel @Inject constructor(
+    private val barentsWatchRepo: BarentswatchRepository,
+    private val norKystRepo: NorKystRepository,
     favoriteRepository: FavoriteRepository,
 ) : ViewModel() {
-    private val barentsWatchRepo = BarentswatchRepository
-    private val norKystRepo = NorKystRepository
+
     private val now = LocalDate.now()
     private val week = now.get(WeekFields.of(Locale.GERMANY).weekOfYear())
     private val year = now.year

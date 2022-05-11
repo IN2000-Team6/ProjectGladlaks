@@ -2,6 +2,10 @@ package com.example.gladlaksapp.di
 
 import android.app.Application
 import androidx.room.Room
+import com.example.gladlaksapp.datasources.BarentswatchNetworkDataSource
+import com.example.gladlaksapp.datasources.BarentswatchRepository
+import com.example.gladlaksapp.datasources.NorKystNetworkDataSource
+import com.example.gladlaksapp.datasources.NorKystRepository
 import com.example.gladlaksapp.models.database.FavoriteRepository
 import com.example.gladlaksapp.models.database.LocalityDatabase
 import com.example.gladlaksapp.models.database.LocalityRepository
@@ -39,5 +43,29 @@ object AppModule {
     @Singleton
     fun provideFavoriteRepository(db: LocalityDatabase): FavoriteRepository {
         return FavoriteRepository(db.favoriteDao())
+    }
+
+    @Provides
+    @Singleton
+    fun provideBarentswatchRepository(dataSource: BarentswatchNetworkDataSource): BarentswatchRepository {
+        return BarentswatchRepository(dataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNorKystRepository(dataSource: NorKystNetworkDataSource): NorKystRepository {
+        return NorKystRepository(dataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNorKystNetworkDataSource(): NorKystNetworkDataSource {
+        return NorKystNetworkDataSource()
+    }
+
+    @Provides
+    @Singleton
+    fun provideBarentswatchNetworkDataSource(): BarentswatchNetworkDataSource {
+        return BarentswatchNetworkDataSource()
     }
 }

@@ -6,10 +6,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
-object BarentswatchRepository {
-
-    private val datasource = BarentswatchNetworkDataSource
-
+class BarentswatchRepository(
+   private val dataSource: BarentswatchNetworkDataSource
+) {
     /**
      * Get all localities that are in water
      * @param year the year
@@ -17,7 +16,7 @@ object BarentswatchRepository {
      * @return a list containing all localities in sea
      */
     suspend fun getLocalitiesInWater(year: Int, week: Int) : List<Locality> {
-        return datasource.getLocalities(year, week).localities.filter {
+        return dataSource.getLocalities(year, week).localities.filter {
             !it.isOnLand
         }
     }
@@ -29,7 +28,7 @@ object BarentswatchRepository {
      * @param week the calendar week
      */
     suspend fun getDetailedLocalityInfo(localityNo: Int, year: Int, week: Int) : LocalityDetailsWrapper {
-        return datasource.getDetailedLocalityInfo(localityNo, year, week)
+        return dataSource.getDetailedLocalityInfo(localityNo, year, week)
     }
 
     //TODO get a dataset to compare in the graph as generations
@@ -40,8 +39,8 @@ object BarentswatchRepository {
         gen2: Int
     ) = coroutineScope {
         val lousedata = awaitAll(
-            async { datasource.getLouseDataByYear(localityNo, gen1)},
-            async { datasource.getLouseDataByYear(localityNo, gen2)}
+            async { dataSource.getLouseDataByYear(localityNo, gen1)},
+            async { dataSource.getLouseDataByYear(localityNo, gen2)}
         )
 
         return@coroutineScope lousedata.map { year ->

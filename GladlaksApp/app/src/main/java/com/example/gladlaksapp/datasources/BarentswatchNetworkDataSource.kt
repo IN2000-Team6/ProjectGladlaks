@@ -11,14 +11,14 @@ import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.request.*
 
-object BarentswatchNetworkDataSource {
-    private const val tokenURL = "https://id.barentswatch.no/connect/token"
-    private const val localitiesURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s"
-    private const val localityDetailedURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s/%s"
-    private const val louseDataByYearURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/liceTypeDistribution/%s"
+class BarentswatchNetworkDataSource {
+    private val tokenURL = "https://id.barentswatch.no/connect/token"
+    private val localitiesURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s"
+    private val localityDetailedURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s/%s"
+    private val louseDataByYearURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/liceTypeDistribution/%s"
 
-    private const val bw_client = BuildConfig.BARENTSWATCH_CLIENT
-    private const val bw_secret = BuildConfig.BARENTSWATCH_SECRET
+    private val bw_client = BuildConfig.BARENTSWATCH_CLIENT
+    private val bw_secret = BuildConfig.BARENTSWATCH_SECRET
 
     private val client = HttpClient(CIO) {
         install(JsonFeature) {
