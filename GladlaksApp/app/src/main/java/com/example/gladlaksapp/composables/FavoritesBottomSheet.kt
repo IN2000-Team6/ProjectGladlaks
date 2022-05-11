@@ -16,7 +16,6 @@ import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.models.database.FavoriteLocality
-import com.example.gladlaksapp.models.database.LocalityDatabase
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LoadedFavoriteViewModel
 import kotlinx.coroutines.launch
@@ -84,7 +83,6 @@ fun FavoritesBottomSheet(
     fun toggleFavorite() {
         coroutineScope.launch {
             if (favoriteLocality != null) {
-                Log.d("isFav", "${favoriteLocality?.isFavorite}")
                 if (favoriteLocality?.isFavorite == false) favViewModel.addFavorite(favoriteLocality!!)
                 else favoriteLocality?.let { favViewModel.deleteFavorite(it) }
             }
@@ -108,9 +106,10 @@ fun FavoritesBottomSheet(
             if (localities != null) {
                 FavoritesColumn(
                     favoritesList = localities!!,
-                    onClick = ::toggleBottomSheet,
+                    toggleFavorite = ::toggleFavorite,
                     onButtonClick = ::onButtonClick,
                     isCollapsed = sheetState.bottomSheetState.isCollapsed,
+                    favButtonTint = redColor,
                 )
             }
         },

@@ -21,8 +21,9 @@ import com.example.gladlaksapp.R
 fun FavoriteLocalitySnippet(
     locality: Locality?,
     isCollapsed: Boolean,
-    onClick: (Locality) -> Boolean,
-    //onButtonClick: () -> Boolean,
+    onExpandClick: (Locality) -> Boolean,
+    toggleFavorite: () -> Unit,
+    favButtonTint: Color,
 ) {
     val image: Painter = painterResource(R.drawable.locality_icon)
 
@@ -52,14 +53,13 @@ fun FavoriteLocalitySnippet(
                /* FavoriteButton(
                     locality = locality,
                 )
-
                 */
                 Button(
                     modifier = Modifier
                         .padding(end = 20.dp)
                         .size(width = 130.dp, height = 40.dp),
                     onClick = {
-                            onClick(locality)
+                            onExpandClick(locality)
                             true},
                     shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(

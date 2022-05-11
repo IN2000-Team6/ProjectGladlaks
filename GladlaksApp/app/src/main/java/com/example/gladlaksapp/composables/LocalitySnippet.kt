@@ -23,10 +23,8 @@ fun LocalitySnippet(
     locality: Locality,
     isCollapsed: Boolean,
     onExpandClick: () -> Unit,
-
     toggleFavorite: () -> Unit,
     favButtonTint: Color
-
 ) {
 
     val image: Painter = painterResource(R.drawable.locality_icon)
