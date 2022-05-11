@@ -1,9 +1,12 @@
 package com.example.gladlaksapp.models.database
 
 import com.example.gladlaksapp.models.Locality
+import kotlinx.coroutines.flow.Flow
 
 
-class LocalityRepository constructor(private val localityDao: LocalityDao) {
+class LocalityRepository (
+    private val localityDao: LocalityDao
+) {
 
     fun getAll() = localityDao.getAll()
 

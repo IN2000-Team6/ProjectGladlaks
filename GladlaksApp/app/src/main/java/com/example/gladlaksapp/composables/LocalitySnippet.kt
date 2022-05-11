@@ -7,21 +7,24 @@ import androidx.compose.material.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
 
 @Composable
 fun LocalitySnippet(
-    locality: Locality?,
+    locality: Locality,
     isCollapsed: Boolean,
-    onClick: () -> Unit,
+    onExpandClick: () -> Unit,
+    toggleFavorite: () -> Unit,
+    favButtonTint: Color
 ) {
     val image_g: Painter = painterResource(R.drawable.ic_marker_icon_g)
     val image_t: Painter = painterResource(R.drawable.ic_marker_icon_t)
@@ -39,37 +42,52 @@ fun LocalitySnippet(
                 Column(modifier = Modifier
                     .padding(start = 16.dp)
                     .weight(1f),
-                ) {
-                    Text(
-                        text = locality.name,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Text(
-                        text = "Lokalitet: ${locality.localityNo}",
-                        style = MaterialTheme.typography.labelLarge,
-                    )
-                }
-                Button(
-                    modifier = Modifier
-                        .padding(end = 20.dp)
-                        .size(width = 150.dp, height = 40.dp),
-                    onClick = onClick,
-                    shape = RoundedCornerShape(20.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF9CDCDA),//MaterialTheme.colorScheme.secondaryContainer
-                        contentColor = Color(0xFF303631),//MaterialTheme.colorScheme.onSecondaryContainer,
-                        disabledContainerColor = Color(0x1F1F1F1F),
-                        disabledContentColor = Color(0xFF191C1D)
-                    )
-                ) {
-                    Text(
-                        modifier = Modifier.offset(y = (-1).dp),
-                        style = MaterialTheme.typography.labelLarge,
-                        text = if (isCollapsed) "Se mer" else "Se mindre",
-                    )
-                }
+            ) {
+                Text(
+                    text = locality.name,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = "Lokalitet: ${locality.localityNo}",
+                    style = MaterialTheme.typography.labelLarge,
+                )
             }
+            //TODO: Koble til favoritter og database, endre farge om det er fav
+            //TODO: legge til handtering av klikk paa favoritt, maa endre isFavorite i Locality
+            //TODO: startfarge maa samsvare med isFavorite i Locality
+
+            FavoriteButton(
+                toggleFavorite = toggleFavorite,
+                favButtonTint = favButtonTint,
+            )
+
+            Button(
+                modifier = Modifier
+                    .padding(end = 20.dp)
+                    .size(width = 130.dp, height = 40.dp),
+                onClick = onExpandClick,
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF9CDCDA),//MaterialTheme.colorScheme.secondaryContainer
+                    contentColor = Color(0xFF303631),//MaterialTheme.colorScheme.onSecondaryContainer,
+                    disabledContainerColor = Color(0x1F1F1F1F),
+                    disabledContentColor = Color(0xFF191C1D)
+                )
+            ) {
+                Text(
+                    modifier = Modifier.offset(y = (-1).dp),
+                    style = MaterialTheme.typography.labelLarge,
+                    text = if (isCollapsed) "Se mer" else "Se mindre",
+                )
+            }
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+
 
         }
     }
 }
+

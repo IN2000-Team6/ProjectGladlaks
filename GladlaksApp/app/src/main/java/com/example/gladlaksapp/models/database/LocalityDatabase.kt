@@ -12,18 +12,6 @@ abstract class LocalityDatabase : RoomDatabase() {
     abstract fun favoriteDao(): FavoriteDao
 
     companion object {
-        @Volatile private var INSTANCE: LocalityDatabase? = null
-
-        fun getDatabase(context: Context) : LocalityDatabase{
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    LocalityDatabase::class.java,
-                    "locality_database"
-                    ).build()
-                INSTANCE = instance
-                instance
-            }
-        }
+        const val DATABASE_NAME = "locality_database"
     }
 }
