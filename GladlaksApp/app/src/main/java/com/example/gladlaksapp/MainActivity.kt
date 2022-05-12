@@ -38,9 +38,6 @@ class MainActivity : ComponentActivity() {
                             FavoritesScreen()
                         }
                     }
-                    composable(Screen.Search.route) {
-                        BottomNavScreenContainer(navController = navController) { Text("Søk side") }
-                    }
                 }
             }
         }

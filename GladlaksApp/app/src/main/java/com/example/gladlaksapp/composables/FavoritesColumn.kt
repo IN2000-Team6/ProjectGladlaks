@@ -53,14 +53,14 @@ fun FavoritesColumn(
             textAlign = TextAlign.Center
         )
     }
-    Box(
+    /*Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 30.dp),
         contentAlignment = Alignment.Center
     ) {
         WeekDatesSnippet()
-    }
+    }*/
 
     //Lazy column?
     Column(
