@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
@@ -35,7 +36,7 @@ fun LocalitySnippet(
             ) {
                 Image(
                     painter = image,
-                    contentDescription = "IKON",
+                    contentDescription = stringResource(R.string.icon_content_description),
                     modifier = Modifier.padding(start = 20.dp)
                 )
                 Column(
@@ -48,7 +49,7 @@ fun LocalitySnippet(
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Lokalitet: ${locality.localityNo}",
+                        text = "${stringResource(R.string.locality_number_prefix)} ${locality.localityNo}",
                         style = MaterialTheme.typography.labelLarge,
                     )
                 }

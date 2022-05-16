@@ -24,6 +24,12 @@
     <string name="no_data">Ikke rapportert</string>
     <string name="colon">:&#160;</string>
     <string name="avg">Gj. snitt per fisk</string>
+    <string name="turquoise_icon_description">Turkis ikon</string>
+    <string name="reported_data">\ = Rapportert data</string>
+    <string name="gray_icon_description">Grått ikon</string>
+    <string name="not_reported_data">\ = Ikke rapportert data</string>
+    <string name="icon_content_description">Ikon</string>
+    <string name="locality_number_prefix">Lokalitet:</string>
 
     <!-- Map styling ID-->
     <string name="map_id">3c0ea453acdddbaf</string>
