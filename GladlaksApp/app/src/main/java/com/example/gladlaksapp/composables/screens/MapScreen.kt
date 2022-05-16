@@ -5,8 +5,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.composables.MapBottomSheet
+import com.example.gladlaksapp.models.ConnectionState
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
+import connectivityState
 
 @Composable
 fun MapScreen(
@@ -19,6 +21,8 @@ fun MapScreen(
     val loadedLocality by mViewModel.localityDetail.observeAsState()
     val localityTemps by mViewModel.localityTemps.observeAsState()
 
+    val connection by connectivityState()
+    val isConnected = connection === ConnectionState.Available
 
     MapBottomSheet(
         localities = localities,

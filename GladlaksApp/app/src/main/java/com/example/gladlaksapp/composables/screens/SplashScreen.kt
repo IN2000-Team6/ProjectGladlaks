@@ -42,9 +42,7 @@ fun SplashScreen(navController: NavController) {
         scale.animateTo(
             targetValue = 1f,
             animationSpec = tween(
-
                 durationMillis = 1500,
-
                 easing = {
                     OvershootInterpolator(2f).getInterpolation(it)
                 }
@@ -52,11 +50,11 @@ fun SplashScreen(navController: NavController) {
         )
 
         delay(500L)
-        
-        if(isConnected){
-            navController.navigate(Screen.Map.route)
+        if (isConnected) {
             navController.popBackStack()
+            navController.navigate(Screen.Map.route)
         }
+
     }
 
     Box(contentAlignment = Alignment.Center,
