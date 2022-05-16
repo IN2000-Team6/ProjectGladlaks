@@ -4,6 +4,7 @@ package com.example.gladlaksapp.composables
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -45,8 +46,8 @@ fun FavoritesBottomSheet(
     val favorites by favViewModel.favorites.observeAsState()
     var favoriteLocality by remember { mutableStateOf<FavoriteLocality?>(null) }
 
-    val redColor = Color(0xFFEC407A)
-    val grayColor = Color(0xFFB0BEC5)
+    val redColor = MaterialTheme.colorScheme.error
+    val grayColor = MaterialTheme.colorScheme.surface
     val favButtonTint = if (favoriteLocality?.isFavorite == true) redColor else grayColor
 
     LaunchedEffect(favorites, selectedLocality) {

@@ -18,7 +18,7 @@ fun InfoCard(
             .wrapContentHeight()
             .fillMaxWidth()
             .padding(vertical = 5.dp, horizontal = 10.dp),
-        containerColor = Color.White,
+        containerColor = MaterialTheme.colorScheme.background,
     ) {
         Box {
             content()

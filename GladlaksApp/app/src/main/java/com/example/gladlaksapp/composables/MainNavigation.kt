@@ -4,6 +4,7 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
@@ -28,7 +29,7 @@ fun MainNavigation(
         }
     }
 
-    BottomNavigation (backgroundColor = Color(0xFFe9f2f1)) {
+    BottomNavigation (backgroundColor = MaterialTheme.colorScheme.background) {
         val navBackStackEntry by controller.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
 

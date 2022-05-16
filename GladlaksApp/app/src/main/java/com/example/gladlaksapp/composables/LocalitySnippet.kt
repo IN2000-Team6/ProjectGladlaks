@@ -68,10 +68,10 @@ fun LocalitySnippet(
                     onClick = onExpandClick,
                     shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF9CDCDA),//MaterialTheme.colorScheme.secondaryContainer
-                        contentColor = Color(0xFF303631),//MaterialTheme.colorScheme.onSecondaryContainer,
-                        disabledContainerColor = Color(0x1F1F1F1F),
-                        disabledContentColor = Color(0xFF191C1D)
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                        contentColor = MaterialTheme.colorScheme.onSecondary,
+                        disabledContainerColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        disabledContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
                     )
                 ) {
                     Text(

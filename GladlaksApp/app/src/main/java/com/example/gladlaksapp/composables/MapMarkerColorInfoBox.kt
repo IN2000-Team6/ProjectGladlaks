@@ -25,7 +25,7 @@ fun MapMarkerColorInfoBox() {
             .height(40.dp)
             .width(145.dp)
             .align(Alignment.TopEnd)
-            .background(Color(0xB4FFFFFF))
+            .background(MaterialTheme.colorScheme.background)
             .clip(RoundedCornerShape(15.dp))
         ){
             Column(modifier = Modifier

@@ -27,9 +27,9 @@ private val LightColorPalette = lightColorScheme(
     //onErrorContainer = md_theme_light_onErrorContainer,
     background = Color(0xFFfbfdfd),
     onBackground = Color(0xFF294045),
-    surface = Color(0xFFfbfdfd),
+    surface = Color(0xFF95A8A8),
     onSurface = Color(0xFF294045),
-    //surfaceVariant = md_theme_light_surfaceVariant,
+    surfaceVariant = Color(0xFF32373A),
     //onSurfaceVariant = md_theme_light_onSurfaceVariant,
     outline = Color(0xFF4B5357)
     //inverseOnSurface = md_theme_light_inverseOnSurface,
@@ -38,11 +38,11 @@ private val LightColorPalette = lightColorScheme(
 )
 
 private val DarkColorPalette = darkColorScheme(
-    primary = Color(0xFF5cd5fb),
+    primary = Color(0xFF71DDFF),
     onPrimary = Color(0xFF003543),
     //primaryContainer = md_theme_dark_primaryContainer,
     //onPrimaryContainer = md_theme_dark_onPrimaryContainer,
-    secondary = Color(0xFF4edad6),
+    secondary = Color(0xFF62B3B0),
     onSecondary = Color(0xFF003735),
     //secondaryContainer = md_theme_dark_secondaryContainer,
     //onSecondaryContainer = md_theme_dark_onSecondaryContainer,
