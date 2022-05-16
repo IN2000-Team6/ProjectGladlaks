@@ -1,26 +1,30 @@
 package com.example.gladlaksapp.models.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.room.*
 import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavorite(favorite: FavoriteLocality)
+    @Query("UPDATE favorites SET isFavorite = 1 WHERE locality_no == :localityNo")
+    suspend fun addFavorite(localityNo: Int)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavorites(favorites: List<FavoriteLocality>)
+    @Query("UPDATE favorites SET isFavorite = 0 WHERE locality_no == :localityNo")
+    suspend fun deleteFavorite(localityNo: Int)
 
-    //@Query("SELECT * FROM localities JOIN favorites ON localities.locality_no == favorites.locality_no")
-    @Query("SELECT * FROM localities JOIN favorites ON favorites.locality_no == localities.locality_no")
-    fun getFavorites() : List<Locality>
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertFavorites(favorites: List<FavoriteLocality>)
+
+    @Query("SELECT * FROM favorites JOIN localities ON favorites.locality_no == localities.locality_no WHERE favorites.isFavorite == 1")
+    fun getFavoriteLocalities() : Flow<List<Locality>>
 
     @Query("SELECT * FROM favorites")
-    fun getAll() : List<FavoriteLocality>
+    fun getAll() : Flow<List<FavoriteLocality>>
+
+    @Query("SELECT * FROM favorites WHERE locality_no LIKE :localityNo LIMIT 1")
+    fun getFavorite(localityNo: Int) : FavoriteLocality
 
 }

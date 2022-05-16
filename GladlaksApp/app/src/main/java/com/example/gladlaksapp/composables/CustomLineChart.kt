@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.gladlaksapp.models.GraphLine
@@ -24,6 +25,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import kotlin.math.ceil
 
 
 @Composable
@@ -35,7 +37,16 @@ fun CustomLineChart(
     val size = (textSize.dp).value
     val colors = listOf(Color(0xFFFFBDAE), Color(0xFF9c4331))
 
-    Column {
+    Column() {
+        Text(
+            text = "Sjøtemperatur",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 15.dp, top = 15.dp),
+            textAlign = TextAlign.Center,
+        )
+
         AndroidView(
             modifier = Modifier
                 .fillMaxWidth()
@@ -59,6 +70,20 @@ fun CustomLineChart(
                     this.invalidate()
                 }
             })
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+
+        ){
+            Text(
+                text = "timer etter midnatt",
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodySmall,
+            )
+        }
         CustomChartLegend(lines = lines, colors = colors)
     }
 }
@@ -71,7 +96,9 @@ fun CustomChartLegend(
     val indicatorSize = 13
 
     Row(
-        modifier = Modifier.padding(top = 8.dp, end = 6.dp).fillMaxWidth(),
+        modifier = Modifier
+            .padding(top = 8.dp, end = 6.dp)
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End,
     ) {
@@ -121,12 +148,12 @@ fun createDataSets(
 }
 
 class DegFormatter : ValueFormatter() {
-    override fun getAxisLabel(value: Float, axis: AxisBase?) = "%.2f${176.toChar()}".format(value)
+    override fun getAxisLabel(value: Float, axis: AxisBase?) = "%.2f${176.toChar()}C".format(value)
 }
 
 class TimeFormatter : ValueFormatter() {
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
         val decimal = if (value.mod(1f) > 0f) "%.1f" else "%.0f"
-        return decimal.format(value) + "t"
+        return if(value > 9) decimal.format(value) else "0" + decimal.format(value)
     }
 }

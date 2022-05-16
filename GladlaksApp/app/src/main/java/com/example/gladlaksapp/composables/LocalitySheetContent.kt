@@ -9,15 +9,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.gladlaksapp.composables.lousechart.CustomBarChart
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.example.gladlaksapp.viewmodels.LocalityViewModel
+
 
 @Composable
 fun LocalitySheetContent(
     selectedLocality: Locality?,
     loadedLocality: LocalityDetailsWrapper?,
     graphLines: List<GraphLine>?,
+    locViewModel: LocalityViewModel = hiltViewModel(),
 ) {
     Column(
         modifier = Modifier
@@ -39,6 +44,9 @@ fun LocalitySheetContent(
         } else {
             InfoCard {
                 LocalityInfo(selectedLocality, localityInfo = loadedLocality.localityWeek)
+            }
+            InfoCard {
+                CustomBarChart(chartEntryModelProducer = locViewModel.groupedChartProducer)
             }
             InfoCard {
                 Box(modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, end = 4.dp)) {

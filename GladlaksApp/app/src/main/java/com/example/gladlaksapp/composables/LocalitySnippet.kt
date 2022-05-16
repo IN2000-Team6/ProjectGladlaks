@@ -7,7 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,25 +19,29 @@ import com.example.gladlaksapp.R
 
 @Composable
 fun LocalitySnippet(
-    locality: Locality?,
+    locality: Locality,
     isCollapsed: Boolean,
-    onClick: () -> Unit,
+    onExpandClick: () -> Unit,
+    toggleFavorite: () -> Unit,
+    favButtonTint: Color
 ) {
     val image: Painter = painterResource(R.drawable.locality_icon)
 
     if (locality != null) {
-        Box(modifier = Modifier.fillMaxWidth()){
-            Row (
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Image(painter = image,
+                Image(
+                    painter = image,
                     contentDescription = "IKON",
                     modifier = Modifier.padding(start = 20.dp)
                 )
-                Column(modifier = Modifier
-                    .padding(start = 16.dp)
-                    .weight(1f),
+                Column(
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                        .weight(1f),
                 ) {
                     Text(
                         text = locality.name,
@@ -48,11 +52,20 @@ fun LocalitySnippet(
                         style = MaterialTheme.typography.labelLarge,
                     )
                 }
+                //TODO: Koble til favoritter og database, endre farge om det er fav
+                //TODO: legge til handtering av klikk paa favoritt, maa endre isFavorite i Locality
+                //TODO: startfarge maa samsvare med isFavorite i Locality
+
+                FavoriteButton(
+                    toggleFavorite = toggleFavorite,
+                    favButtonTint = favButtonTint,
+                )
+
                 Button(
                     modifier = Modifier
                         .padding(end = 20.dp)
-                        .size(width = 150.dp, height = 40.dp),
-                    onClick = onClick,
+                        .size(width = 130.dp, height = 40.dp),
+                    onClick = onExpandClick,
                     shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF9CDCDA),//MaterialTheme.colorScheme.secondaryContainer
@@ -68,7 +81,7 @@ fun LocalitySnippet(
                     )
                 }
             }
-
         }
     }
 }
+

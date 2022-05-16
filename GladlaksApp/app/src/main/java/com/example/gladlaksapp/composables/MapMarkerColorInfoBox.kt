@@ -19,11 +19,11 @@ import com.example.gladlaksapp.R
 fun MapMarkerColorInfoBox() {
     Box(modifier = Modifier
         .padding(10.dp)
-        .clip(RoundedCornerShape(15.dp))
+        .clip(RoundedCornerShape(10.dp))
     ){
         Box(modifier = Modifier
             .height(40.dp)
-            .width(150.dp)
+            .width(145.dp)
             .align(Alignment.TopEnd)
             .background(Color(0xB4FFFFFF))
             .clip(RoundedCornerShape(15.dp))
@@ -32,7 +32,7 @@ fun MapMarkerColorInfoBox() {
                 .align(Alignment.Center)
                 .fillMaxSize()
             ) {
-                Row(Modifier.padding(start = 10.dp, top = 3.dp)) {
+                Row(Modifier.padding(start = 6.dp, top = 3.dp)) {
                     Image(
                         painter = painterResource(R.drawable.ic_white_border_marker_t),
                         contentDescription = "Turqoise Icon",
@@ -43,7 +43,7 @@ fun MapMarkerColorInfoBox() {
                         style = MaterialTheme.typography.bodySmall)
 
                 }
-                Row(Modifier.padding(start = 10.dp, top = 3.dp)) {
+                Row(Modifier.padding(start = 6.dp, top = 3.dp)) {
                     Image(
                         painter = painterResource(R.drawable.ic_white_border_marker_g),
                         contentDescription = "Gray Icon",

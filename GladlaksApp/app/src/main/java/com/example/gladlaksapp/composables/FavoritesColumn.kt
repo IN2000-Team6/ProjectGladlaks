@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -18,9 +19,11 @@ import com.example.gladlaksapp.models.Locality
 @Composable
 fun FavoritesColumn(
     favoritesList: List<Locality>,
-    onClick: () -> Unit,
+    //onExpandClick: () -> Unit,
     onButtonClick: (Locality) -> Unit,
-    isCollapsed: Boolean
+    isCollapsed: Boolean,
+    toggleFavorite: () -> Unit,
+    favButtonTint: Color,
 ) {
     Box(
         modifier = Modifier
@@ -50,39 +53,54 @@ fun FavoritesColumn(
             textAlign = TextAlign.Center
         )
     }
-    Box(
+    /*Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 30.dp),
         contentAlignment = Alignment.Center
     ) {
         WeekDatesSnippet()
-    }
+    }*/
 
     //Lazy column?
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
-        for (loc in favoritesList){
-            Box(
-                modifier = Modifier.padding(vertical = 2.dp)
-            ) {
-                InfoCard {
-                    SnippetWrapper {
-                        FavoriteLocalitySnippet(
-                            locality = loc,
-                            isCollapsed = isCollapsed,
-                            onClick = {
-                                onButtonClick(loc)
-                                true
-                            }
-                        )
-                    }
+        if (favoritesList.isNotEmpty()){
+            for (loc in favoritesList) {
+                Box(
+                    modifier = Modifier.padding(vertical = 2.dp)
+                ) {
+                    InfoCard {
+                        SnippetWrapper {
+                            FavoriteLocalitySnippet(
+                                locality = loc,
+                                isCollapsed = isCollapsed,
+                                //TODO state hoist!
+                                onExpandClick = {
+                                    onButtonClick(loc)
+                                    true
+                                },
+                                toggleFavorite = toggleFavorite,
+                                favButtonTint = favButtonTint,
+                            )
+                        }
                     }
                 }
             }
+        }else{
+            Box(
+                modifier = Modifier.padding(vertical = 2.dp).fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ){
+                Text("Ingen favoritter",
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.titleMedium,
+                )
+            }
         }
     }
+}
 
 @Composable
 fun SnippetWrapper(
@@ -94,5 +112,4 @@ fun SnippetWrapper(
     ){
         content()
     }
-
 }

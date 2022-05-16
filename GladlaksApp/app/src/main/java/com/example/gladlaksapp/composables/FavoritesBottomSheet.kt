@@ -5,24 +5,32 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
+import com.example.gladlaksapp.models.database.FavoriteLocality
+import com.example.gladlaksapp.viewmodels.FavoriteViewModel
+import com.example.gladlaksapp.viewmodels.LocalityViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
 fun FavoritesBottomSheet(
-    localities: List<Locality>?,
     localityTemps: List<GraphLine>?,
     loadedLocality: LocalityDetailsWrapper?,
     loadLocalityDetails: (Locality) -> Unit,
     resetLoadedLocality: () -> Unit,
+    locViewModel: LocalityViewModel = hiltViewModel(),
+    favViewModel: FavoriteViewModel = hiltViewModel(),
 ) {
+    val localities by locViewModel.favoriteLocalities.observeAsState()
+
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
     val selectedPeekHeight = 0
@@ -34,8 +42,20 @@ fun FavoritesBottomSheet(
         bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
     )
 
+    val favorites by favViewModel.favorites.observeAsState()
+    var favoriteLocality by remember { mutableStateOf<FavoriteLocality?>(null) }
+
+    val redColor = Color(0xFFEC407A)
+    val grayColor = Color(0xFFB0BEC5)
+    val favButtonTint = if (favoriteLocality?.isFavorite == true) redColor else grayColor
+
+    LaunchedEffect(favorites, selectedLocality) {
+        if (favorites != null && selectedLocality != null)
+            favoriteLocality =
+                favorites?.filter { it.localityNo == selectedLocality?.localityNo }?.get(0)
+    }
+
     // Event handlers
-    // må hente selected locality når se mer trykkes???
     fun onButtonClick(locality: Locality) {
         coroutineScope.launch {
             if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
@@ -46,7 +66,7 @@ fun FavoritesBottomSheet(
         }
 
     }
-    // her og?
+
     fun toggleBottomSheet() {
         coroutineScope.launch {
             //sheetState.bottomSheetState.expand()
@@ -59,9 +79,18 @@ fun FavoritesBottomSheet(
         }
     }
 
+    fun toggleFavorite() {
+        coroutineScope.launch {
+            if (favoriteLocality != null) {
+                if (favoriteLocality?.isFavorite == false) favViewModel.addFavorite(favoriteLocality!!)
+                else favoriteLocality?.let { favViewModel.deleteFavorite(it) }
+            }
+        }
+    }
+
     // Side effects
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
-        if (selectedLocality != null) {
+        if ((selectedLocality != null)) {
             if (loadedLocality == null || loadedLocality.localityName != selectedLocality!!.name) {
                 loadLocalityDetails(selectedLocality!!)
             }
@@ -75,17 +104,13 @@ fun FavoritesBottomSheet(
         content = {
             if (localities != null) {
                 FavoritesColumn(
-                    favoritesList = localities,
-                    onClick = ::toggleBottomSheet,
+                    favoritesList = localities!!,
+                    toggleFavorite = ::toggleFavorite,
                     onButtonClick = ::onButtonClick,
-                    isCollapsed = sheetState.bottomSheetState.isCollapsed
-                )
-            } else {
-                Text(
-                    "HEIHEI LEGG TIL FAV A!"
+                    isCollapsed = sheetState.bottomSheetState.isCollapsed,
+                    favButtonTint = redColor,
                 )
             }
-
         },
         sheetContent = {
             Column(
@@ -98,11 +123,15 @@ fun FavoritesBottomSheet(
                     onClick = ::toggleBottomSheet,
                 )
                 Box(modifier = Modifier.padding(bottom = 25.dp)) {
-                    LocalitySnippet(
-                        locality = selectedLocality,
-                        onClick = ::toggleBottomSheet,
-                        isCollapsed = sheetState.bottomSheetState.isCollapsed,
-                    )
+                    selectedLocality?.let {
+                        LocalitySnippet(
+                            locality = it,
+                            onExpandClick = ::toggleBottomSheet,
+                            isCollapsed = sheetState.bottomSheetState.isCollapsed,
+                            toggleFavorite = ::toggleFavorite,
+                            favButtonTint = favButtonTint,
+                        )
+                    }
                 }
                 LocalitySheetContent(
                     selectedLocality = selectedLocality,
