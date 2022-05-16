@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.R
 
@@ -35,22 +36,22 @@ fun MapMarkerColorInfoBox() {
                 Row(Modifier.padding(start = 6.dp, top = 3.dp)) {
                     Image(
                         painter = painterResource(R.drawable.ic_white_border_marker_t),
-                        contentDescription = "Turqoise Icon",
+                        contentDescription = stringResource(R.string.turquoise_icon_description),
                         modifier = Modifier.size(15.dp)
                     )
                     Text(
-                        text = " = Rapportert data",
+                        text = stringResource(R.string.reported_data),
                         style = MaterialTheme.typography.bodySmall)
 
                 }
                 Row(Modifier.padding(start = 6.dp, top = 3.dp)) {
                     Image(
                         painter = painterResource(R.drawable.ic_white_border_marker_g),
-                        contentDescription = "Gray Icon",
+                        contentDescription = stringResource(R.string.gray_icon_description),
                         modifier = Modifier.size(15.dp)
                     )
                     Text(
-                        text = " = Ikke rapportert data",
+                        text = stringResource(R.string.not_reported_data),
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
