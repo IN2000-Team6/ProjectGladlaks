@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.reusables
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.locality
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
+import com.example.gladlaksapp.composables.FavoriteButton
 
 @Composable
 fun LocalitySnippet(

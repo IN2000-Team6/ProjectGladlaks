@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables.lousechart
+package com.example.gladlaksapp.composables.locality
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -7,7 +7,6 @@ import androidx.annotation.ColorInt
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.unit.dp
 import com.patrykandpatryk.vico.core.chart.insets.Insets
 import com.patrykandpatryk.vico.core.component.OverlayingComponent
 import com.patrykandpatryk.vico.core.component.marker.MarkerComponent
