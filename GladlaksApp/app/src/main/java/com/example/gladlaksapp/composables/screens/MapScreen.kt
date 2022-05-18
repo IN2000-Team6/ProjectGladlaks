@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.composables.MapBottomSheet
+import com.example.gladlaksapp.composables.NetworkNotice
 import com.example.gladlaksapp.models.ConnectionState
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
@@ -24,14 +25,18 @@ fun MapScreen(
     val connection by connectivityState()
     val isConnected = connection === ConnectionState.Available
 
-    MapBottomSheet(
-        localities = localities,
-        loadedLocality = loadedLocality,
-        resetLoadedLocality = { mViewModel.resetLoadedLocality() },
-        localityTemps = localityTemps,
-        loadLocalityDetails = { loc ->
-            mViewModel.loadLocalityDetails(loc)
-        },
+    if (!isConnected){
+        NetworkNotice()
+    } else {
+        MapBottomSheet(
+            localities = localities,
+            loadedLocality = loadedLocality,
+            resetLoadedLocality = { mViewModel.resetLoadedLocality() },
+            localityTemps = localityTemps,
+            loadLocalityDetails = { loc ->
+                mViewModel.loadLocalityDetails(loc)
+            },
 
-    )
+        )
+    }
 }

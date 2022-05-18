@@ -180,7 +180,7 @@ fun CustomBarChart(
                 )
             }
         }
-        InfoText(R.string.louse_chart_text)
+        InfoText(R.string.louse_chart_text, MaterialTheme.typography.bodySmall)
     }
 }
 

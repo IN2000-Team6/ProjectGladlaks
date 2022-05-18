@@ -28,39 +28,45 @@ fun LocalityInfo(locality: Locality, localityInfo: LocalityDetails) {
             textAddition = "${176.toChar()}C"
         )
         */
-        InfoComponent(
-            image = painterResource(R.drawable.ic_lice_icon),
-            imageContentDescription = stringResource(R.string.lice_icon_description),
-            infoText = stringResource(R.string.female_lice),
-            data = localityInfo.avgAdultFemaleLice,
-            dataDescription = stringResource(R.string.avg)
-        )
-        InfoComponent(
-            image = painterResource(R.drawable.ic_lice_icon),
-            imageContentDescription = stringResource(R.string.lice_icon_description),
-            infoText = stringResource(R.string.mobile_lice),
-            data = localityInfo.avgMobileLice,
-            dataDescription = stringResource(R.string.avg)
-        )
-        InfoComponent(
-            image = painterResource(R.drawable.ic_lice_icon),
-            imageContentDescription = stringResource(R.string.lice_icon_description),
-            infoText = stringResource(R.string.stationary_lice),
-            data = localityInfo.avgStationaryLice,
-            dataDescription = stringResource(R.string.avg)
-        )
-        InfoComponent(
-            image = painterResource(R.drawable.ic_ila_pd_icon),
-            imageContentDescription = stringResource(R.string.ila_pd_icon_description),
-            infoText = stringResource(R.string.ila),
-            data = locality.hasIla,
-        )
-        InfoComponent(
-            image = painterResource(R.drawable.ic_ila_pd_icon),
-            imageContentDescription = stringResource(R.string.ila_pd_icon_description),
-            infoText = stringResource(R.string.pd),
-            data = locality.hasPd,
-        )
+        if (locality.hasReportedLice) {
+            InfoComponent(
+                image = painterResource(R.drawable.ic_lice_icon),
+                imageContentDescription = stringResource(R.string.lice_icon_description),
+                infoText = stringResource(R.string.female_lice),
+                data = localityInfo.avgAdultFemaleLice,
+                dataDescription = stringResource(R.string.avg)
+            )
+            InfoComponent(
+                image = painterResource(R.drawable.ic_lice_icon),
+                imageContentDescription = stringResource(R.string.lice_icon_description),
+                infoText = stringResource(R.string.mobile_lice),
+                data = localityInfo.avgMobileLice,
+                dataDescription = stringResource(R.string.avg)
+            )
+            InfoComponent(
+                image = painterResource(R.drawable.ic_lice_icon),
+                imageContentDescription = stringResource(R.string.lice_icon_description),
+                infoText = stringResource(R.string.stationary_lice),
+                data = localityInfo.avgStationaryLice,
+                dataDescription = stringResource(R.string.avg)
+            )
+            InfoComponent(
+                image = painterResource(R.drawable.ic_ila_pd_icon),
+                imageContentDescription = stringResource(R.string.ila_pd_icon_description),
+                infoText = stringResource(R.string.ila),
+                data = locality.hasIla,
+            )
+            InfoComponent(
+                image = painterResource(R.drawable.ic_ila_pd_icon),
+                imageContentDescription = stringResource(R.string.ila_pd_icon_description),
+                infoText = stringResource(R.string.pd),
+                data = locality.hasPd,
+            )
+        } else {
+            Row(horizontalArrangement = Arrangement.Center) {
+                InfoText(R.string.no_report_text, MaterialTheme.typography.bodyMedium)
+            }
+        }
     }
 }
 

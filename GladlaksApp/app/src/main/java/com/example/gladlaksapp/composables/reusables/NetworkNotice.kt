@@ -24,7 +24,7 @@ fun NetworkNotice() {
             modifier = Modifier.fillMaxWidth()
         ) {
             Image(painter = image,
-            contentDescription = "NOTIS-IKON",
+            contentDescription = "error icon",
             modifier = Modifier.padding(start = 20.dp)
             )
             Column(modifier = Modifier

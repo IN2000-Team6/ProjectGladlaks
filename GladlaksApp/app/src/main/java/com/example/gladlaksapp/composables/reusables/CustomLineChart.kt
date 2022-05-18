@@ -87,7 +87,7 @@ fun CustomLineChart(
             )
         }
         CustomChartLegend(lines = lines, colors = colors)
-        InfoText(R.string.temp_chart_text)
+        InfoText(R.string.temp_chart_text, MaterialTheme.typography.bodySmall)
     }
 }
 

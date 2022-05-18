@@ -10,12 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.R
 
 @Composable
 fun InfoText(
-    textId: Int
+    textId: Int,
+    style: TextStyle
 ) {
     val image: Painter = painterResource(R.drawable.ic_error_alert_outline)
 
@@ -23,7 +25,7 @@ fun InfoText(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
-                .padding(top = 20.dp)
+                .padding(top = 15.dp, bottom = 15.dp)
         ) {
             Image(painter = image,
                 contentDescription = "NOTIS-IKON",
@@ -35,7 +37,7 @@ fun InfoText(
             ) {
                 Text(
                     text = stringResource(textId),
-                    style = MaterialTheme.typography.bodySmall
+                    style = style
                 )
             }
         }
