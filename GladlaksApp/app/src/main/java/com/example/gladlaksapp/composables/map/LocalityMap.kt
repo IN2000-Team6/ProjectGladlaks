@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.graphics.drawable.toBitmap
 import com.example.gladlaksapp.R
-import com.example.gladlaksapp.composables.MapMarkerColorInfoBox
+
 import com.example.gladlaksapp.models.Locality
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.compose.GoogleMap

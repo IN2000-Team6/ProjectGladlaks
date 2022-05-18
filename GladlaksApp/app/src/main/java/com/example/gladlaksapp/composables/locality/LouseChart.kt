@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import com.example.gladlaksapp.R
 import com.example.gladlaksapp.composables.reusables.InfoCard
 import com.example.gladlaksapp.composables.reusables.InfoText
-import com.example.gladlaksapp.composables.lousechart.marker
 import com.patrykandpatryk.vico.compose.axis.horizontal.bottomAxis
 import com.patrykandpatryk.vico.compose.chart.Chart
 import com.patrykandpatryk.vico.compose.chart.column.columnChart

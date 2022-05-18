@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.gladlaksapp.R
-import com.example.gladlaksapp.composables.InfoText
+import com.example.gladlaksapp.composables.reusables.InfoText
 import com.example.gladlaksapp.models.GraphLine
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase

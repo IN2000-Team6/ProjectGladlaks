@@ -1,8 +1,12 @@
 package com.example.gladlaksapp.composables.screens
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.composables.map.MapBottomSheet
 import com.example.gladlaksapp.composables.reusables.NetworkNotice
@@ -26,7 +30,11 @@ fun MapScreen(
     val isConnected = connection === ConnectionState.Available
 
     if (!isConnected){
-        NetworkNotice()
+        Column(modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center
+        ) {
+            NetworkNotice()
+        }
     } else {
         MapBottomSheet(
             localities = localities,

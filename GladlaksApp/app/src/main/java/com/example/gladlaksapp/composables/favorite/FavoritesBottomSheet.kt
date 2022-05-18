@@ -12,9 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.composables.FavoritesColumn
-import com.example.gladlaksapp.composables.LocalitySheetContent
-import com.example.gladlaksapp.composables.LocalitySnippet
-import com.example.gladlaksapp.composables.NetworkNotice
+import com.example.gladlaksapp.composables.locality.LocalitySheetContent
+import com.example.gladlaksapp.composables.locality.LocalitySnippet
+import com.example.gladlaksapp.composables.reusables.NetworkNotice
 import com.example.gladlaksapp.composables.locality.ToggleArrowButton
 import com.example.gladlaksapp.models.*
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
