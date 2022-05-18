@@ -92,5 +92,4 @@ fun GladlaksAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compo
         //shapes = Shapes,
         content = content
     )
-
 }
