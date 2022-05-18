@@ -1,16 +1,10 @@
 package com.example.gladlaksapp.viewmodels
 
-import android.util.Log
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
-import com.example.gladlaksapp.models.Locality
-import com.example.gladlaksapp.models.database.FavoriteLocality
-import com.example.gladlaksapp.models.database.FavoriteRepository
+import com.example.gladlaksapp.models.FavoriteLocality
+import com.example.gladlaksapp.repositories.FavoriteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel

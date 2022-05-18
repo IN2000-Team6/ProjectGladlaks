@@ -1,14 +1,14 @@
-package com.example.gladlaksapp.di
+package com.example.gladlaksapp
 
 import android.app.Application
 import androidx.room.Room
 import com.example.gladlaksapp.datasources.BarentswatchNetworkDataSource
-import com.example.gladlaksapp.datasources.BarentswatchRepository
+import com.example.gladlaksapp.repositories.BarentswatchRepository
 import com.example.gladlaksapp.datasources.NorKystNetworkDataSource
-import com.example.gladlaksapp.datasources.NorKystRepository
-import com.example.gladlaksapp.models.database.FavoriteRepository
-import com.example.gladlaksapp.models.database.LocalityDatabase
-import com.example.gladlaksapp.models.database.LocalityRepository
+import com.example.gladlaksapp.repositories.NorKystRepository
+import com.example.gladlaksapp.repositories.FavoriteRepository
+import com.example.gladlaksapp.repositories.LocalityDatabase
+import com.example.gladlaksapp.repositories.LocalityRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

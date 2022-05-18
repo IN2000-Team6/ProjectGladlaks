@@ -1,7 +1,6 @@
 package com.example.gladlaksapp
 
-import com.example.gladlaksapp.datasources.NorKystRepository
-import com.example.gladlaksapp.models.GraphCoords
+import com.example.gladlaksapp.repositories.NorKystRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.Assert.*

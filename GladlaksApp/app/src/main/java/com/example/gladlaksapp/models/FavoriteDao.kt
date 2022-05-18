@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.models.database
+package com.example.gladlaksapp.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

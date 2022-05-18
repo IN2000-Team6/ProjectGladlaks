@@ -1,6 +1,8 @@
-package com.example.gladlaksapp.models.database
+package com.example.gladlaksapp.repositories
 
 import com.example.gladlaksapp.models.Locality
+import com.example.gladlaksapp.models.FavoriteDao
+import com.example.gladlaksapp.models.FavoriteLocality
 import kotlinx.coroutines.flow.Flow
 
 class FavoriteRepository (

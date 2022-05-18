@@ -1,10 +1,9 @@
-package com.example.gladlaksapp.models.database
+package com.example.gladlaksapp.models
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.flow.Flow
 
 @Dao

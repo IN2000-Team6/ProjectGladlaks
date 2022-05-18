@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables.lousechart
+package com.example.gladlaksapp.composables.locality
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.foundation.background
@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.example.gladlaksapp.R
 import com.example.gladlaksapp.composables.InfoCard
 import com.example.gladlaksapp.composables.InfoText
+import com.example.gladlaksapp.composables.lousechart.marker
 import com.patrykandpatryk.vico.compose.axis.horizontal.bottomAxis
 import com.patrykandpatryk.vico.compose.chart.Chart
 import com.patrykandpatryk.vico.compose.chart.column.columnChart

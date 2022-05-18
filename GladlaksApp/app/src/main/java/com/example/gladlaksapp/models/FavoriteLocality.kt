@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.models.database
+package com.example.gladlaksapp.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

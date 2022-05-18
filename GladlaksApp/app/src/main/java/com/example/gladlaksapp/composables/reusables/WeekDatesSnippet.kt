@@ -1,6 +1,5 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.reusables
 
-import java.util.Calendar
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
@@ -8,13 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.time.LocalDate
-import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.WeekFields
-import java.util.*
 import java.util.Locale.GERMANY
 
 @Preview(showBackground = true)

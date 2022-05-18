@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.locality
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon

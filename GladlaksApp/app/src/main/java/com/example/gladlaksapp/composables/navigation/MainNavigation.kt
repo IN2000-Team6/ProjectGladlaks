@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.composables
 
+import android.util.Log
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -21,10 +22,14 @@ fun MainNavigation(
     controller: NavController
 ) {
     fun onNavClick(screen: Screen) {
+        Log.d("flow", controller.backQueue.toString())
         controller.navigate(screen.route) {
-            popUpTo(controller.graph.findStartDestination().id) {
-                saveState = true
+            controller.graph.startDestinationRoute?.let { screen_route ->
+                popUpTo(screen_route) {
+                    saveState = true
+                }
             }
+            launchSingleTop = true
             restoreState = true
         }
     }

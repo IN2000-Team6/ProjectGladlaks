@@ -1,10 +1,11 @@
-package com.example.gladlaksapp.models.database
+package com.example.gladlaksapp.repositories
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.gladlaksapp.models.Locality
+import com.example.gladlaksapp.models.FavoriteDao
+import com.example.gladlaksapp.models.FavoriteLocality
+import com.example.gladlaksapp.models.LocalityDao
 
 @Database(entities = [Locality::class, FavoriteLocality::class], version = 1)
 abstract class LocalityDatabase : RoomDatabase() {

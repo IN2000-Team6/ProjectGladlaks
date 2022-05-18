@@ -1,9 +1,9 @@
-package com.example.gladlaksapp.datasources
+package com.example.gladlaksapp.repositories
 
+import com.example.gladlaksapp.datasources.NorKystNetworkDataSource
 import com.example.gladlaksapp.models.GraphCoords
 import com.example.gladlaksapp.models.GraphLine
 import kotlinx.coroutines.*
-import javax.inject.Inject
 
 class NorKystRepository(
     private val dataSource: NorKystNetworkDataSource

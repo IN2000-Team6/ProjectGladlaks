@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.gladlaksapp.composables.lousechart.CustomBarChart
+import com.example.gladlaksapp.composables.reusables.CustomLineChart
+import com.example.gladlaksapp.composables.reusables.WeekDatesSnippet
+import com.example.gladlaksapp.composables.locality.CustomBarChart
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper

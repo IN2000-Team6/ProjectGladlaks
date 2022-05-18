@@ -1,7 +1,5 @@
 package com.example.gladlaksapp.models
 
-import androidx.compose.ui.graphics.Color
-
 data class GraphCoords(
     val x: Float,
     val y: Float,

@@ -1,7 +1,7 @@
-package com.example.gladlaksapp.models.database
+package com.example.gladlaksapp.repositories
 
 import com.example.gladlaksapp.models.Locality
-import kotlinx.coroutines.flow.Flow
+import com.example.gladlaksapp.models.LocalityDao
 
 
 class LocalityRepository (
