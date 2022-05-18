@@ -41,7 +41,10 @@
     <string name="Splash">Splash</string>
     <string name="text_splash_screen">Splash Screen</string>
 
-    <!-- NetworkNotice text -->
+    <!-- Info texts -->
     <string name="network_notice_text"> Nettverk ikke funnet! Vennligst kontroller tilkoblingen og prøv på nytt.</string>
+    <string name="louse_chart_text"> Grafen viser sammenligningen av lus i dette anlegget over to år. Bla bortover for å se mer.
+    Merk: i ukene 21-26 er lusegrensen 0.2!</string>
+    <string name="temp_chart_text"> Grafen viser vanntemperatur ved to dybder fra midnatt dd. og 24 timer frem i tid.</string>
 
 </resources>

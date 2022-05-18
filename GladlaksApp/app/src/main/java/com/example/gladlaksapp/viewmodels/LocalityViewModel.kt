@@ -1,11 +1,13 @@
 package com.example.gladlaksapp.viewmodels
 
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.datasources.NorKystRepository
+import com.example.gladlaksapp.models.ConnectionState
 import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
 import com.patrykandpatryk.vico.core.entry.FloatEntry
 import com.example.gladlaksapp.models.GraphLine
@@ -14,6 +16,7 @@ import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.database.FavoriteLocality
 import com.example.gladlaksapp.models.database.FavoriteRepository
 import com.example.gladlaksapp.models.database.LocalityRepository
+import connectivityState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

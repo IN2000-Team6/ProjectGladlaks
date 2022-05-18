@@ -20,7 +20,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.gladlaksapp.R
 import com.example.gladlaksapp.composables.InfoCard
+import com.example.gladlaksapp.composables.InfoText
 import com.patrykandpatryk.vico.compose.axis.horizontal.bottomAxis
 import com.patrykandpatryk.vico.compose.chart.Chart
 import com.patrykandpatryk.vico.compose.chart.column.columnChart
@@ -156,7 +158,9 @@ fun CustomBarChart(
             )
         }
         Row(
-            modifier = Modifier.padding(top = 8.dp, end = 6.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(top = 8.dp, end = 6.dp)
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End,
         ) {
@@ -175,6 +179,7 @@ fun CustomBarChart(
                 )
             }
         }
+        InfoText(R.string.louse_chart_text)
     }
 }
 

@@ -60,7 +60,6 @@ fun SplashScreen(navController: NavController) {
     Box(contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Image(painter = painterResource(id = R.drawable.ic_salmon_logo_draft),
                 contentDescription = stringResource(R.string.text_logo_app_name),
