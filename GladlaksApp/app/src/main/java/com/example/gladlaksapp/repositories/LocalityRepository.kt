@@ -7,7 +7,6 @@ import com.example.gladlaksapp.models.LocalityDao
 class LocalityRepository (
     private val localityDao: LocalityDao
 ) {
-
     fun getAll() = localityDao.getAll()
 
     fun getByNo(input: Int) = localityDao.getByNo(input)

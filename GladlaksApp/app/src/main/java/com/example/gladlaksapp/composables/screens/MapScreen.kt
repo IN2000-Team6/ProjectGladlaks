@@ -8,7 +8,7 @@ import com.example.gladlaksapp.composables.MapBottomSheet
 import com.example.gladlaksapp.models.ConnectionState
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
-import connectivityState
+import com.example.gladlaksapp.models.connectivityState
 
 @Composable
 fun MapScreen(

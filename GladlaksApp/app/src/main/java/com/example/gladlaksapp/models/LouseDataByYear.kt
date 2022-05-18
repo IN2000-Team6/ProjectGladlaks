@@ -5,7 +5,6 @@ data class LouseDataByYear(
     val year: Int,
     val maxCombinedNumberOfLice: String,
     val data: List<LouseData>
-
 )
 
 data class LouseData(
