@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

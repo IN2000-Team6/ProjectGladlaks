@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.map
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.reusables
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment

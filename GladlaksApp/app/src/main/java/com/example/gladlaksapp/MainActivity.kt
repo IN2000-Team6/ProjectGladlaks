@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 //TODO: fjerne splashscreen fra stacken saa den kun kalles én gang
-                NavHost(navController = navController, startDestination = Screen.Favorites.route) {
+                NavHost(navController = navController, startDestination = Screen.Map.route) {
 
                     composable(Screen.Map.route) {
                         BottomNavScreenContainer(navController = navController) {

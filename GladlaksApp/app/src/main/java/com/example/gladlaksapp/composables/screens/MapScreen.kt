@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.gladlaksapp.composables.MapBottomSheet
-import com.example.gladlaksapp.composables.NetworkNotice
+import com.example.gladlaksapp.composables.map.MapBottomSheet
+import com.example.gladlaksapp.composables.reusables.NetworkNotice
 import com.example.gladlaksapp.models.ConnectionState
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LocalityViewModel

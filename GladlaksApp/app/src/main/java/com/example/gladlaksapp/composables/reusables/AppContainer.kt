@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.reusables
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme

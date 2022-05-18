@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.locality
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.composables.reusables.CustomLineChart
 import com.example.gladlaksapp.composables.reusables.WeekDatesSnippet
 import com.example.gladlaksapp.composables.locality.CustomBarChart
+import com.example.gladlaksapp.composables.reusables.InfoCard
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
