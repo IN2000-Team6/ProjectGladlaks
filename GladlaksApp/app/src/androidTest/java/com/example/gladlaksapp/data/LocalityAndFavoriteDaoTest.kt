@@ -30,7 +30,7 @@ class SimpleLocalityTest {
     private lateinit var db: LocalityDatabase
 
     private val localityA = Locality(localityNo = 123, name="test", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false)
-    private val favoriteA = FavoriteLocality(localityNo = 123)
+    private val favoriteA = FavoriteLocality(localityNo = 123, isFavorite = true)
 
     @Before
     fun createDb() {

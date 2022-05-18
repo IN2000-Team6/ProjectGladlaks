@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.datasources
 
+import com.example.gladlaksapp.BarentswatchNetworkDatasourceInterface
 import com.example.gladlaksapp.models.*
 import com.patrykandpatryk.vico.core.entry.FloatEntry
 import kotlinx.coroutines.async
@@ -7,7 +8,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
 class BarentswatchRepository(
-   private val dataSource: BarentswatchNetworkDataSource
+   private val dataSource: BarentswatchNetworkDatasourceInterface
 ) {
     /**
      * Get all localities that are in water
