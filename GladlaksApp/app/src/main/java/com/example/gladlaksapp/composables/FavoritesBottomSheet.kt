@@ -12,12 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.gladlaksapp.models.ConnectionState
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.models.database.FavoriteLocality
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
+import connectivityState
 import kotlinx.coroutines.launch
 
 @Composable
@@ -49,6 +51,10 @@ fun FavoritesBottomSheet(
     val redColor = MaterialTheme.colorScheme.error
     val grayColor = MaterialTheme.colorScheme.surface
     val favButtonTint = if (favoriteLocality?.isFavorite == true) redColor else grayColor
+
+    val connection by connectivityState()
+    val isConnected = connection === ConnectionState.Available
+
 
     LaunchedEffect(favorites, selectedLocality) {
         if (favorites != null && selectedLocality != null)
@@ -91,7 +97,7 @@ fun FavoritesBottomSheet(
 
     // Side effects
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
-        if ((selectedLocality != null)) {
+        if ((selectedLocality != null && isConnected)) {
             if (loadedLocality == null || loadedLocality.localityName != selectedLocality!!.name) {
                 loadLocalityDetails(selectedLocality!!)
             }
@@ -134,11 +140,16 @@ fun FavoritesBottomSheet(
                         )
                     }
                 }
-                LocalitySheetContent(
-                    selectedLocality = selectedLocality,
-                    loadedLocality = loadedLocality,
-                    graphLines = localityTemps
-                )
+
+                if (!isConnected) {
+                    NetworkNotice()
+                } else {
+                    LocalitySheetContent(
+                        selectedLocality = selectedLocality,
+                        loadedLocality = loadedLocality,
+                        graphLines = localityTemps
+                    )
+                }
             }
         },
     )

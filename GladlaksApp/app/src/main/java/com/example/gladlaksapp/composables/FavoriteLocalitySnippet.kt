@@ -72,7 +72,7 @@ fun FavoriteLocalitySnippet(
                     Text(
                         modifier = Modifier.offset(y = (-1).dp),
                         style = MaterialTheme.typography.labelLarge,
-                        text = if (isCollapsed) "Se mer" else "Se mindre",
+                        text = "Se mer"
                     )
                 }
             }
