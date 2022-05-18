@@ -1,19 +1,18 @@
-package com.example.gladlaksapp
+package com.example.gladlaksapp.data
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.asLiveData
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.gladlaksapp.models.FavoriteDao
+import com.example.gladlaksapp.models.FavoriteLocality
 import com.example.gladlaksapp.models.Locality
-import com.example.gladlaksapp.models.database.FavoriteDao
-import com.example.gladlaksapp.models.database.FavoriteLocality
-import com.example.gladlaksapp.models.database.LocalityDao
-import com.example.gladlaksapp.models.database.LocalityDatabase
+import com.example.gladlaksapp.models.LocalityDao
+import com.example.gladlaksapp.repositories.LocalityDatabase
 import com.example.gladlaksapp.utils.testFavorites
 import com.example.gladlaksapp.utils.testLocalities
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -30,7 +29,7 @@ class SimpleLocalityTest {
     private lateinit var db: LocalityDatabase
 
     private val localityA = Locality(localityNo = 123, name="test", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false)
-    private val favoriteA = FavoriteLocality(localityNo = 123)
+    private val favoriteA = FavoriteLocality(localityNo = 123, isFavorite = true)
 
     @Before
     fun createDb() {
@@ -69,8 +68,8 @@ class SimpleLocalityTest {
     fun testWriteAndGetFavorites() = runBlocking {
         localityDao.insertAll(testLocalities)
         favoriteDao.insertFavorites(testFavorites)
-        Log.d("testWriteAndGetFavorites", favoriteDao.getFavorites().size.toString())
-        assertEquals(4,favoriteDao.getAll().size)
-        assertEquals(3,favoriteDao.getFavorites().size)
+        Log.d("testWriteAndGetFavorites", favoriteDao.getFavoriteLocalities().asLiveData().value!!.size.toString())
+        assertEquals(4,favoriteDao.getAll().asLiveData().value!!.size)
+        assertEquals(3, favoriteDao.getFavoriteLocalities().asLiveData().value!!.size)
     }
 }

@@ -1,6 +1,6 @@
 package com.example.gladlaksapp
 
-import com.example.gladlaksapp.datasources.BarentswatchRepository
+import com.example.gladlaksapp.repositories.BarentswatchRepository
 import com.example.gladlaksapp.models.LocalitiesWrapper
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper

@@ -1,5 +1,6 @@
 package com.example.gladlaksapp.datasources
 
+import com.example.gladlaksapp.BarentswatchNetworkDatasourceInterface
 import com.example.gladlaksapp.BuildConfig
 import com.example.gladlaksapp.models.BarentsWatchToken
 import com.example.gladlaksapp.models.LocalitiesWrapper
@@ -11,7 +12,7 @@ import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.request.*
 
-class BarentswatchNetworkDataSource {
+class BarentswatchNetworkDataSource : BarentswatchNetworkDatasourceInterface{
     private val tokenURL = "https://id.barentswatch.no/connect/token"
     private val localitiesURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s"
     private val localityDetailedURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s/%s"
@@ -31,7 +32,8 @@ class BarentswatchNetworkDataSource {
     /**
      * Gets token to access the Barentswatch API. Lasts 3600 seconds
      */
-    private suspend fun getToken() : String {
+
+    override suspend fun getToken() : String {
         val response: BarentsWatchToken = client.post(tokenURL) {
             headers.append("Content-Type","application/x-www-form-urlencoded")
             body = "client_id=$bw_client&scope=api&client_secret=$bw_secret&grant_type=client_credentials"
@@ -44,7 +46,7 @@ class BarentswatchNetworkDataSource {
      * @param year - The year
      * @param week - The calendar week
      */
-    suspend fun getLocalities(year: Int, week: Int) : LocalitiesWrapper {
+    override suspend fun getLocalities(year: Int, week: Int) : LocalitiesWrapper {
         val token: String = getToken()
         return client.get(localitiesURL.format(year,week)) {
             headers {
@@ -57,7 +59,7 @@ class BarentswatchNetworkDataSource {
      * Returns a data class representing detailed information about one locality
      * @param localityNo - The locality no, as stated by the [Locality] dataclass
      */
-    suspend fun getDetailedLocalityInfo(localityNo: Int, year: Int, week: Int) : LocalityDetailsWrapper {
+    override suspend fun getDetailedLocalityInfo(localityNo: Int, year: Int, week: Int) : LocalityDetailsWrapper {
         val token: String = getToken()
         return client.get(localityDetailedURL.format(localityNo,year,week)) {
             headers {
@@ -71,7 +73,7 @@ class BarentswatchNetworkDataSource {
      * @param localityNo - The locality no, as stated by the [Locality] dataclass
      * @param year - The year to fetch data from
      */
-    suspend fun getLouseDataByYear(localityNo: Int, year: Int) : LouseDataByYear {
+    override suspend fun getLouseDataByYear(localityNo: Int, year: Int) : LouseDataByYear {
         val token: String = getToken()
         return client.get(louseDataByYearURL.format(localityNo,year)) {
             headers {

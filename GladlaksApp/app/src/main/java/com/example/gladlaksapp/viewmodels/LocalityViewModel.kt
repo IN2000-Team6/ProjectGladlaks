@@ -1,22 +1,19 @@
 package com.example.gladlaksapp.viewmodels
 
-import androidx.compose.runtime.getValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.gladlaksapp.datasources.BarentswatchRepository
-import com.example.gladlaksapp.datasources.NorKystRepository
-import com.example.gladlaksapp.models.ConnectionState
+import com.example.gladlaksapp.repositories.BarentswatchRepository
+import com.example.gladlaksapp.repositories.NorKystRepository
 import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
 import com.patrykandpatryk.vico.core.entry.FloatEntry
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.models.Locality
-import com.example.gladlaksapp.models.database.FavoriteLocality
-import com.example.gladlaksapp.models.database.FavoriteRepository
-import com.example.gladlaksapp.models.database.LocalityRepository
-import connectivityState
+import com.example.gladlaksapp.models.FavoriteLocality
+import com.example.gladlaksapp.repositories.FavoriteRepository
+import com.example.gladlaksapp.repositories.LocalityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,6 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
  class LocalityViewModel @Inject constructor(
+    //TODO Include saved state handle?
     private val localityRepository: LocalityRepository,
     private val favoriteRepository: FavoriteRepository,
     private val barentsWatchRepo: BarentswatchRepository,
@@ -86,8 +84,10 @@ import javax.inject.Inject
             )
             localities.postValue(data)
 
+            //TODO Check if database updates properly - do past localities get deleted?
             localityRepository.insertAll(data)
-            favoriteRepository.insertFavorites( data.map{FavoriteLocality(it.localityNo,false)} )
+            //TODO favorites column likely gets overwritten
+            favoriteRepository.insertFavorites( data.map{ FavoriteLocality(it.localityNo,false) } )
         }
     }
 }

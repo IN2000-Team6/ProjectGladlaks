@@ -25,8 +25,8 @@ data class LocalityDetails (
     val avgMobileLice: Number?,
     val avgStationaryLice: Number?,
     val seaTemperature: Number?,
-    val bathTreatments: List<Treatment>,
-    val inFeedTreatments: List<Treatment>,
+    val bathTreatments: List<Treatment>?,
+    val inFeedTreatments: List<Treatment>?,
     val mechanicalRemoval: MechanicalRemoval?,
 )
 
@@ -40,7 +40,6 @@ data class LiceCountPreviousWeek (
     val avgAdultFemaleLice: Number,
     val avgMobileLice: Number,
     val avgStationaryLice: Number
-
 )
 
 

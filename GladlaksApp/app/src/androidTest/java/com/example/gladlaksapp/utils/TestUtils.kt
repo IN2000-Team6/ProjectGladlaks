@@ -1,7 +1,7 @@
 package com.example.gladlaksapp.utils
 
 import com.example.gladlaksapp.models.Locality
-import com.example.gladlaksapp.models.database.FavoriteLocality
+import com.example.gladlaksapp.models.FavoriteLocality
 
 /**
  * Testing locality entities
