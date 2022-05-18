@@ -15,12 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
-    //TODO Include saved state handle?
     private val favoriteRepository: FavoriteRepository,
 ): ViewModel() {
-
-    //TODO add/delete bug
-    //TODO livedata boolean isfavorite
 
     val favorites: LiveData<List<FavoriteLocality>> = favoriteRepository.favoritesFlow.asLiveData()
 

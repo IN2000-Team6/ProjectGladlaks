@@ -27,7 +27,6 @@ import javax.inject.Inject
 
 @HiltViewModel
  class LocalityViewModel @Inject constructor(
-    //TODO Include saved state handle?
     private val localityRepository: LocalityRepository,
     private val favoriteRepository: FavoriteRepository,
     private val barentsWatchRepo: BarentswatchRepository,
@@ -87,9 +86,7 @@ import javax.inject.Inject
             )
             localities.postValue(data)
 
-            //TODO Check if database updates properly - do past localities get deleted?
             localityRepository.insertAll(data)
-            //TODO favorites column likely gets overwritten
             favoriteRepository.insertFavorites( data.map{FavoriteLocality(it.localityNo,false)} )
         }
     }
