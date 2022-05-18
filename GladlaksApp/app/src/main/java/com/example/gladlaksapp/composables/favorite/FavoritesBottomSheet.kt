@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.favorite
 
 
 import androidx.compose.foundation.layout.*
@@ -11,15 +11,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.gladlaksapp.composables.FavoritesColumn
+import com.example.gladlaksapp.composables.LocalitySheetContent
+import com.example.gladlaksapp.composables.LocalitySnippet
+import com.example.gladlaksapp.composables.NetworkNotice
 import com.example.gladlaksapp.composables.locality.ToggleArrowButton
-import com.example.gladlaksapp.models.ConnectionState
-import com.example.gladlaksapp.models.GraphLine
-import com.example.gladlaksapp.models.Locality
-import com.example.gladlaksapp.models.LocalityDetailsWrapper
-import com.example.gladlaksapp.models.FavoriteLocality
+import com.example.gladlaksapp.models.*
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
-import connectivityState
+import com.example.gladlaksapp.models.ConnectionState
 import kotlinx.coroutines.launch
 
 @Composable

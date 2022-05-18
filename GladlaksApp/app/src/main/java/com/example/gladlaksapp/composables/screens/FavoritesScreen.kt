@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.gladlaksapp.composables.FavoritesBottomSheet
+import com.example.gladlaksapp.composables.favorite.FavoritesBottomSheet
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
 
 @Composable
