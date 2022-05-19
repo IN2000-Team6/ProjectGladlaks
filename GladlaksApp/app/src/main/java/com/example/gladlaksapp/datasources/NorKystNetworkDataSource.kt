@@ -15,6 +15,12 @@ class NorKystNetworkDataSource {
         }
     }
 
+    /**
+     * Get a time series of temperatures given a locality and a depth
+     * @param lat locality latitude
+     * @param lon locality longitude
+     * @param depth levels in the NorKyst model: [0, 3, 10...]
+     */
     suspend fun getLocalityTemperature(
         lat: Double,
         lon: Double,

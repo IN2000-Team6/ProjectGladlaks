@@ -2,7 +2,6 @@ package com.example.gladlaksapp.datasources
 
 import com.example.gladlaksapp.BarentswatchNetworkDatasourceInterface
 import com.example.gladlaksapp.BuildConfig
-import com.example.gladlaksapp.models.BarentsWatchToken
 import com.example.gladlaksapp.models.LocalitiesWrapper
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.models.LouseDataByYear
@@ -80,4 +79,6 @@ class BarentswatchNetworkDataSource : BarentswatchNetworkDatasourceInterface{
             }
         }
     }
+
+    data class BarentsWatchToken(val access_token: String, val expires_in: Number)
 }
