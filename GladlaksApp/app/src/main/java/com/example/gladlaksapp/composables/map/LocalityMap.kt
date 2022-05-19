@@ -118,7 +118,7 @@ fun SmartMarker(
 
 // takes current zoom level on map, and returns a marker size fitting for each zoom level
 fun setMarkerSize(currentZoom: Float, initMarkerSize: Float, markerSize: Float): Float {
-    if (currentZoom < 6f) {
+    if (currentZoom <= 6f) {
         return initMarkerSize
     } else if (currentZoom > 6f && currentZoom < 7f) {
         return initMarkerSize * 2
