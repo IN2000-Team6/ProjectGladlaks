@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
-import com.example.gladlaksapp.composables.FavoriteButton
+import com.example.gladlaksapp.composables.favorite.FavoriteButton
 
 @Composable
 fun LocalitySnippet(
@@ -29,59 +29,57 @@ fun LocalitySnippet(
 ) {
     val image: Painter = painterResource(R.drawable.locality_icon)
 
-    if (locality != null) {
-        Box(modifier = Modifier.fillMaxWidth()) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Image(
+                painter = image,
+                contentDescription = stringResource(R.string.icon_content_description),
+                modifier = Modifier.padding(start = 20.dp)
+            )
+            Column(
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .weight(1f),
             ) {
-                Image(
-                    painter = image,
-                    contentDescription = stringResource(R.string.icon_content_description),
-                    modifier = Modifier.padding(start = 20.dp)
+                Text(
+                    text = locality.name,
+                    style = MaterialTheme.typography.titleMedium
                 )
-                Column(
-                    modifier = Modifier
-                        .padding(start = 16.dp)
-                        .weight(1f),
-                ) {
-                    Text(
-                        text = locality.name,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Text(
-                        text = "${stringResource(R.string.locality_number_prefix)} ${locality.localityNo}",
-                        style = MaterialTheme.typography.labelLarge,
-                    )
-                }
-                //TODO: Koble til favoritter og database, endre farge om det er fav
-                //TODO: legge til handtering av klikk paa favoritt, maa endre isFavorite i Locality
-                //TODO: startfarge maa samsvare med isFavorite i Locality
-
-                FavoriteButton(
-                    toggleFavorite = toggleFavorite,
-                    favButtonTint = favButtonTint,
+                Text(
+                    text = "${stringResource(R.string.locality_number_prefix)} ${locality.localityNo}",
+                    style = MaterialTheme.typography.labelLarge,
                 )
+            }
 
-                Button(
-                    modifier = Modifier
-                        .padding(end = 20.dp)
-                        .size(width = 130.dp, height = 40.dp),
-                    onClick = onExpandClick,
-                    shape = RoundedCornerShape(20.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.secondary,
-                        contentColor = MaterialTheme.colorScheme.onSecondary,
-                        disabledContainerColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        disabledContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                    )
-                ) {
-                    Text(
-                        modifier = Modifier.offset(y = (-1).dp),
-                        style = MaterialTheme.typography.labelLarge,
-                        text = if (isCollapsed) "Se mer" else "Se mindre",
-                    )
-                }
+            //TODO: Koble til favoritter og database, endre farge om det er fav
+            //TODO: legge til handtering av klikk paa favoritt, maa endre isFavorite i Locality
+            //TODO: startfarge maa samsvare med isFavorite i Locality
+
+            FavoriteButton(
+                toggleFavorite = toggleFavorite,
+                favButtonTint = favButtonTint,
+            )
+            Button(
+                modifier = Modifier
+                    .padding(end = 20.dp)
+                    .size(width = 130.dp, height = 40.dp),
+                onClick = onExpandClick,
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.onSecondary,
+                    disabledContainerColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    disabledContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                )
+            ) {
+                Text(
+                    modifier = Modifier.offset(y = (-1).dp),
+                    style = MaterialTheme.typography.labelLarge,
+                    text = if (isCollapsed) "Se mer" else "Se mindre",
+                )
             }
         }
     }
