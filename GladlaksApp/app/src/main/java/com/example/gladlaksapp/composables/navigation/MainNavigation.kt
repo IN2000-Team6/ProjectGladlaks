@@ -1,6 +1,5 @@
 package com.example.gladlaksapp.composables.navigation
 
-import android.util.Log
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
