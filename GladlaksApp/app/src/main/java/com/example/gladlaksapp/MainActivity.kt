@@ -28,14 +28,14 @@ class MainActivity : ComponentActivity() {
                     composable(Screen.Splash.route) {
                         SplashScreen(navController = navController)
                     }
-                    composable(Screen.Favorites.route) {
-                        BottomNavScreenContainer(navController = navController) {
-                            FavoritesScreen()
-                        }
-                    }
                     composable(Screen.Map.route) {
                         BottomNavScreenContainer(navController = navController) {
                             MapScreen()
+                        }
+                    }
+                    composable(Screen.Favorites.route) {
+                        BottomNavScreenContainer(navController = navController) {
+                            FavoritesScreen()
                         }
                     }
                 }
