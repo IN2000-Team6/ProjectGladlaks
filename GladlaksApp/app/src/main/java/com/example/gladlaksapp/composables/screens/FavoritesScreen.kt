@@ -20,7 +20,7 @@ fun FavoritesScreen(
         localityTemps = localityTemps,
         loadLocalityDetails = { loc ->
             locViewModel.loadLocalityDetails(loc)
-        },
+        }
     )
 }
 
