@@ -239,7 +239,7 @@ fun getRandomEntries(n: Int) = List(size = n) {
 }
 
 
-@Preview(showBackground = true, widthDp = 320, heightDp = 600)
+@Preview(showBackground = true, widthDp = 320, heightDp = 300)
 @Composable
 fun PreviewLouseChart() {
     val GENERATIONS = 2
