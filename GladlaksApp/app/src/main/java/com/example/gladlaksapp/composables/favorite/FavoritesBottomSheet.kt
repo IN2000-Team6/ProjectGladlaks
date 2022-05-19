@@ -19,7 +19,8 @@ import com.example.gladlaksapp.composables.locality.ToggleArrowButton
 import com.example.gladlaksapp.models.*
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
-import com.example.gladlaksapp.models.ConnectionState
+import com.example.gladlaksapp.utils.ConnectionState
+import com.example.gladlaksapp.utils.connectivityState
 import kotlinx.coroutines.launch
 
 @Composable

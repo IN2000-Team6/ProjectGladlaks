@@ -19,8 +19,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.gladlaksapp.R
 import com.example.gladlaksapp.composables.reusables.NetworkNotice
-import com.example.gladlaksapp.models.ConnectionState
-import com.example.gladlaksapp.models.connectivityState
+import com.example.gladlaksapp.utils.ConnectionState
+import com.example.gladlaksapp.utils.connectivityState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 

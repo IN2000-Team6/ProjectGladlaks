@@ -10,10 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.composables.map.MapBottomSheet
 import com.example.gladlaksapp.composables.reusables.NetworkNotice
-import com.example.gladlaksapp.models.ConnectionState
+import com.example.gladlaksapp.utils.ConnectionState
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
-import com.example.gladlaksapp.models.connectivityState
+import com.example.gladlaksapp.utils.connectivityState
 
 @Composable
 fun MapScreen(

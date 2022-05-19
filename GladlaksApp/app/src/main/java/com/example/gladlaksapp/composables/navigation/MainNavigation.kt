@@ -26,11 +26,11 @@ fun MainNavigation(
         controller.navigate(screen.route) {
             controller.graph.startDestinationRoute?.let { screen_route ->
                 popUpTo(screen_route) {
-                    saveState = true
+                    saveState = false
                 }
             }
             launchSingleTop = true
-            restoreState = true
+            restoreState = false
         }
     }
 
