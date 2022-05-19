@@ -16,7 +16,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
- * Sets up dependency [Graph] with a context. Consider renaming/moving to avoid confusion with main
+ * Sets up dependency Graph with a context.
  */
 
 @Module

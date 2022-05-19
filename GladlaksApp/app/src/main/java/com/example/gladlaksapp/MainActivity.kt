@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Text
-import com.example.gladlaksapp.composables.AppContainer
+import com.example.gladlaksapp.composables.reusables.AppContainer
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.gladlaksapp.composables.BottomNavScreenContainer
+import com.example.gladlaksapp.composables.navigation.BottomNavScreenContainer
 import com.example.gladlaksapp.composables.screens.FavoritesScreen
 import com.example.gladlaksapp.composables.screens.MapScreen
 import com.example.gladlaksapp.composables.screens.Screen
