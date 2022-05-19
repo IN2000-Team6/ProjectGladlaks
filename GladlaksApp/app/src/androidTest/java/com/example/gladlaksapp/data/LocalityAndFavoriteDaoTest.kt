@@ -46,7 +46,7 @@ class SimpleLocalityTest {
     }
 
     @Test
-    fun testInsertAll() = runBlocking {
+    fun `should insert list of localities`() = runBlocking {
         localityDao.insertAll(testLocalities)
         Log.d("testInsertAll", localityDao.getAll().first().size.toString())
         assertEquals(localityDao.getAll().first().size, 6)

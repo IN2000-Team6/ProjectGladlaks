@@ -7,10 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -19,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.gladlaksapp.R
 import com.example.gladlaksapp.composables.reusables.NetworkNotice
+import com.example.gladlaksapp.composables.reusables.NetworkRestartNotice
 import com.example.gladlaksapp.utils.ConnectionState
 import com.example.gladlaksapp.utils.connectivityState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -63,7 +61,7 @@ fun SplashScreen(navController: NavController) {
                 modifier = Modifier.scale(scale.value)
             )
             if (!isConnected) {
-                NetworkNotice()
+                NetworkRestartNotice()
             }
         }
     }
