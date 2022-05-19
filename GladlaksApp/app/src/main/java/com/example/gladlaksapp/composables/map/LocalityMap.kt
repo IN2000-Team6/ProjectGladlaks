@@ -48,41 +48,11 @@ fun LocalityMap(
         cameraPositionState.position.zoom,
         markerSize,
     ) {
-        if (cameraPositionState.position.zoom > 6f && cameraPositionState.position.zoom < 7f) {
-            markerSize = initMarkerSize * 2
-        } else if (cameraPositionState.position.zoom <= 6f  && markerSize != initMarkerSize) {
-            markerSize = initMarkerSize
-        } else if (cameraPositionState.position.zoom > 7f && cameraPositionState.position.zoom < 8f) {
-            markerSize = initMarkerSize * 2.5f
-        } else if (cameraPositionState.position.zoom <= 7f && cameraPositionState.position.zoom > 6f) {
-            markerSize = initMarkerSize * 2
-        } else if (cameraPositionState.position.zoom > 8f && cameraPositionState.position.zoom < 9f) {
-            markerSize = initMarkerSize * 3
-        } else if (cameraPositionState.position.zoom <= 8f && cameraPositionState.position.zoom > 7f) {
-            markerSize = initMarkerSize * 2.5f
-        } else if (cameraPositionState.position.zoom > 9f && cameraPositionState.position.zoom < 10f) {
-            markerSize = initMarkerSize * 3.5f
-        } else if (cameraPositionState.position.zoom <= 9f && cameraPositionState.position.zoom > 8f) {
-            markerSize = initMarkerSize * 3
-        }else if (cameraPositionState.position.zoom > 10f && cameraPositionState.position.zoom < 11f) {
-            markerSize = initMarkerSize * 4
-        } else if (cameraPositionState.position.zoom <= 10f && cameraPositionState.position.zoom > 9f) {
-            markerSize = initMarkerSize * 3.5f
-        } else if (cameraPositionState.position.zoom > 11f && cameraPositionState.position.zoom < 12f) {
-            markerSize = initMarkerSize * 5.5f
-        } else if (cameraPositionState.position.zoom <= 11f && cameraPositionState.position.zoom > 10f) {
-            markerSize = initMarkerSize * 4
-        }else if (cameraPositionState.position.zoom > 12f && markerSize == initMarkerSize * 5.5f) {
-            markerSize = initMarkerSize * 7
-        } else if (cameraPositionState.position.zoom <= 12f && cameraPositionState.position.zoom > 11f) {
-            markerSize = initMarkerSize * 5.5f
-        }
+        markerSize = setMarkerSize(cameraPositionState.position.zoom, initMarkerSize, markerSize)
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-
+        modifier = Modifier.fillMaxSize()
     ){
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
@@ -132,6 +102,7 @@ fun createMarkerIcon_G(context: Context, size: Int): BitmapDescriptor {
     return BitmapDescriptorFactory.fromBitmap(bitmapIcon)
 }
 
+// creates a map marker, z index set to max float if locality has reported data
 @Composable
 fun SmartMarker(loc: Locality, onClick: (Marker) -> Boolean, iconT: BitmapDescriptor, iconP: BitmapDescriptor){
     Marker(
@@ -141,6 +112,42 @@ fun SmartMarker(loc: Locality, onClick: (Marker) -> Boolean, iconT: BitmapDescri
         onClick = onClick,
         zIndex = if (loc.hasReportedLice) Float.MAX_VALUE else 0f
     )
+}
+
+// takes current zoom level on map, and returns a marker size fitting for each zoom level
+fun setMarkerSize( currentZoom: Float, initMarkerSize: Float, markerSize: Float): Float{
+    if (currentZoom < 6f){
+        return initMarkerSize
+    } else if (currentZoom > 6f && currentZoom < 7f) {
+        return initMarkerSize * 2
+    } else if (currentZoom <= 6f  && markerSize != initMarkerSize) {
+        return initMarkerSize
+    } else if (currentZoom > 7f && currentZoom < 8f) {
+        return initMarkerSize * 2.5f
+    } else if (currentZoom <= 7f && currentZoom > 6f) {
+        return initMarkerSize * 2
+    } else if (currentZoom > 8f && currentZoom < 9f) {
+        return initMarkerSize * 3
+    } else if (currentZoom <= 8f && currentZoom > 7f) {
+        return initMarkerSize * 2.5f
+    } else if (currentZoom > 9f && currentZoom < 10f) {
+        return initMarkerSize * 3.5f
+    } else if (currentZoom <= 9f && currentZoom > 8f) {
+        return initMarkerSize * 3
+    }else if (currentZoom > 10f && currentZoom < 11f) {
+        return initMarkerSize * 4
+    } else if (currentZoom <= 10f && currentZoom > 9f) {
+        return initMarkerSize * 3.5f
+    } else if (currentZoom > 11f && currentZoom < 12f) {
+        return initMarkerSize * 5.5f
+    } else if (currentZoom <= 11f && currentZoom > 10f) {
+        return initMarkerSize * 4
+    }else if (currentZoom > 12f && markerSize == initMarkerSize * 5.5f) {
+        return initMarkerSize * 7
+    } else if (currentZoom <= 12f && currentZoom > 11f) {
+        return initMarkerSize * 5.5f
+    }
+    return initMarkerSize * 7
 }
 
 
