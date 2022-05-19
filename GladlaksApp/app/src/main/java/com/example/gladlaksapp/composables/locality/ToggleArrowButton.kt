@@ -3,7 +3,7 @@ package com.example.gladlaksapp.composables.locality
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
@@ -32,7 +32,7 @@ fun ToggleArrowButton(
             } else {
                 stringResource(R.string.show_more)
             },
-            tint = MaterialTheme.colors.secondary
+            tint = MaterialTheme.colorScheme.outline
         )
     }
 }
