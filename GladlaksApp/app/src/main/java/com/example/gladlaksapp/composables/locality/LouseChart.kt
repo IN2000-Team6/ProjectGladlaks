@@ -219,20 +219,6 @@ fun Modifier.vertical() =
 
 // ----------- PREVIEW ----------- //
 
-/**
- * Returns a list of floatentries - used for testing only
- * ! USED FOR TESTING ONLY !
- */
-fun getRandomEntries(n: Int) = List(size = n) {
-    0.6f * Random.nextFloat()
-}.mapIndexed { x,y ->
-    FloatEntry(
-        x = x.toFloat(),
-        y = y
-    )
-}
-
-
 @Preview(showBackground = true, widthDp = 320, heightDp = 300)
 @Composable
 fun PreviewLouseChart() {
