@@ -24,7 +24,6 @@ import javax.inject.Inject
 
 @HiltViewModel
  class LocalityViewModel @Inject constructor(
-    //TODO Include saved state handle?
     private val localityRepository: LocalityRepository,
     private val favoriteRepository: FavoriteRepository,
     private val barentsWatchRepo: BarentswatchRepository,
@@ -68,13 +67,12 @@ import javax.inject.Inject
      * @param gen1 the first year to compare
      * @param gen2 the second year to compare
      */
-    fun loadLouseData(localityNo: Int, gen1: Int, gen2: Int) {
+    private fun loadLouseData(localityNo: Int, gen1: Int, gen2: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val allData = barentsWatchRepo.getTwoGenerations(localityNo,gen1,gen2)
             groupedChartProducer.setEntries(allData)
         }
     }
-
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -83,10 +81,7 @@ import javax.inject.Inject
                 week = week,
             )
             localities.postValue(data)
-
-            //TODO Check if database updates properly - do past localities get deleted?
             localityRepository.insertAll(data)
-            //TODO favorites column likely gets overwritten
             favoriteRepository.insertFavorites( data.map{ FavoriteLocality(it.localityNo,false) } )
         }
     }
