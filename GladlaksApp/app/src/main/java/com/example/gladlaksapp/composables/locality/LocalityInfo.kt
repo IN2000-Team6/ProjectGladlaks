@@ -17,8 +17,7 @@ import com.example.gladlaksapp.models.LocalityDetails
 
 @Composable
 fun LocalityInfo(locality: Locality, localityInfo: LocalityDetails) {
-    //TODO: Fikse font
-    Column() {
+    Column {
         if (locality.hasReportedLice) {
             InfoComponent(
                 image = painterResource(R.drawable.ic_lice_icon),

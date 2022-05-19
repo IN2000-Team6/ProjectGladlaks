@@ -32,8 +32,6 @@ class BarentswatchRepository(
         return dataSource.getDetailedLocalityInfo(localityNo, year, week)
     }
 
-    //TODO get a dataset to compare in the graph as generations
-
     suspend fun getTwoGenerations(
         localityNo: Int,
         gen1: Int,
