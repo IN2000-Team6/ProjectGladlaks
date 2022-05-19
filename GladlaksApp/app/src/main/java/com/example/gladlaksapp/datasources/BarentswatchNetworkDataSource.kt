@@ -1,6 +1,5 @@
 package com.example.gladlaksapp.datasources
 
-import com.example.gladlaksapp.BarentswatchNetworkDatasourceInterface
 import com.example.gladlaksapp.BuildConfig
 import com.example.gladlaksapp.models.LocalitiesWrapper
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
@@ -10,7 +9,7 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.features.json.*
 import io.ktor.client.request.*
 
-class BarentswatchNetworkDataSource : BarentswatchNetworkDatasourceInterface{
+class BarentswatchNetworkDataSource : BarentswatchNetworkDatasourceInterface {
     private val tokenURL = "https://id.barentswatch.no/connect/token"
     private val localitiesURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s"
     private val localityDetailedURL = "https://www.barentswatch.no/bwapi/v1/geodata/fishhealth/locality/%s/%s/%s"

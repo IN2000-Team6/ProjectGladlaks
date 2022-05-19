@@ -1,5 +1,6 @@
 package com.example.gladlaksapp
 
+import com.example.gladlaksapp.datasources.BarentswatchNetworkDatasourceInterface
 import com.example.gladlaksapp.datasources.BarentswatchRepository
 import com.example.gladlaksapp.models.*
 import com.example.gladlaksapp.testUtils.testLocalities

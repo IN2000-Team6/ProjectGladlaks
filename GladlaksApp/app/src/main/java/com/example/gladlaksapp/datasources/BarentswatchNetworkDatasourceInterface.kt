@@ -1,4 +1,4 @@
-package com.example.gladlaksapp
+package com.example.gladlaksapp.datasources
 
 import com.example.gladlaksapp.models.LocalitiesWrapper
 import com.example.gladlaksapp.models.LocalityDetailsWrapper

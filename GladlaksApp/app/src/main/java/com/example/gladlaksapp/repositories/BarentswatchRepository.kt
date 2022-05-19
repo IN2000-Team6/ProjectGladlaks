@@ -1,6 +1,6 @@
 package com.example.gladlaksapp.repositories
 
-import com.example.gladlaksapp.BarentswatchNetworkDatasourceInterface
+import com.example.gladlaksapp.datasources.BarentswatchNetworkDatasourceInterface
 import com.example.gladlaksapp.models.*
 import com.patrykandpatryk.vico.core.entry.FloatEntry
 import kotlinx.coroutines.async
