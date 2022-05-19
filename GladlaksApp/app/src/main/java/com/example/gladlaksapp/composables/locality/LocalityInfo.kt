@@ -54,8 +54,26 @@ fun LocalityInfo(locality: Locality, localityInfo: LocalityDetails) {
                 data = locality.hasPd,
             )
         } else {
-            Row(horizontalArrangement = Arrangement.Center) {
-                InfoText(R.string.no_report_text, MaterialTheme.typography.bodyMedium)
+            Column {
+                Box (modifier = Modifier.padding(start = 7.dp)){
+                    Row(horizontalArrangement = Arrangement.Center) {
+                        InfoText(R.string.no_report_text, MaterialTheme.typography.bodyMedium)
+                    }
+                }
+
+                InfoComponent(
+                    image = painterResource(R.drawable.ic_ila_pd_icon),
+                    imageContentDescription = stringResource(R.string.ila_pd_icon_description),
+                    infoText = stringResource(R.string.ila),
+                    data = locality.hasIla,
+                )
+                InfoComponent(
+                    image = painterResource(R.drawable.ic_ila_pd_icon),
+                    imageContentDescription = stringResource(R.string.ila_pd_icon_description),
+                    infoText = stringResource(R.string.pd),
+                    data = locality.hasPd,
+                )
+
             }
         }
     }
