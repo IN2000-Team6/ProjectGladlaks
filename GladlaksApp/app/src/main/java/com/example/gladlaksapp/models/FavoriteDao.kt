@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteDao {
-
     @Query("UPDATE favorites SET isFavorite = 1 WHERE locality_no == :localityNo")
     suspend fun addFavorite(localityNo: Int)
 
@@ -23,5 +22,4 @@ interface FavoriteDao {
 
     @Query("SELECT * FROM favorites WHERE locality_no LIKE :localityNo LIMIT 1")
     fun getFavorite(localityNo: Int) : FavoriteLocality
-
 }
