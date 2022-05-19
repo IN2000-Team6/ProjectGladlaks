@@ -5,6 +5,10 @@ import com.example.gladlaksapp.models.GraphCoords
 import com.example.gladlaksapp.models.GraphLine
 import kotlinx.coroutines.*
 
+/**
+ * Repository for the NorKyst data source.
+ * This class contains some business logic so it is in a sense also a service
+ */
 class NorKystRepository(
     private val dataSource: NorKystNetworkDataSource
 ) {
