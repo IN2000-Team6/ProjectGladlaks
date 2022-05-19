@@ -34,7 +34,10 @@ import javax.inject.Inject
     private val year = now.year
 
     val localities = MutableLiveData<List<Locality>>()
+
+    //Repository returns data as Flow data stream, which we convert to LiveData
     val favoriteLocalities = favoriteRepository.loadedFavoritesFlow.asLiveData()
+
     val localityDetail = MutableLiveData<LocalityDetailsWrapper?>()
     val localityTemps = MutableLiveData<List<GraphLine>>()
     val groupedChartProducer = ChartEntryModelProducer() // Louse chart data goes here - similar to LiveData

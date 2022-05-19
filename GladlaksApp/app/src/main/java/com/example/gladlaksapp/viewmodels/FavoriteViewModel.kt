@@ -12,6 +12,7 @@ class FavoriteViewModel @Inject constructor(
     private val favoriteRepository: FavoriteRepository,
 ): ViewModel() {
 
+    //Repository returns data as Flow data stream, which we convert to LiveData
     val favorites: LiveData<List<FavoriteLocality>> = favoriteRepository.favoritesFlow.asLiveData()
 
     suspend fun addFavorite(locality: FavoriteLocality){
