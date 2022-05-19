@@ -1,12 +1,13 @@
 package com.example.gladlaksapp
 
+import com.example.gladlaksapp.datasources.NorKystNetworkDataSource
 import com.example.gladlaksapp.repositories.NorKystRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.Assert.*
 
 class NorKystRepositoryTest {
-    private val repo = NorKystRepository
+    private val repo = NorKystRepository(NorKystNetworkDataSource())
 
     private val LAT = 61.0
     private val LON = 4.8
