@@ -1,6 +1,5 @@
 package com.example.gladlaksapp.composables.reusables
 
-
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.lightColorScheme
@@ -28,7 +27,10 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 
-
+/**
+ * This chart uses MPAndroidCharts, a View/XML chart library. It is used
+ * to display the temperature graph in our application
+ */
 @Composable
 fun CustomLineChart(
     height: Int,
@@ -42,12 +44,11 @@ fun CustomLineChart(
         Text(
             text = stringResource(R.string.sea_temperature),
             style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 15.dp, top = 15.dp),
-            textAlign = TextAlign.Center,
         )
-
         AndroidView(
             modifier = Modifier
                 .fillMaxWidth()
@@ -77,7 +78,6 @@ fun CustomLineChart(
                 .padding(top = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
-
         ){
             Text(
                 text = "timer etter midnatt",
@@ -90,6 +90,9 @@ fun CustomLineChart(
     }
 }
 
+/**
+ * Component that creates the chart legend
+ */
 @Composable
 fun CustomChartLegend(
     lines: List<GraphLine>,
@@ -121,6 +124,9 @@ fun CustomChartLegend(
     }
 }
 
+/**
+ * Create the MPAndroidChart dataset based on a list of Graph lines
+ */
 fun createDataSets(
     lines: List<GraphLine>,
     colors: List<Color>,
@@ -145,10 +151,16 @@ fun createDataSets(
     }
 }
 
+/**
+ * A formatter class that adds a degrees symbol to an axis
+ */
 class DegFormatter : ValueFormatter() {
     override fun getAxisLabel(value: Float, axis: AxisBase?) = "%.2f${176.toChar()}C".format(value)
 }
 
+/**
+ * A formatter class that formats an axis by time
+ */
 class TimeFormatter : ValueFormatter() {
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
         val decimal = if (value.mod(1f) > 0f) "%.1f" else "%.0f"
