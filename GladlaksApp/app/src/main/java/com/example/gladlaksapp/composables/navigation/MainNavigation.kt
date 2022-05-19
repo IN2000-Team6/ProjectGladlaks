@@ -21,7 +21,6 @@ fun MainNavigation(
     controller: NavController
 ) {
     fun onNavClick(screen: Screen) {
-        Log.d("flow", controller.backQueue.toString())
         controller.navigate(screen.route) {
             controller.graph.startDestinationRoute?.let { screen_route ->
                 popUpTo(screen_route) {
