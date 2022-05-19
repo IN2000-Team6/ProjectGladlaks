@@ -3,7 +3,6 @@ package com.example.gladlaksapp.repositories
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDao
 
-
 class LocalityRepository (
     private val localityDao: LocalityDao
 ) {
