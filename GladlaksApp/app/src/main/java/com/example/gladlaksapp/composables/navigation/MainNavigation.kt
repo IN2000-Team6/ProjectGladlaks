@@ -28,6 +28,7 @@ fun MainNavigation(
                     saveState = true
                 }
             }
+            launchSingleTop = true
             restoreState = true
         }
     }
