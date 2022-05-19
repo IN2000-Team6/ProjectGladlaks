@@ -49,12 +49,6 @@ fun MapBottomSheet(
     val grayColor = MaterialTheme.colorScheme.surface
     val favButtonTint = if (favoriteLocality?.isFavorite == true) redColor else grayColor
 
-    LaunchedEffect(favorites, selectedLocality) {
-        if (favorites != null && selectedLocality != null)
-            favoriteLocality =
-                favorites?.filter { it.localityNo == selectedLocality?.localityNo }?.get(0)
-    }
-
     // Event handlers
     fun onMarkerClick(locality: Locality) {
         if (selectedLocality != null && selectedLocality!!.localityNo != locality.localityNo) {
@@ -104,6 +98,12 @@ fun MapBottomSheet(
     }
 
     // Side effects
+    LaunchedEffect(favorites, selectedLocality) {
+        if (favorites != null && selectedLocality != null)
+            favoriteLocality =
+                favorites?.filter { it.localityNo == selectedLocality?.localityNo }?.get(0)
+    }
+
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
         if (selectedLocality != null) {
             if (loadedLocality == null || loadedLocality.localityName != selectedLocality!!.name) {
