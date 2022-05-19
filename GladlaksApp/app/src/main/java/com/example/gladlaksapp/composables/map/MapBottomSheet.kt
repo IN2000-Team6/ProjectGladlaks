@@ -21,6 +21,10 @@ import com.example.gladlaksapp.models.FavoriteLocality
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * Main structure that is responsible for the bottom sheet functionality.
+ * Takes in various different arguments.
+ */
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
 fun MapBottomSheet(
@@ -29,11 +33,11 @@ fun MapBottomSheet(
     loadedLocality: LocalityDetailsWrapper?,
     loadLocalityDetails: (Locality) -> Unit,
     resetLoadedLocality: () -> Unit,
-    favViewModel: FavoriteViewModel = hiltViewModel(),
+    viewModel: FavoriteViewModel = hiltViewModel(),
 ) {
     val coroutineScope = rememberCoroutineScope()
     val initialPeekHeight = 0
-    val selectedPeekHeight = 88
+    val selectedPeekHeight = 88 // The height of the bottom sheet when locality has been selected
 
     // Local state
     var selectedLocality by remember { mutableStateOf<Locality?>(null) }
@@ -42,7 +46,7 @@ fun MapBottomSheet(
         bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
     )
 
-    val favorites by favViewModel.favorites.observeAsState()
+    val favorites by viewModel.favorites.observeAsState()
     var favoriteLocality by remember { mutableStateOf<FavoriteLocality?>(null) }
 
     val redColor = MaterialTheme.colorScheme.error
@@ -72,11 +76,10 @@ fun MapBottomSheet(
         coroutineScope.launch {
             peekHeight = initialPeekHeight
             sheetState.bottomSheetState.collapse()
-
         }
     }
 
-    fun onArrowClick() {
+    fun onArrowClick() { // The arrow to open the bottom sheet
         coroutineScope.launch {
             if (sheetState.bottomSheetState.isCollapsed) {
                 sheetState.bottomSheetState.expand()
@@ -90,21 +93,22 @@ fun MapBottomSheet(
     fun toggleFavorite() {
         coroutineScope.launch {
             if (favoriteLocality != null) {
-                Log.d("isFav", "${favoriteLocality?.isFavorite}")
-                if (favoriteLocality?.isFavorite == false) favViewModel.addFavorite(favoriteLocality!!)
-                else favoriteLocality?.let { favViewModel.deleteFavorite(it) }
+                if (favoriteLocality?.isFavorite == false) viewModel.addFavorite(favoriteLocality!!)
+                else favoriteLocality?.let { viewModel.deleteFavorite(it) }
             }
         }
     }
 
     // Side effects
     LaunchedEffect(favorites, selectedLocality) {
+        // Set the initial state of the favorite (hart) state of the locality
         if (favorites != null && selectedLocality != null)
             favoriteLocality =
                 favorites?.filter { it.localityNo == selectedLocality?.localityNo }?.get(0)
     }
 
     LaunchedEffect(sheetState.bottomSheetState.isExpanded) {
+        // Load detailed locality data when bottom sheet is expanded
         if (selectedLocality != null) {
             if (loadedLocality == null || loadedLocality.localityName != selectedLocality!!.name) {
                 loadLocalityDetails(selectedLocality!!)
@@ -125,8 +129,7 @@ fun MapBottomSheet(
         },
         sheetContent = {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 ToggleArrowButton(
@@ -135,7 +138,6 @@ fun MapBottomSheet(
                 )
                 Box(modifier = Modifier.padding(bottom = 25.dp)) {
                     selectedLocality?.let {
-
                         LocalitySnippet(
                             locality = it,
                             onExpandClick = ::toggleBottomSheet,
@@ -152,7 +154,7 @@ fun MapBottomSheet(
                     graphLines = localityTemps,
                 )
             }
-        },
+        }
     )
 }
 

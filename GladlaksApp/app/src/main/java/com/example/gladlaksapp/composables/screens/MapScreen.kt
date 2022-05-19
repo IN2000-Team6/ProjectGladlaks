@@ -13,16 +13,16 @@ import com.example.gladlaksapp.composables.reusables.NetworkNotice
 import com.example.gladlaksapp.utils.ConnectionState
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
 import com.example.gladlaksapp.utils.connectivityState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun MapScreen(
-    mViewModel: LocalityViewModel = hiltViewModel(),
+    viewModel: LocalityViewModel = hiltViewModel(),
 ) {
-    //TODO Insert all localities to db using background thread
-
-    val localities by mViewModel.localities.observeAsState()
-    val loadedLocality by mViewModel.localityDetail.observeAsState()
-    val localityTemps by mViewModel.localityTemps.observeAsState()
+    val localities by viewModel.localities.observeAsState()
+    val loadedLocality by viewModel.localityDetail.observeAsState()
+    val localityTemps by viewModel.localityTemps.observeAsState()
 
     val connection by connectivityState()
     val isConnected = connection === ConnectionState.Available
@@ -38,10 +38,10 @@ fun MapScreen(
         MapBottomSheet(
             localities = localities,
             loadedLocality = loadedLocality,
-            resetLoadedLocality = { mViewModel.resetLoadedLocality() },
+            resetLoadedLocality = { viewModel.resetLoadedLocality() },
             localityTemps = localityTemps,
             loadLocalityDetails = { loc ->
-                mViewModel.loadLocalityDetails(loc)
+                viewModel.loadLocalityDetails(loc)
             },
         )
     }
