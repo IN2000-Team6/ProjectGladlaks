@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.models
+package com.example.gladlaksapp.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -88,3 +88,7 @@ fun connectivityState(): State<ConnectionState> {
     }
 }
 
+sealed class ConnectionState {
+    object Available : ConnectionState()
+    object Unavailable : ConnectionState()
+}
