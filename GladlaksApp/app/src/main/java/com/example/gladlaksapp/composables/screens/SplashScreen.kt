@@ -34,8 +34,6 @@ fun SplashScreen(navController: NavController) {
     val connection by connectivityState()
     val isConnected = connection === ConnectionState.Available
 
-
-
     LaunchedEffect(key1 = true) {
         scale.animateTo(
             targetValue = 1f,
@@ -55,11 +53,13 @@ fun SplashScreen(navController: NavController) {
 
     }
 
-    Box(contentAlignment = Alignment.Center,
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Image(painter = painterResource(id = R.drawable.ic_salmon_logo_draft),
+            Image(
+                painter = painterResource(id = R.drawable.ic_salmon_logo_draft),
                 contentDescription = stringResource(R.string.text_logo_app_name),
                 modifier = Modifier.scale(scale.value)
             )

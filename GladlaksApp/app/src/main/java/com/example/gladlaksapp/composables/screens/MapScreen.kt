@@ -11,15 +11,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.composables.map.MapBottomSheet
 import com.example.gladlaksapp.composables.reusables.NetworkNotice
 import com.example.gladlaksapp.utils.ConnectionState
-import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
 import com.example.gladlaksapp.utils.connectivityState
 
 @Composable
 fun MapScreen(
     mViewModel: LocalityViewModel = hiltViewModel(),
-    favViewModel: FavoriteViewModel = hiltViewModel(),
-    ) {
+) {
     //TODO Insert all localities to db using background thread
 
     val localities by mViewModel.localities.observeAsState()
@@ -29,8 +27,9 @@ fun MapScreen(
     val connection by connectivityState()
     val isConnected = connection === ConnectionState.Available
 
-    if (!isConnected){
-        Column(modifier = Modifier.fillMaxSize(),
+    if (!isConnected) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center
         ) {
             NetworkNotice()
@@ -44,7 +43,6 @@ fun MapScreen(
             loadLocalityDetails = { loc ->
                 mViewModel.loadLocalityDetails(loc)
             },
-
         )
     }
 }
