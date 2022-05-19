@@ -15,6 +15,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.R
 
+/**
+ * Composable used for info about marker colors on the map
+ */
 @Composable
 fun MapMarkerColorInfoBox() {
     Box(modifier = Modifier
