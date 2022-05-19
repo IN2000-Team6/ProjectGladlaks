@@ -29,7 +29,7 @@ import com.patrykandpatryk.vico.core.marker.Marker
 fun marker(): Marker = with(MaterialTheme.colorScheme) {
     getMarker(
         label = onSurface.toArgb(),
-        bubble = surface.toArgb(),
+        bubble = background.toArgb(),
         indicatorInnerColor = surface.toArgb(),
         guidelineColor = onSurface.toArgb(),
     )

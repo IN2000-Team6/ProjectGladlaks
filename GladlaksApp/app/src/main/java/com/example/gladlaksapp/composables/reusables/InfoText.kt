@@ -14,6 +14,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.R
 
+
+/**
+ * Composable used for short bodies of texts along with an info icon
+ * @param textId the id for the [stringResource] to use as text
+ * @param style the [TextStyle] to use with the text
+ */
 @Composable
 fun InfoText(
     textId: Int,

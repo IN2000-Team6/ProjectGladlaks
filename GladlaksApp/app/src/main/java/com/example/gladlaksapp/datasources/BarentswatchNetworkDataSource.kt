@@ -68,8 +68,8 @@ class BarentswatchNetworkDataSource : BarentswatchNetworkDatasourceInterface{
 
     /**
      * Returns a data class representing louse data from a year at a locality
-     * @param localityNo - The locality no, as stated by the Locality dataclass
-     * @param year - The year to fetch data from
+     * @param localityNo The locality no, as stated by the [Locality] dataclass
+     * @param year The year to fetch data from
      */
     override suspend fun getLouseDataByYear(localityNo: Int, year: Int) : LouseDataByYear {
         val token: String = getToken()

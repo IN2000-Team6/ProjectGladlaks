@@ -6,6 +6,10 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
+
+/**
+ * Data Access Object used to update Locality table in the app database.
+ */
 @Dao
 interface LocalityDao {
 

@@ -3,6 +3,9 @@ package com.example.gladlaksapp.models
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Data Access Object used to update Favorite table in the app database.
+ */
 @Dao
 interface FavoriteDao {
     @Query("UPDATE favorites SET isFavorite = 1 WHERE locality_no == :localityNo")

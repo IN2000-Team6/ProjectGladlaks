@@ -4,6 +4,10 @@ import com.example.gladlaksapp.models.LocalitiesWrapper
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.models.LouseDataByYear
 
+/**
+ * Interface providing method signatures to [BarentswatchNetworkDataSource] and
+ * [TestBarentswatchNetworkDatasource]
+ */
 interface BarentswatchNetworkDatasourceInterface {
     suspend fun getToken(): String
     suspend fun getLocalities(year: Int, week: Int): LocalitiesWrapper
