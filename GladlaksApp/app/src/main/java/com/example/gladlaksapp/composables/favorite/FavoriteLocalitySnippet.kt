@@ -47,7 +47,7 @@ fun FavoriteLocalitySnippet(
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "${R.string.locality_number_prefix} ${locality.localityNo}",
+                        text = "${stringResource(R.string.locality_number_prefix)} ${locality.localityNo}",
                         style = MaterialTheme.typography.labelLarge,
                     )
                 }

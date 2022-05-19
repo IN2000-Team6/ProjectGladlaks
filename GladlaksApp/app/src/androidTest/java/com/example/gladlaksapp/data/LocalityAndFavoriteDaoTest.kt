@@ -1,12 +1,10 @@
 package com.example.gladlaksapp.data
 
 import android.content.Context
-
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.gladlaksapp.models.FavoriteDao
-import com.example.gladlaksapp.models.FavoriteLocality
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDao
 import com.example.gladlaksapp.repositories.LocalityDatabase
