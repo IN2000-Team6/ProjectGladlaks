@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.favorite
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

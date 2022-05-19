@@ -16,7 +16,15 @@ import com.google.android.gms.maps.model.*
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
-
+/**
+ * Composable used for showing the map and loading markers
+ * @param localities the list of localities you want to show on the map
+ * @param onMarkerClick the onclick action for a marker
+ * @param onMapClick the onclick action for them map
+ * @param startLat the start latitude of the camera
+ * @param startLng the start longitude of the camera
+ * @param startZoom the initial camera zoom
+ */
 @Composable
 fun LocalityMap(
     localities: List<Locality>?,

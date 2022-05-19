@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.R
-import com.example.gladlaksapp.composables.FavoriteLocalitySnippet
+import com.example.gladlaksapp.composables.favorite.FavoriteLocalitySnippet
 import com.example.gladlaksapp.composables.reusables.InfoCard
 import com.example.gladlaksapp.models.Locality
 
