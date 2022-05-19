@@ -20,15 +20,19 @@ fun MainNavigation(
     items: List<Screen>,
     controller: NavController
 ) {
+    val currentRoute = controller.currentBackStackEntry?.destination?.route
+
     fun onNavClick(screen: Screen) {
-        controller.navigate(screen.route) {
-            controller.graph.startDestinationRoute?.let { screen_route ->
-                popUpTo(screen_route) {
-                    saveState = true
+        if (currentRoute != screen.route){
+            controller.navigate(screen.route) {
+                controller.graph.startDestinationRoute?.let { screen_route ->
+                    popUpTo(screen_route) {
+                        saveState = true
+                    }
                 }
-            }
-            launchSingleTop = true
-            restoreState = true
+                    launchSingleTop = true
+                    restoreState = true
+                }
         }
     }
 
