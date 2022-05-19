@@ -79,6 +79,6 @@ class BarentswatchNetworkDataSource : BarentswatchNetworkDatasourceInterface{
             }
         }
     }
-}
 
-data class BarentsWatchToken(val access_token: String, val expires_in: Number)
+    data class BarentsWatchToken(val access_token: String, val expires_in: Number)
+}
