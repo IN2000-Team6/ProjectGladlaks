@@ -14,6 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.R
 
+/**
+ * Composable to show when no network is available
+ */
 @Composable
 fun NetworkNotice() {
     val image: Painter = painterResource(R.drawable.ic_error_alert_outline_red)

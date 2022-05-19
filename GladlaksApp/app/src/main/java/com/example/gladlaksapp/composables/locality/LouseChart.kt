@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import com.example.gladlaksapp.R
 import com.example.gladlaksapp.composables.reusables.InfoCard
 import com.example.gladlaksapp.composables.reusables.InfoText
-import com.example.gladlaksapp.composables.locality.marker
 import com.patrykandpatryk.vico.compose.axis.horizontal.bottomAxis
 import com.patrykandpatryk.vico.compose.chart.Chart
 import com.patrykandpatryk.vico.compose.chart.column.columnChart
@@ -46,20 +45,6 @@ import kotlin.random.Random
 //TODO Add axes labels and legend
 //TODO Rewrite graph 2
 
-/**
- * Returns a list of floatentries - used for testing only
- * ! USED FOR TESTING ONLY !
- */
-fun getRandomEntries(n: Int) = List(size = n) {
-    0.6f * Random.nextFloat()
-}.mapIndexed { x,y ->
-    FloatEntry(
-        x = x.toFloat(),
-        y = y
-    )
-}
-
-
 @Composable
 fun CustomBarChart(
     chartEntryModelProducer: ChartEntryModelProducer,
@@ -70,17 +55,14 @@ fun CustomBarChart(
         ThresholdLine(
             thresholdValue = 0.5f,
             lineComponent = ShapeComponent(
-                color = thresholdColor
-                    .copy(alpha=0.4f)
-                    .toArgb()
+                color = thresholdColor.copy(alpha = 0.4f).toArgb()
             ),
             labelComponent = textComponent(
                 color = thresholdColor,
-                //margins = dimensionsOf(all = 1.dp),
                 padding = dimensionsOf(horizontal = 14.dp),
                 background = ShapeComponent(
                     shape = Shapes.roundedCornerShape(allPercent = 25),
-                    strokeColor = thresholdColor.copy(alpha=.4f).toArgb(),
+                    strokeColor = thresholdColor.copy(alpha = .4f).toArgb(),
                     color = MaterialTheme.colorScheme.background.toArgb(),
                     strokeWidthDp = 1f
                 ),
@@ -133,12 +115,12 @@ fun CustomBarChart(
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-            text = "Antall hunnlus per fisk",
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier
-                .vertical()
-                .rotate(-90f)
-                .padding(8.dp)
+                text = "Antall hunnlus per fisk",
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier
+                    .vertical()
+                    .rotate(-90f)
+                    .padding(8.dp)
             )
             ChartBody(
                 chart = chart,
@@ -151,11 +133,11 @@ fun CustomBarChart(
                 .fillMaxWidth()
                 .padding(vertical = 6.dp),
             horizontalArrangement = Arrangement.Center
-        ){
+        ) {
             Text(
                 text = "Uker",
                 style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(end=6.dp)
+                modifier = Modifier.padding(end = 6.dp)
             )
         }
         Row(
@@ -184,17 +166,6 @@ fun CustomBarChart(
     }
 }
 
-fun Modifier.vertical() =
-    layout { measurable, constraints ->
-        val placeable = measurable.measure(constraints)
-        layout(placeable.height, placeable.width) {
-            placeable.place(
-                x = -(placeable.width / 2 - placeable.height / 2),
-                y = -(placeable.height - placeable.width )
-            )
-        }
-    }
-
 //TODO Adapt chart to be reusable component
 @Composable
 fun ChartBody(
@@ -211,10 +182,10 @@ fun ChartBody(
                 textSize = 12.sp,
                 background = shapeComponent(
                     shape = CutCornerShape(
-                        CornerSize(percent=25),
-                        CornerSize(percent=50),
-                        CornerSize(percent=50),
-                        CornerSize(percent=25),
+                        CornerSize(percent = 25),
+                        CornerSize(percent = 50),
+                        CornerSize(percent = 50),
+                        CornerSize(percent = 25),
                     ),
                     color = Color(0xFF01809C).copy(alpha = 0.1f)
                 ),
@@ -241,14 +212,51 @@ fun ChartBody(
     )
 }
 
+fun Modifier.vertical() =
+    layout { measurable, constraints ->
+        val placeable = measurable.measure(constraints)
+        layout(placeable.height, placeable.width) {
+            placeable.place(
+                x = -(placeable.width / 2 - placeable.height / 2),
+                y = -(placeable.height - placeable.width)
+            )
+        }
+    }
+
+// ----------- PREVIEW ----------- //
+
+/**
+ * Returns a list of floatentries - used for testing only
+ * ! USED FOR TESTING ONLY !
+ */
+fun getRandomEntries(n: Int) = List(size = n) {
+    0.6f * Random.nextFloat()
+}.mapIndexed { x,y ->
+    FloatEntry(
+        x = x.toFloat(),
+        y = y
+    )
+}
+
+
 @Preview(showBackground = true, widthDp = 320, heightDp = 600)
 @Composable
 fun PreviewLouseChart() {
     val GENERATIONS = 2
 
+    // Returns a list of float entries
+    fun getRandomEntries(n: Int) = List(size = n) {
+        0.6f * Random.nextFloat()
+    }.mapIndexed { x, y ->
+        FloatEntry(
+            x = x.toFloat(),
+            y = y
+        )
+    }
+
     val chartEntries = ChartEntryModelProducer()
     chartEntries.setEntries(
-        List(size = GENERATIONS) { getRandomEntries(Random.nextInt(5,12)) }
+        List(size = GENERATIONS) { getRandomEntries(Random.nextInt(5, 12)) }
     )
 
     Column(

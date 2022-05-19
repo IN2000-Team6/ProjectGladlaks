@@ -1,14 +1,13 @@
 package com.example.gladlaksapp.models
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Data Access Object used to update Favorite table in the app database.
+ */
 @Dao
 interface FavoriteDao {
-
     @Query("UPDATE favorites SET isFavorite = 1 WHERE locality_no == :localityNo")
     suspend fun addFavorite(localityNo: Int)
 
@@ -26,5 +25,4 @@ interface FavoriteDao {
 
     @Query("SELECT * FROM favorites WHERE locality_no LIKE :localityNo LIMIT 1")
     fun getFavorite(localityNo: Int) : FavoriteLocality
-
 }

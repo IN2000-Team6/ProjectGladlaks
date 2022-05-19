@@ -1,6 +1,5 @@
 package com.example.gladlaksapp.composables.favorite
 
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -11,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.gladlaksapp.composables.FavoritesColumn
 import com.example.gladlaksapp.composables.locality.LocalitySheetContent
 import com.example.gladlaksapp.composables.locality.LocalitySnippet
 import com.example.gladlaksapp.composables.reusables.NetworkNotice
@@ -19,7 +17,8 @@ import com.example.gladlaksapp.composables.locality.ToggleArrowButton
 import com.example.gladlaksapp.models.*
 import com.example.gladlaksapp.viewmodels.FavoriteViewModel
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
-import com.example.gladlaksapp.models.ConnectionState
+import com.example.gladlaksapp.utils.ConnectionState
+import com.example.gladlaksapp.utils.connectivityState
 import kotlinx.coroutines.launch
 
 @Composable
@@ -140,7 +139,6 @@ fun FavoritesBottomSheet(
                         )
                     }
                 }
-
                 if (!isConnected) {
                     NetworkNotice()
                 } else {

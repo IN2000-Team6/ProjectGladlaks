@@ -19,16 +19,6 @@ import com.example.gladlaksapp.models.LocalityDetails
 fun LocalityInfo(locality: Locality, localityInfo: LocalityDetails) {
     //TODO: Fikse font
     Column() {
-        /*
-        InfoComponent(
-            image = painterResource(R.drawable.ic_temperature_icon),
-            imageContentDescription = stringResource(R.string.temperature_icon_description),
-            infoText = stringResource(R.string.ocean_temp),
-            data = localityInfo.seaTemperature,
-            //ascii value for degrees symbol
-            textAddition = "${176.toChar()}C"
-        )
-        */
         if (locality.hasReportedLice) {
             InfoComponent(
                 image = painterResource(R.drawable.ic_lice_icon),
@@ -111,7 +101,7 @@ fun InfoComponent(
                     style = MaterialTheme.typography.labelLarge
                 )
                 Text(
-                    text = ("$dataDescription"),
+                    text = (dataDescription),
                     modifier = Modifier
                         .padding(vertical = 12.dp)
                         .offset(x = (-10).dp),

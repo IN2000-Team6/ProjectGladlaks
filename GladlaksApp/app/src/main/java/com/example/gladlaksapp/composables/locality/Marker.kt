@@ -22,7 +22,6 @@ import com.patrykandpatryk.vico.core.dimensions.MutableDimensions
 import com.patrykandpatryk.vico.core.extension.copyColor
 import com.patrykandpatryk.vico.core.marker.Marker
 
-
 /**
  * Returns a Marker-instance for the graph
  */
@@ -30,17 +29,15 @@ import com.patrykandpatryk.vico.core.marker.Marker
 fun marker(): Marker = with(MaterialTheme.colorScheme) {
     getMarker(
         label = onSurface.toArgb(),
-        bubble = surface.toArgb(),
+        bubble = background.toArgb(),
         indicatorInnerColor = surface.toArgb(),
         guidelineColor = onSurface.toArgb(),
     )
 }
 
-
 /**
  * Creates and returns a Marker-instance
  */
-
 fun getMarker(
     @ColorInt label: Int,
     @ColorInt bubble: Int,

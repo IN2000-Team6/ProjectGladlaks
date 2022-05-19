@@ -14,6 +14,7 @@ val testLocalities = arrayListOf(
     Locality(localityNo = 6, name="f", hasPd = false, hasIla = false, isOnLand = false, lat = 1.0, lon = 1.0, hasReportedLice = false),
 )
 
+
 val testLousedataGen1 = listOf(
         LouseData(week = 1, avgAdultFemaleLice = 0.02f, avgMobileLice = 0.1f, avgStationaryLice = 0.15f, hasReportedLice = true),
         LouseData(week = 2, avgAdultFemaleLice = 0f, avgMobileLice = 0f, avgStationaryLice = 0f, hasReportedLice = false),

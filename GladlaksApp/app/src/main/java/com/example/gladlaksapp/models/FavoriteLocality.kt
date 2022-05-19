@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Data class wrapped with [Entity]. Represents a table with a single column.
+ * Data class wrapped with Entity. Represents a table with a single column.
  * Stores localities marked as favorite by the user.
  */
 @Entity(tableName = "favorites")

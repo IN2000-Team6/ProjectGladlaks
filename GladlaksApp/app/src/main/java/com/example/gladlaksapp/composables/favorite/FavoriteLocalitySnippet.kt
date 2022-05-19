@@ -50,10 +50,6 @@ fun FavoriteLocalitySnippet(
                         style = MaterialTheme.typography.labelLarge,
                     )
                 }
-               /* FavoriteButton(
-                    locality = locality,
-                )
-                */
                 Button(
                     modifier = Modifier
                         .padding(end = 20.dp)

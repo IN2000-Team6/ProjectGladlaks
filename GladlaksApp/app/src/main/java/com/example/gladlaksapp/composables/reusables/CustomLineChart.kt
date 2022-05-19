@@ -20,7 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.gladlaksapp.R
-import com.example.gladlaksapp.composables.reusables.InfoText
 import com.example.gladlaksapp.models.GraphLine
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
@@ -37,9 +36,9 @@ fun CustomLineChart(
     textSize: Int = 14,
 ) {
     val size = (textSize.dp).value
-    val colors = listOf(Color(0xFFFFBDAE), Color(0xFF9c4331))
+    val colors = listOf(Color(0xFFFFBDAE), lightColorScheme().tertiary)
 
-    Column() {
+    Column {
         Text(
             text = stringResource(R.string.sea_temperature),
             style = MaterialTheme.typography.bodyMedium,
@@ -126,10 +125,6 @@ fun createDataSets(
     lines: List<GraphLine>,
     colors: List<Color>,
 ): List<ILineDataSet> {
-  
-    // TODO use system colors here
-    val colors = listOf(Color(0xFFFFBDAE), lightColorScheme().tertiary)
-
     return lines.mapIndexed { index, line ->
         val lineWidth = 3f
         val color = if (index < colors.size) colors[index] else Color.Gray

@@ -13,7 +13,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.R
 
-
+/**
+ * Arrow button composable.
+ * @param onClick lambda function for button onClick
+ * @param isExpanded controls the look and content description of the button
+ *
+ */
 @Composable
 fun ToggleArrowButton(
     onClick: () -> Unit,
@@ -28,7 +33,6 @@ fun ToggleArrowButton(
                 stringResource(R.string.show_more)
             },
             tint = MaterialTheme.colors.secondary
-
         )
     }
 }

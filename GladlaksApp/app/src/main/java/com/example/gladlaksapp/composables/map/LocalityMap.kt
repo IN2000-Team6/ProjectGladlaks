@@ -2,22 +2,12 @@ package com.example.gladlaksapp.composables.map
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Paint
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.graphics.drawable.toBitmap
 import com.example.gladlaksapp.R
@@ -37,7 +27,7 @@ fun LocalityMap(
     startZoom: Float = 5.9f,
 ) {
     val initMarkerSize = 20f
-    var markerSize by remember { mutableStateOf(initMarkerSize)}
+    var markerSize by remember { mutableStateOf(initMarkerSize) }
 
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(LatLng(startLat, startLng), startZoom)
@@ -47,60 +37,30 @@ fun LocalityMap(
         cameraPositionState.position.zoom,
         markerSize,
     ) {
-        if (cameraPositionState.position.zoom > 6f && cameraPositionState.position.zoom < 7f) {
-            markerSize = initMarkerSize * 2
-        } else if (cameraPositionState.position.zoom <= 6f  && markerSize != initMarkerSize) {
-            markerSize = initMarkerSize
-        } else if (cameraPositionState.position.zoom > 7f && cameraPositionState.position.zoom < 8f) {
-            markerSize = initMarkerSize * 2.5f
-        } else if (cameraPositionState.position.zoom <= 7f && cameraPositionState.position.zoom > 6f) {
-            markerSize = initMarkerSize * 2
-        } else if (cameraPositionState.position.zoom > 8f && cameraPositionState.position.zoom < 9f) {
-            markerSize = initMarkerSize * 3
-        } else if (cameraPositionState.position.zoom <= 8f && cameraPositionState.position.zoom > 7f) {
-            markerSize = initMarkerSize * 2.5f
-        } else if (cameraPositionState.position.zoom > 9f && cameraPositionState.position.zoom < 10f) {
-            markerSize = initMarkerSize * 3.5f
-        } else if (cameraPositionState.position.zoom <= 9f && cameraPositionState.position.zoom > 8f) {
-            markerSize = initMarkerSize * 3
-        }else if (cameraPositionState.position.zoom > 10f && cameraPositionState.position.zoom < 11f) {
-            markerSize = initMarkerSize * 4
-        } else if (cameraPositionState.position.zoom <= 10f && cameraPositionState.position.zoom > 9f) {
-            markerSize = initMarkerSize * 3.5f
-        } else if (cameraPositionState.position.zoom > 11f && cameraPositionState.position.zoom < 12f) {
-            markerSize = initMarkerSize * 5.5f
-        } else if (cameraPositionState.position.zoom <= 11f && cameraPositionState.position.zoom > 10f) {
-            markerSize = initMarkerSize * 4
-        }else if (cameraPositionState.position.zoom > 12f && markerSize == initMarkerSize * 5.5f) {
-            markerSize = initMarkerSize * 7
-        } else if (cameraPositionState.position.zoom <= 12f && cameraPositionState.position.zoom > 11f) {
-            markerSize = initMarkerSize * 5.5f
-        }
+        markerSize = setMarkerSize(cameraPositionState.position.zoom, initMarkerSize, markerSize)
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-
-    ){
+        modifier = Modifier.fillMaxSize()
+    ) {
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
             onMapClick = { onMapClick() }
         ) {
             if (localities != null) {
-                val iconT = createMarkerIcon_T(LocalContext.current, markerSize.toInt())
-                val iconG = createMarkerIcon_G(LocalContext.current, markerSize.toInt())
+                val iconT = createMarkerIconTurquoise(LocalContext.current, markerSize.toInt())
+                val iconG = createMarkerIconGray(LocalContext.current, markerSize.toInt())
 
                 for (loc in localities) {
                     SmartMarker(
                         loc = loc,
+                        iconT = iconT,
+                        iconP = iconG,
                         onClick = {
                             onMarkerClick(loc)
                             true
-                        },
-                        iconT = iconT,
-                        iconP = iconG
+                        }
                     )
                 }
             }
@@ -111,7 +71,7 @@ fun LocalityMap(
     }
 }
 
-fun createMarkerIcon_T(context: Context, size: Int): BitmapDescriptor {
+fun createMarkerIconTurquoise(context: Context, size: Int): BitmapDescriptor {
     val bitmapIcon = Bitmap.createScaledBitmap(
         getDrawable(context, R.drawable.ic_white_border_marker_t)!!.toBitmap(50, 50),
         size,
@@ -121,7 +81,7 @@ fun createMarkerIcon_T(context: Context, size: Int): BitmapDescriptor {
     return BitmapDescriptorFactory.fromBitmap(bitmapIcon)
 }
 
-fun createMarkerIcon_G(context: Context, size: Int): BitmapDescriptor {
+fun createMarkerIconGray(context: Context, size: Int): BitmapDescriptor {
     val bitmapIcon = Bitmap.createScaledBitmap(
         getDrawable(context, R.drawable.ic_white_border_marker_g)!!.toBitmap(50, 50),
         size,
@@ -131,8 +91,14 @@ fun createMarkerIcon_G(context: Context, size: Int): BitmapDescriptor {
     return BitmapDescriptorFactory.fromBitmap(bitmapIcon)
 }
 
+// creates a map marker, z index set to max float if locality has reported data
 @Composable
-fun SmartMarker(loc: Locality, onClick: (Marker) -> Boolean, iconT: BitmapDescriptor, iconP: BitmapDescriptor){
+fun SmartMarker(
+    loc: Locality,
+    onClick: (Marker) -> Boolean,
+    iconT: BitmapDescriptor,
+    iconP: BitmapDescriptor
+) {
     Marker(
         icon = if (loc.hasReportedLice) iconT else iconP,
         position = LatLng(loc.lat, loc.lon),
@@ -140,6 +106,42 @@ fun SmartMarker(loc: Locality, onClick: (Marker) -> Boolean, iconT: BitmapDescri
         onClick = onClick,
         zIndex = if (loc.hasReportedLice) Float.MAX_VALUE else 0f
     )
+}
+
+// takes current zoom level on map, and returns a marker size fitting for each zoom level
+fun setMarkerSize(currentZoom: Float, initMarkerSize: Float, markerSize: Float): Float {
+    if (currentZoom < 6f) {
+        return initMarkerSize
+    } else if (currentZoom > 6f && currentZoom < 7f) {
+        return initMarkerSize * 2
+    } else if (currentZoom <= 6f && markerSize != initMarkerSize) {
+        return initMarkerSize
+    } else if (currentZoom > 7f && currentZoom < 8f) {
+        return initMarkerSize * 2.5f
+    } else if (currentZoom <= 7f && currentZoom > 6f) {
+        return initMarkerSize * 2
+    } else if (currentZoom > 8f && currentZoom < 9f) {
+        return initMarkerSize * 3
+    } else if (currentZoom <= 8f && currentZoom > 7f) {
+        return initMarkerSize * 2.5f
+    } else if (currentZoom > 9f && currentZoom < 10f) {
+        return initMarkerSize * 3.5f
+    } else if (currentZoom <= 9f && currentZoom > 8f) {
+        return initMarkerSize * 3
+    } else if (currentZoom > 10f && currentZoom < 11f) {
+        return initMarkerSize * 4
+    } else if (currentZoom <= 10f && currentZoom > 9f) {
+        return initMarkerSize * 3.5f
+    } else if (currentZoom > 11f && currentZoom < 12f) {
+        return initMarkerSize * 5.5f
+    } else if (currentZoom <= 11f && currentZoom > 10f) {
+        return initMarkerSize * 4
+    } else if (currentZoom > 12f && markerSize == initMarkerSize * 5.5f) {
+        return initMarkerSize * 7
+    } else if (currentZoom <= 12f && currentZoom > 11f) {
+        return initMarkerSize * 5.5f
+    }
+    return initMarkerSize * 7
 }
 
 

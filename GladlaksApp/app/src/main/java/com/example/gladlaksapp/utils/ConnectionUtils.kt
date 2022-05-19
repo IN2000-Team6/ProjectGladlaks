@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.models
+package com.example.gladlaksapp.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
-
 
 /**
  * Network utility to get current state of internet connection
@@ -88,3 +87,7 @@ fun connectivityState(): State<ConnectionState> {
     }
 }
 
+sealed class ConnectionState {
+    object Available : ConnectionState()
+    object Unavailable : ConnectionState()
+}
