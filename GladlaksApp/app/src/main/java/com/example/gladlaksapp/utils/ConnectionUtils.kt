@@ -16,7 +16,11 @@ import kotlinx.coroutines.flow.callbackFlow
 
 /**
  * Network utility to get current state of internet connection
+ * Original code by PatilShreyas at https://github.com/PatilShreyas/NotyKT
+ *
  */
+
+
 val Context.currentConnectivityState: ConnectionState
     get() {
         val connectivityManager =
