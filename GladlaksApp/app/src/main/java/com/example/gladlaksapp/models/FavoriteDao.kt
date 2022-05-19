@@ -1,9 +1,6 @@
 package com.example.gladlaksapp.models
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.example.gladlaksapp.models.Locality
 import kotlinx.coroutines.flow.Flow
 
 @Dao
