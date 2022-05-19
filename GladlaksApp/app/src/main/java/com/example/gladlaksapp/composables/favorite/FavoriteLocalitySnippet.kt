@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.R
@@ -34,7 +35,7 @@ fun FavoriteLocalitySnippet(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Image(painter = image,
-                    contentDescription = "IKON",
+                    contentDescription = stringResource(R.string.icon_content_description),
                     modifier = Modifier.padding(start = 20.dp)
                 )
                 Column(modifier = Modifier
@@ -46,7 +47,7 @@ fun FavoriteLocalitySnippet(
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Lokalitet: ${locality.localityNo}",
+                        text = "${R.string.locality_number_prefix} ${locality.localityNo}",
                         style = MaterialTheme.typography.labelLarge,
                     )
                 }
@@ -68,7 +69,7 @@ fun FavoriteLocalitySnippet(
                     Text(
                         modifier = Modifier.offset(y = (-1).dp),
                         style = MaterialTheme.typography.labelLarge,
-                        text = "Se mer"
+                        text = stringResource(R.string.see_more)
                     )
                 }
             }

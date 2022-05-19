@@ -51,7 +51,9 @@
     <string name="sea_temperature">Sjøtemperatur</string>
 
     <string name="info_text_test"> Dette er en infotext preview!</string>
-
+    <string name="no_favorites">Ingen favoritter</string>
+    <string name="see_more">Se mer</string>
+    <string name="see_less">Se mindre</string>
 
 
 </resources>

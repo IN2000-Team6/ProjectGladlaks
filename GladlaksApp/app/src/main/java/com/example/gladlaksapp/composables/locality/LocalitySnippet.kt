@@ -78,7 +78,7 @@ fun LocalitySnippet(
                 Text(
                     modifier = Modifier.offset(y = (-1).dp),
                     style = MaterialTheme.typography.labelLarge,
-                    text = if (isCollapsed) "Se mer" else "Se mindre",
+                    text = if (isCollapsed) stringResource(R.string.see_more) else stringResource(R.string.see_less),
                 )
             }
         }

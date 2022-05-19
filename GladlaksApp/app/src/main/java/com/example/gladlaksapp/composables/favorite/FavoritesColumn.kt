@@ -60,7 +60,6 @@ fun FavoritesColumn(
                             FavoriteLocalitySnippet(
                                 locality = loc,
                                 isCollapsed = isCollapsed,
-                                //TODO state hoist!
                                 onExpandClick = {
                                     onButtonClick(loc)
                                     true
@@ -80,7 +79,7 @@ fun FavoritesColumn(
                     .fillMaxWidth()
             ) {
                 Text(
-                    "Ingen favoritter",
+                    stringResource(R.string.no_favorites),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleMedium,
                 )
