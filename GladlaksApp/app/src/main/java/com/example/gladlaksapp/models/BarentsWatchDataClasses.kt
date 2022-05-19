@@ -75,6 +75,3 @@ data class Substance (
     val id: Int,
     val name: String
 )
-
-
-// ------------- Cleaner Fish ------------- //
