@@ -24,12 +24,10 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 // Entry point for navigation in the app
-                NavHost(navController = navController, startDestination = getString(R.string.text_splash_screen)) {
-
-                    composable(getString(R.string.text_splash_screen)) {
+                NavHost(navController = navController, startDestination = Screen.Splash.route) {
+                    composable(Screen.Splash.route) {
                         SplashScreen(navController = navController)
                     }
-
                     composable(Screen.Favorites.route) {
                         BottomNavScreenContainer(navController = navController) {
                             FavoritesScreen()

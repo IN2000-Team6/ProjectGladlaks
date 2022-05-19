@@ -38,8 +38,7 @@
     <string name="favoritter">Favoritter</string>
 
     <string name="text_logo_app_name">Tekst: GladLaks</string>
-    <string name="Splash">Splash</string>
-    <string name="text_splash_screen">Splash Screen</string>
+    <string name="splash">Splash</string>
 
     <!-- Info texts -->
     <string name="network_notice_text"> Nettverk ikke funnet! Vennligst kontroller tilkoblingen og prøv på nytt.</string>
@@ -51,7 +50,4 @@
     <string name="sea_temperature">Sjøtemperatur</string>
 
     <string name="info_text_test"> Dette er en infotext preview!</string>
-
-
-
 </resources>
