@@ -212,10 +212,33 @@ fun ChartBody(
     )
 }
 
+fun Modifier.vertical() =
+    layout { measurable, constraints ->
+        val placeable = measurable.measure(constraints)
+        layout(placeable.height, placeable.width) {
+            placeable.place(
+                x = -(placeable.width / 2 - placeable.height / 2),
+                y = -(placeable.height - placeable.width)
+            )
+        }
+    }
+
+// ----------- PREVIEW ----------- //
+
 @Preview(showBackground = true, widthDp = 320, heightDp = 600)
 @Composable
 fun PreviewLouseChart() {
     val GENERATIONS = 2
+
+    // Returns a list of float entries
+    fun getRandomEntries(n: Int) = List(size = n) {
+        0.6f * Random.nextFloat()
+    }.mapIndexed { x, y ->
+        FloatEntry(
+            x = x.toFloat(),
+            y = y
+        )
+    }
 
     val chartEntries = ChartEntryModelProducer()
     chartEntries.setEntries(
@@ -229,28 +252,4 @@ fun PreviewLouseChart() {
             CustomBarChart(chartEntries)
         }
     }
-}
-
-fun Modifier.vertical() =
-    layout { measurable, constraints ->
-        val placeable = measurable.measure(constraints)
-        layout(placeable.height, placeable.width) {
-            placeable.place(
-                x = -(placeable.width / 2 - placeable.height / 2),
-                y = -(placeable.height - placeable.width)
-            )
-        }
-    }
-
-/**
- * Returns a list of floatentries - used for testing only
- * ! USED FOR TESTING ONLY !
- */
-fun getRandomEntries(n: Int) = List(size = n) {
-    0.6f * Random.nextFloat()
-}.mapIndexed { x, y ->
-    FloatEntry(
-        x = x.toFloat(),
-        y = y
-    )
 }
