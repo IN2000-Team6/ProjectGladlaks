@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.gladlaksapp.composables.screens.Screen
 
@@ -26,11 +25,11 @@ fun MainNavigation(
         controller.navigate(screen.route) {
             controller.graph.startDestinationRoute?.let { screen_route ->
                 popUpTo(screen_route) {
-                    saveState = false
+                    saveState = true
                 }
             }
             launchSingleTop = true
-            restoreState = false
+            restoreState = true
         }
     }
 
