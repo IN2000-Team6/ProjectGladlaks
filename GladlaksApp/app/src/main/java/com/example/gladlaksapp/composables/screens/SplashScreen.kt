@@ -47,7 +47,7 @@ fun SplashScreen(navController: NavController) {
 
         delay(500L)
         if (isConnected) {
-            navController.navigate(Screen.Favorites.route)
+            navController.navigate(Screen.Map.route)
         }
 
     }
