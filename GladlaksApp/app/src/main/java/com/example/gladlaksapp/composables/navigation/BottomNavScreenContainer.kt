@@ -2,8 +2,6 @@ package com.example.gladlaksapp.composables.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.example.gladlaksapp.composables.navigation.BottomNavLayout
-import com.example.gladlaksapp.composables.navigation.MainNavigation
 import com.example.gladlaksapp.composables.screens.screens
 
 @Composable
