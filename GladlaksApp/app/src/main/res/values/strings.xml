@@ -49,6 +49,8 @@
     <string name="no_report_text"> Lokaliteten har foreløpig ikke rapportert lus denne uken.</string>
     <string name="sea_temperature">Sjøtemperatur</string>
 
+    <string name="info_text_test"> Dette er en infotext preview!</string>
+
 
 
 </resources>

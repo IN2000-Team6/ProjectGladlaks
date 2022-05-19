@@ -11,6 +11,7 @@ import com.example.gladlaksapp.composables.reusables.AppContainer
 import com.example.gladlaksapp.composables.screens.FavoritesScreen
 import com.example.gladlaksapp.composables.screens.MapScreen
 import com.example.gladlaksapp.composables.screens.Screen
+import com.example.gladlaksapp.composables.screens.SplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,15 +24,20 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 // Entry point for navigation in the app
-                NavHost(navController = navController, startDestination = Screen.Favorites.route) {
-                    composable(Screen.Map.route) {
-                        BottomNavScreenContainer(navController = navController) {
-                            MapScreen()
-                        }
+                NavHost(navController = navController, startDestination = getString(R.string.text_splash_screen)) {
+
+                    composable(getString(R.string.text_splash_screen)) {
+                        SplashScreen(navController = navController)
                     }
+
                     composable(Screen.Favorites.route) {
                         BottomNavScreenContainer(navController = navController) {
                             FavoritesScreen()
+                        }
+                    }
+                    composable(Screen.Map.route) {
+                        BottomNavScreenContainer(navController = navController) {
+                            MapScreen()
                         }
                     }
                 }

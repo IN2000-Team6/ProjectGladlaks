@@ -2,6 +2,7 @@ package com.example.gladlaksapp.composables.reusables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,6 +11,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.R
 
@@ -48,3 +50,10 @@ fun InfoText(
         }
     }
 }
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun PreviewInfoText() {
+    InfoText(R.string.info_text_test, MaterialTheme.typography.bodyMedium)
+}
+
