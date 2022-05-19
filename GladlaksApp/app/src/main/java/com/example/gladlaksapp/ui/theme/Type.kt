@@ -1,10 +1,6 @@
 package com.example.gladlaksapp.ui.theme
 
-//import androidx.compose.material.Typography
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Typography
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -23,8 +19,6 @@ val SoraFont = FontFamily(
 
 // Material typography styles
 val Typography = Typography(
-    //defaultFontFamily = SoraFont,
-
     //Lokalitetsnavn
     titleMedium = TextStyle(
         fontFamily = SoraFont,
