@@ -19,8 +19,8 @@ val testLocalities = arrayListOf(
  * Testing favorite entities
  */
 val testFavorites = arrayListOf(
-    FavoriteLocality(localityNo = 1),
-    FavoriteLocality(localityNo = 4),
-    FavoriteLocality(localityNo = 6),
-    FavoriteLocality(localityNo = 7)
+    FavoriteLocality(localityNo = 1, isFavorite = true),
+    FavoriteLocality(localityNo = 4, isFavorite = true),
+    FavoriteLocality(localityNo = 6, isFavorite = true),
+    FavoriteLocality(localityNo = 7, isFavorite = true)
 )
