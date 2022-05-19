@@ -15,7 +15,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.gladlaksapp.R
-import com.example.gladlaksapp.composables.reusables.NetworkNotice
 import com.example.gladlaksapp.composables.reusables.NetworkRestartNotice
 import com.example.gladlaksapp.utils.ConnectionState
 import com.example.gladlaksapp.utils.connectivityState
