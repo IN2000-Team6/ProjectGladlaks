@@ -1,4 +1,4 @@
-package com.example.gladlaksapp.composables
+package com.example.gladlaksapp.composables.favorite
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -14,13 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.gladlaksapp.R
+import com.example.gladlaksapp.composables.FavoriteLocalitySnippet
 import com.example.gladlaksapp.composables.reusables.InfoCard
 import com.example.gladlaksapp.models.Locality
 
 @Composable
 fun FavoritesColumn(
     favoritesList: List<Locality>,
-    //onExpandClick: () -> Unit,
     onButtonClick: (Locality) -> Unit,
     isCollapsed: Boolean,
     toggleFavorite: () -> Unit,
@@ -29,49 +29,32 @@ fun FavoritesColumn(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 15.dp, top = 20.dp)
-            ,
+            .padding(bottom = 15.dp, top = 20.dp),
         contentAlignment = Alignment.Center
-    ){
+    ) {
         Image(
             painter = painterResource(R.drawable.ic_fish_icon),
             contentDescription = "Fish icon",
-            modifier = Modifier
-                .size(96.dp)
+            modifier = Modifier.size(96.dp)
         )
     }
     Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 30.dp),
-        contentAlignment = Alignment.Center
+            .padding(bottom = 30.dp)
     ) {
         Text(
             text = stringResource(R.string.favoritter),
-            modifier = Modifier
-                .padding(horizontal = 15.dp, vertical = 8.dp),
+            modifier = Modifier.padding(horizontal = 15.dp, vertical = 8.dp),
             style = MaterialTheme.typography.titleLarge,
             textAlign = TextAlign.Center
         )
     }
-    /*Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 30.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        WeekDatesSnippet()
-    }*/
-
-    //Lazy column?
-    Column(
-        modifier = Modifier.verticalScroll(rememberScrollState())
-    ) {
-        if (favoritesList.isNotEmpty()){
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        if (favoritesList.isNotEmpty()) {
             for (loc in favoritesList) {
-                Box(
-                    modifier = Modifier.padding(vertical = 2.dp)
-                ) {
+                Box(modifier = Modifier.padding(vertical = 2.dp)) {
                     InfoCard {
                         SnippetWrapper {
                             FavoriteLocalitySnippet(
@@ -89,14 +72,17 @@ fun FavoritesColumn(
                     }
                 }
             }
-        }else{
+        } else {
             Box(
-                modifier = Modifier.padding(vertical = 2.dp).fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ){
-                Text("Ingen favoritter",
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.titleMedium,
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .padding(vertical = 2.dp)
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    "Ingen favoritter",
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
         }
@@ -106,11 +92,8 @@ fun FavoritesColumn(
 @Composable
 fun SnippetWrapper(
     content: @Composable () -> Unit
-){
-    Row(
-        modifier = Modifier
-            .padding(vertical = 15.dp)
-    ){
+) {
+    Row(modifier = Modifier.padding(vertical = 15.dp)) {
         content()
     }
 }

@@ -12,13 +12,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.gladlaksapp.composables.reusables.CustomLineChart
 import com.example.gladlaksapp.composables.reusables.WeekDatesSnippet
-import com.example.gladlaksapp.composables.locality.CustomBarChart
 import com.example.gladlaksapp.composables.reusables.InfoCard
 import com.example.gladlaksapp.models.GraphLine
 import com.example.gladlaksapp.models.Locality
 import com.example.gladlaksapp.models.LocalityDetailsWrapper
 import com.example.gladlaksapp.viewmodels.LocalityViewModel
-
 
 @Composable
 fun LocalitySheetContent(
@@ -36,21 +34,17 @@ fun LocalitySheetContent(
         WeekDatesSnippet()
         if (loadedLocality == null || graphLines == null || selectedLocality == null) {
             Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(20.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .padding(20.dp)
             ) {
                 CircularProgressIndicator(color = Color(0xFF9CDCDA))
             }
         } else {
-            InfoCard {
-                LocalityInfo(selectedLocality, localityInfo = loadedLocality.localityWeek)
-            }
-            InfoCard {
-                CustomBarChart(chartEntryModelProducer = locViewModel.groupedChartProducer)
-            }
+            InfoCard { LocalityInfo(selectedLocality, localityInfo = loadedLocality.localityWeek) }
+            InfoCard { CustomBarChart(chartEntryModelProducer = locViewModel.groupedChartProducer) }
             InfoCard {
                 Box(modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, end = 4.dp)) {
                     CustomLineChart(height = 300, lines = graphLines)
