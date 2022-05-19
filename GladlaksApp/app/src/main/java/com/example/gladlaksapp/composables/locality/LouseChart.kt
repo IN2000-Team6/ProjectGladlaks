@@ -41,10 +41,6 @@ import com.patrykandpatryk.vico.core.entry.ChartEntryModelProducer
 import com.patrykandpatryk.vico.core.entry.FloatEntry
 import kotlin.random.Random
 
-//TODO Break up composables and make test
-//TODO Add axes labels and legend
-//TODO Rewrite graph 2
-
 @Composable
 fun CustomBarChart(
     chartEntryModelProducer: ChartEntryModelProducer,
@@ -92,7 +88,6 @@ fun CustomBarChart(
         )
     )
 
-    // TODO: remove hardcoded values
     val legends = listOf(
         Pair(MaterialTheme.colorScheme.secondary, "2021"),
         Pair(MaterialTheme.colorScheme.primary, "2022"),
@@ -166,7 +161,6 @@ fun CustomBarChart(
     }
 }
 
-//TODO Adapt chart to be reusable component
 @Composable
 fun ChartBody(
     chart: ColumnChart,

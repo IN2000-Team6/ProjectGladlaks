@@ -54,10 +54,6 @@ fun LocalitySnippet(
                 )
             }
 
-            //TODO: Koble til favoritter og database, endre farge om det er fav
-            //TODO: legge til handtering av klikk paa favoritt, maa endre isFavorite i Locality
-            //TODO: startfarge maa samsvare med isFavorite i Locality
-
             FavoriteButton(
                 toggleFavorite = toggleFavorite,
                 favButtonTint = favButtonTint,

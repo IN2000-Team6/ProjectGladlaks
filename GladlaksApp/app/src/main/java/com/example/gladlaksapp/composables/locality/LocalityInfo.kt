@@ -122,7 +122,6 @@ fun InfoComponent(
                     modifier = Modifier
                         .padding(vertical = 12.dp)
                         .offset(x = (-10).dp),
-                    //TODO: Styling små bokstaver grå tekst
                     style = MaterialTheme.typography.bodySmall
                 )
             }
