@@ -1,6 +1,6 @@
 # NOTE!
 
-This is *not* the original repo for this project! Users outside the University of Oslo Enterprise was not able to view the original. This repo was created to act as a showcase for the project and *does not* reflect the workflow of the original project development!
+This is *not* the original repo for this project! Users outside the University of Oslo Enterprise was not able to view the original. This repo was created to act as a showcase for the project, so usernames for collaborators may be different!
 
 # ProjectGladlaks
 
